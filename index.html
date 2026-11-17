@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#101323">
+<meta name="description" content="挪威貓貓直覺神諭卡：融合雷諾曼的組合聯想與神諭卡的溫暖指引，支援持續擴充卡牌。">
+<title>挪威貓貓直覺神諭卡｜V4.24 圖鑑密碼自動解鎖修正版</title>
+<style>
+:root{color-scheme:dark;--bg:#0d1321;--panel:#1b263a;--panel2:#222e44;--text:#f9f1e5;--sub:#abb6c7;--gold:#e7bf79;--hair:#39445c;--peach:#f0b2a0;--violet:#baadea;--rose:#eaa8bd;--teal:#8dd5c2}
+*{box-sizing:border-box}html{min-height:100%;scroll-behavior:smooth;-webkit-text-size-adjust:100%}body{margin:0;min-height:100dvh;font-family:ui-sans-serif,system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;background:radial-gradient(ellipse 520px 400px at 50% -40px,#253251 0%,transparent 80%),radial-gradient(ellipse 370px 350px at 5% 65%,#1a2039 0%,transparent 90%),var(--bg);color:var(--text);overflow-x:hidden}
+button,input,textarea,select{font:inherit}button{cursor:pointer;-webkit-tap-highlight-color:transparent}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid var(--gold);outline-offset:3px}button:disabled{opacity:.45;cursor:not-allowed}a{color:var(--gold)}
+#app{max-width:520px;min-height:100dvh;margin:auto;position:relative;padding-bottom:calc(22px + env(safe-area-inset-bottom));background:linear-gradient(175deg,rgba(37,50,73,.18),rgba(8,14,26,.1));box-shadow:0 0 70px #0002}
+.stars{position:absolute;inset:0 0 auto;pointer-events:none;height:400px;overflow:hidden;background-image:radial-gradient(circle,#c2a783b3 .6px,transparent 1.2px),radial-gradient(circle,#e6d4bb77 .7px,transparent 1.3px);background-size:87px 91px,131px 127px;background-position:0 5px,23px 41px;mask-image:linear-gradient(black,transparent)}
+.topbar{position:relative;z-index:1;display:flex;align-items:center;justify-content:space-between;padding:calc(19px + env(safe-area-inset-top)) 23px 16px;gap:12px}.brand{display:flex;align-items:center;gap:11px;min-width:0}.mark{width:39px;height:39px;border:1px solid #a79164;border-radius:13px;display:grid;place-items:center;background:linear-gradient(135deg,#314365,#182136);box-shadow:inset 0 0 0 3px #1c2940;color:var(--gold);font-size:23px}.brand-name{font-family:Georgia,"Noto Serif TC",serif;font-size:16px;letter-spacing:1.1px;white-space:nowrap}.brand-sub{font-size:9px;letter-spacing:2px;color:var(--gold);margin-top:2px}.top-pill{font-size:10px;white-space:nowrap;color:var(--gold);border:1px solid #806d51;border-radius:30px;padding:7px 9px;letter-spacing:1px}
+main{position:relative;z-index:1;padding:0 20px 16px}.serif{font-family:"Noto Serif TC",Georgia,serif}.eyebrow{text-align:center;letter-spacing:3px;font-size:10px;color:var(--gold);text-transform:uppercase}.heading{text-align:center;font-size:clamp(27px,7.5vw,38px);font-weight:650;letter-spacing:2px;line-height:1.35;margin:13px 0 10px}.heading-sm{text-align:center;font-size:27px;letter-spacing:1.5px;margin:12px 0 8px}.muted{color:var(--sub)}.intro{text-align:center;color:#bdc5d2;font-size:13px;line-height:1.95;margin:0 auto;max-width:360px}.small{font-size:12px}.xs{font-size:11px}.center{text-align:center}.space{height:20px}.space-sm{height:11px}
+.hero-art{position:relative;height:292px;display:grid;place-items:center;margin:7px auto 13px;overflow:hidden}.halo{position:absolute;width:265px;height:265px;border-radius:50%;background:radial-gradient(circle,#c7a2652c 0 33%,#7771a012 53%,transparent 74%);box-shadow:0 0 90px #b58f4a17}.orbit{position:absolute;width:243px;height:243px;border:1px solid #d2ad6945;border-radius:50%;transform:rotate(-25deg)}.orbit:before,.orbit:after{content:'✦';position:absolute;color:var(--gold);font-size:14px;top:4px;left:45px}.orbit:after{top:auto;bottom:9px;left:auto;right:39px;font-size:10px}.hero-card{width:159px;height:254px;border:2px solid var(--gold);border-radius:13px;background:linear-gradient(135deg,#3b4a71,#1a283e 65%);transform:rotate(-8deg);box-shadow:14px 19px 29px #0009,0 0 38px #dfa96e22;position:relative;overflow:hidden;display:grid;place-items:center}.hero-card:before{content:'';position:absolute;inset:8px;border:1px solid #b89b6eb8;border-radius:7px}.hero-card:after{content:'✧　✦　✧';position:absolute;bottom:22px;color:#d5b980;font-size:11px;letter-spacing:4px}.hero-loading{font-size:15px;letter-spacing:.23em;color:#e4c997;text-transform:none}.hero-back1,.hero-back2{position:absolute;width:159px;height:254px;border:1px solid #a58b60;border-radius:13px;background:linear-gradient(135deg,#2d3c5b,#192237);box-shadow:8px 14px 26px #0006}.hero-back1{transform:translate(-20px,3px) rotate(-19deg)}.hero-back2{transform:translate(25px,0) rotate(9deg)}
+.panel{background:linear-gradient(145deg,#202b3f,#182338);border:1px solid #3d465c;border-radius:20px;padding:18px;box-shadow:0 14px 30px #05091532}.form-label{font-size:13px;color:#f4e7cf;font-weight:700;display:block;margin:0 0 9px}.hint{font-size:11px;color:var(--sub);line-height:1.7}textarea{width:100%;resize:vertical;min-height:88px;border-radius:12px;border:1px solid #49566f;background:#111b2d;color:var(--text);padding:13px;line-height:1.7;font-size:14px;outline:none}textarea::placeholder{color:#8593a9}.chips{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.chip{border:1px solid #48556e;color:#aebace;background:#1a2539;padding:9px 11px;border-radius:40px;font-size:12px;min-height:38px}.chip.active{color:#1d283b;background:var(--gold);border-color:var(--gold);font-weight:750}.section-label{font-size:12px;color:var(--gold);letter-spacing:1.5px;margin:19px 2px 10px}.mode-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}.mode{background:#172237;border:1px solid #46516b;border-radius:14px;padding:14px 5px;min-width:0;min-height:82px;color:var(--text);text-align:center}.mode.active{border-color:var(--gold);background:linear-gradient(145deg,#35415c,#232f47);box-shadow:inset 0 0 0 1px #c59d55aa}.mode-symbol{font-family:Georgia,serif;font-size:21px;letter-spacing:2px;color:#ddc18e;margin-bottom:5px;height:29px}.mode-title{font-size:13px;font-weight:700}.primary{border:0;border-radius:14px;width:100%;padding:15px 20px;background:linear-gradient(110deg,#efce90,#cba46b);color:#1f2735;font-size:15px;font-weight:800;letter-spacing:1px;min-height:53px;box-shadow:0 9px 18px #0d0e1670, inset 0 1px #fff8}.primary:active{transform:scale(.991)}.secondary{width:100%;min-height:45px;border:1px solid #7c6c57;color:var(--gold);border-radius:12px;background:#233047;font-size:13px;padding:11px}.line-link{background:none;border:0;color:#c3b18e;text-decoration:underline;text-underline-offset:3px;font-size:12px;padding:10px}.note{text-align:center;color:#8793a8;font-size:11px;line-height:1.85;margin:16px 7px}
+.progress-bar{height:5px;border-radius:10px;background:#344055;overflow:hidden;margin:17px auto 10px;max-width:310px}.progress-bar>div{height:100%;background:linear-gradient(90deg,#b38d60,#edd39b);transition:width .25s}.deck-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px 6px;margin:18px 0 14px}.pick-card{aspect-ratio:3/4.25;min-height:65px;min-width:0;border-radius:8px;background:linear-gradient(145deg,#384b6f,#1c2c47);border:1px solid #998466;box-shadow:0 4px 7px #050a144d;position:relative;padding:4px;transition:transform .2s,border-color .2s,filter .2s}.pick-card:before{content:'';position:absolute;inset:4px;border:1px solid #a89a815d;border-radius:4px}.pick-card:after{content:'✦';position:absolute;top:7px;right:8px;font-size:7px;color:#d5b782}.pick-card .paw{font-size:22px;display:block;color:#edd49f;filter:grayscale(.15);text-shadow:0 0 10px #f0d09b55}.pick-card .paw:after{content:'☾';display:block;font-size:12px;line-height:1}.pick-card.selected{border-color:#fff0bf;background:linear-gradient(145deg,#8b6e69,#423d61);transform:translateY(-3px);box-shadow:0 0 0 2px #f1c88370,0 0 13px #e4bb7b7d}.pick-card.selected:after{content:'✓';top:4px;right:7px;font-size:14px;font-weight:900}.picked-strip{display:flex;justify-content:center;gap:8px;align-items:center;min-height:53px;margin:10px 0 16px}.picked-slot{border:1px dashed #60718b;border-radius:9px;width:49px;height:65px;display:grid;place-items:center;color:#8fa0b9;font-size:18px}.picked-slot.filled{border:1px solid #deb77e;background:linear-gradient(145deg,#4b4166,#283550);color:#f5d79b;box-shadow:0 0 13px #dfb97535}.deck-count{color:#e4c58c;font-size:13px;text-align:center}.deck-count b{font-size:21px}
+.reading-card{border:1px solid #576079;background:linear-gradient(155deg,#293650,#1b263d);border-radius:19px;padding:11px;overflow:hidden;box-shadow:0 10px 28px #05080f66}.reading-card .index{font-size:10px;letter-spacing:2px;color:#dbc187;text-align:center;margin:2px 0 8px}.art{width:100%;aspect-ratio:3/4;overflow:hidden;border-radius:12px;background:#202b40;display:flex;align-items:center;justify-content:center}.art-loading{color:#d3c2a6;font-size:12px;letter-spacing:.14em;font-weight:400;text-transform:none;pointer-events:none;user-select:none}.art.has-external>.art-loading{visibility:hidden}.reading-card h3{font-size:17px;margin:11px 0 7px;letter-spacing:1px}.pill-row{display:flex;gap:5px;flex-wrap:wrap}.tag{font-size:10px;border-radius:20px;padding:5px 8px;background:#37465b;color:#e3cead}.card-advice{font-size:13px;line-height:1.95;color:#d3dbe8;margin:12px 0 2px}.cat-quote{padding:12px 13px;background:#101b2bcc;border-left:2px solid var(--gold);font-size:13px;line-height:1.75;color:#ead5a8;margin:13px 0 0;border-radius:0 8px 8px 0}
+.result-stacked{display:grid;gap:16px;margin:18px 0 16px}.read-block{border:1px solid #44516a;border-radius:17px;padding:18px;background:#172237}.read-title{color:var(--gold);font-size:15px;font-weight:750;margin:0 0 11px}.read-block p{color:#d4dcea;font-size:14px;line-height:2;white-space:pre-wrap;margin:0 0 11px}.read-block p:last-child{margin-bottom:0}.ornament{height:1px;background:linear-gradient(90deg,transparent,#8e8068,transparent);margin:20px 8px}.topic-flag{display:inline-block;font-size:11px;color:#e5c78f;border:1px solid #6e674f;padding:6px 11px;border-radius:30px;margin:4px auto}.pair-block{border-left:2px solid #9a819f;padding:7px 0 7px 13px;margin:12px 0;font-size:13px;line-height:1.9;color:#d8dce9}.pair-name{font-weight:750;color:#e2c391}.summary-lead{font-size:15px;line-height:1.9;color:#f1e7d2}.summary-quote{font-family:Georgia,"Noto Serif TC",serif;font-size:17px;color:#efd39f;text-align:center;line-height:1.8;padding:14px 7px}
+.empty{border:1px dashed #59647a;border-radius:17px;padding:45px 19px;text-align:center;color:#afbed1;line-height:1.9;margin:18px 0}.empty .big{font-size:40px}.modal-overlay{position:fixed;z-index:60;inset:0;background:#050811c9;display:grid;align-items:end;justify-items:center;padding-top:20px}.modal{width:min(100%,520px);max-height:91dvh;overflow:auto;background:#1b263a;border:1px solid #857255;border-radius:23px 23px 0 0;padding:20px 22px calc(28px + env(safe-area-inset-bottom));box-shadow:0 -12px 40px #0008}.modal-grab{width:47px;height:5px;border-radius:10px;background:#6c788c;margin:-9px auto 16px}.modal-close{float:right;background:#33415a;color:#f2e2c8;border:0;border-radius:50%;width:34px;height:34px;font-size:20px}.modal-art{max-width:300px;margin:12px auto}.modal h3{margin:8px 0}.modal p{line-height:1.9;font-size:14px;color:#d6deeb}.toast{position:fixed;z-index:99;left:50%;transform:translateX(-50%);bottom:calc(20px + env(safe-area-inset-bottom));border:1px solid #9b845b;border-radius:35px;background:#303647;color:#fbe2b0;padding:12px 17px;font-size:12px;max-width:90vw;box-shadow:0 10px 30px #0009;pointer-events:none;animation:floatIn .3s ease}
+@keyframes floatIn{from{opacity:0;transform:translate(-50%,10px)}to{opacity:1;transform:translate(-50%,0)}}@keyframes cardEnter{from{opacity:0;transform:translateY(25px) rotateY(80deg)}to{opacity:1;transform:translateY(0) rotateY(0)}}.reading-card{animation:cardEnter .6s cubic-bezier(.2,.8,.2,1) both;animation-delay:var(--delay,0ms)}
+@media(max-width:360px){main{padding-left:14px;padding-right:14px}.topbar{padding-left:17px;padding-right:17px}.deck-grid{grid-template-columns:repeat(5,minmax(0,1fr))}.pick-card{min-height:68px}.mode-title{font-size:12px}.brand-name{font-size:14px}}
+@media(min-width:700px){.modal-overlay{align-items:center}.modal{border-radius:23px;max-height:86dvh}.topbar{padding-top:28px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+/* 首頁中央從 cardmain01～cardmain10 隨機讀取；皆缺圖顯示 ?。cardsign 放在封面右下側，缺圖隱藏。 */
+.hero-question{color:#e4c997;font-size:58px;font-family:Georgia,serif;font-weight:400;line-height:1;position:relative;z-index:1;user-select:none}
+.hero-main-image{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#192237;opacity:0;pointer-events:none;z-index:2}
+.hero-card.has-main-image .hero-main-image{opacity:1}
+.hero-card.has-main-image .hero-question{display:none}
+.hero-card.has-main-image::before,.hero-card.has-main-image::after{display:none}
+/* V4.3：cardmain 與 cardsign 共用相同的卡片定位錨點。 */
+.hero-main-stack{
+  position:relative;z-index:7;width:159px;height:254px;
+  display:block;overflow:visible;isolation:isolate;
+}
+.hero-main-stack > .hero-card{
+  position:absolute;inset:0;margin:0;
+}
+.hero-main-stack > .hero-card-sign{
+  display:none;position:absolute;z-index:9;pointer-events:none;
+  right:-18px;bottom:6px;
+  width:auto;height:39px;max-height:39px;max-width:min(86px,22vw);
+  object-fit:contain;object-position:center;
+  border:0;border-radius:0;background:transparent;box-shadow:none;padding:0;
+  filter:drop-shadow(0 2px 3px rgba(76,54,37,.20));
+}
+.hero-main-stack > .hero-card-sign.is-visible{display:block}
+
+
+/* 結果頁卡牌僅供觀看，圖鑑頁仍保留點選完整牌義。 */
+.face-grid .face-item{cursor:default}
+
+.plain-reading .story-flow{line-height:1.85}
+.plain-reading .story-head h2{line-height:1.45}
+.plain-reading .plain-reason{margin:0 0 13px}
+.plain-reading .story-section-title{margin-top:16px}
+.plain-reading .plain-next{margin-bottom:0;color:#f1dfc0;background:rgba(231,191,121,.065);border-left:2px solid #cba46a;padding:12px 14px;border-radius:0 9px 9px 0}
+</style>
+
+<style>
+.face-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:17px 0}.face-grid.one{grid-template-columns:minmax(0,245px);justify-content:center}.face-item{background:#202e45;border:1px solid #62708a;border-radius:13px;padding:7px;min-width:0;color:var(--text);text-align:center;box-shadow:0 7px 16px #04071044;animation:cardEnter .56s ease both;animation-delay:var(--delay,0ms)}.face-item .art{border:1px solid #9b8b6d;aspect-ratio:3/4}.face-number{font-size:10px;color:var(--gold);letter-spacing:1px;margin:8px 0 3px}.face-name{font-size:13px;font-weight:760;line-height:1.3}.face-role{font-size:10px;color:#b7c6d9;margin:5px 0 2px}.role-block{padding:11px 0;border-bottom:1px solid #3a465a}.role-block:last-child{border-bottom:0}.role-head{display:flex;align-items:baseline;gap:7px;margin-bottom:6px;flex-wrap:wrap}.role-count{font-size:10px;color:#e6c485;border:1px solid #997e51;border-radius:9px;padding:3px 7px}.role-head strong{font-size:14px;color:#efdcba}.role-head span:last-child{font-size:12px;color:#b6c1d3}.role-block p{font-size:13px;line-height:1.9;margin:4px 0 0;color:#d5ddeb}.result-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}.result-actions .secondary{min-height:49px}.micro{font-size:10px;color:#9daabe;line-height:1.7}.label-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.sheet-card-title{display:flex;align-items:center;gap:10px;margin-bottom:11px}.sheet-card-title .number{font-family:Georgia,serif;font-size:26px;color:var(--gold)}.sheet-card-title .group{font-size:10px;color:#afc0d1}.sheet-card-title h3{font-size:21px;margin:0}.hint-card{padding:12px 13px;background:#101a2b;border:1px solid #3a4a64;border-radius:12px;margin-top:12px}.hint-card strong{font-size:12px;color:#eed3a1}.hint-card p{margin:6px 0 0;font-size:12px}.status-banner{padding:13px;background:#293247;border:1px solid #84744f;border-radius:13px;color:#e6d1af;font-size:13px;text-align:center;line-height:1.7;margin:14px 0}
+
+/* 依牌卡編號讀取同資料夾的 cardXX.png/.jpg/.jpeg；缺圖時顯示 loading。 */
+.art{position:relative}
+.art>.external-card-image{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity .18s ease;background:#152136}
+.art.has-external{aspect-ratio:3/4;background:#152136}
+.art.has-external>.external-card-image{opacity:1}
+
+.face-item .art.has-external{aspect-ratio:3/4}
+.modal-art>.art{max-width:310px;margin:12px auto}
+.modal-art>.art.has-external{aspect-ratio:3/4}
+
+/* 貓掌牌背：純 CSS 形狀，無預設插圖與外部圖片依賴。 */
+.pick-card{display:flex;align-items:center;justify-content:center}
+.pick-card::after{content:none}
+.pick-card.selected::after{content:'✓'}
+.pick-card .paw-print{position:relative;display:block;flex:none;width:33px;height:37px;transform:rotate(-10deg);filter:drop-shadow(0 0 5px #e7c88a55)}
+.paw-print .toe,.paw-print .pad{display:block;position:absolute;background:#edcf99}
+.paw-print .toe{width:7px;height:10px;border-radius:70% 70% 58% 58%}
+.paw-print .toe:nth-child(1){left:0;top:12px;transform:rotate(-27deg)}
+.paw-print .toe:nth-child(2){left:8px;top:4px;transform:rotate(-11deg)}
+.paw-print .toe:nth-child(3){left:19px;top:4px;transform:rotate(11deg)}
+.paw-print .toe:nth-child(4){left:27px;top:12px;transform:rotate(27deg)}
+.paw-print .pad{width:21px;height:16px;left:6px;top:19px;border-radius:55% 55% 43% 43%/69% 69% 44% 44%;transform:rotate(180deg)}
+/* 窄螢幕標題維持完整；cardsign 已移到首頁封面右下側。 */
+.brand-name{font-size:clamp(12px,3.5vw,16px);letter-spacing:.3px}
+.brand-sub{letter-spacing:1.5px}
+@media(max-width:390px){.topbar{padding-left:12px;padding-right:12px;gap:6px}.brand{gap:8px}.brand-name{font-size:clamp(11.5px,3.4vw,14px)}.brand-sub{font-size:8px}}
+
+.plain-reading .story-flow{line-height:1.85}
+.plain-reading .story-head h2{line-height:1.45}
+.plain-reading .plain-reason{margin:0 0 13px}
+.plain-reading .story-section-title{margin-top:16px}
+.plain-reading .plain-next{margin-bottom:0;color:#f1dfc0;background:rgba(231,191,121,.065);border-left:2px solid #cba46a;padding:12px 14px;border-radius:0 9px 9px 0}
+</style>
+<style id="warm-beige-theme">
+
+/* 暖米色配色 — 本樣式疊加在完整可運作的貓掌牌背版之上，不修改 JS 與原本排版。 */
+:root {
+  color-scheme: light;
+  --bg: #F3F1E4;
+  --panel: #FFFDF5;
+  --panel2: #F8F2E6;
+  --text: #43362C;
+  --sub: #756A5F;
+  --gold: #956946;
+  --hair: #DCCEB9;
+  --peach: #D9A68B;
+  --violet: #B4A3BB;
+  --rose: #CE9BA2;
+  --teal: #8EB6A4;
+  --card-paper: #F3F1E4;
+  --ink: #43362C;
+  --cocoa: #805A3F;
+  --cream: #FFFDF7;
+  --sand: #E9DDCA;
+}
+body {
+  background:radial-gradient(ellipse 580px 420px at 50% -48px,#FFFDF7 0%,transparent 80%),
+    radial-gradient(ellipse 490px 520px at 8% 75%,#EDE4D5 0%,transparent 78%),var(--bg);
+  color:var(--text);
+}
+#app {
+  background:linear-gradient(180deg,rgba(255,253,247,.75),rgba(243,241,228,.56));
+  box-shadow:0 0 60px #76604417;
+}
+.stars {opacity:.60;background-image:radial-gradient(circle,#9D815A85 .6px,transparent 1.2px),radial-gradient(circle,#C9A98070 .7px,transparent 1.3px)}
+.mark {background:linear-gradient(145deg,#F9F5E9,#E5D4BD);border:1px solid #BDA483;box-shadow:inset 0 0 0 3px #FFFDF6;color:var(--cocoa)}
+.brand-name {color:var(--ink)}
+.brand-sub,.eyebrow,.section-label,.read-title,.sheet-card-title .number {color:var(--cocoa)}
+.heading,.heading-sm {color:#4A382D}
+.intro {color:#72665A}
+.muted,.hint,.micro,.note {color:var(--sub)}
+.halo {background:radial-gradient(circle,#E8D4B478 0 33%,#D8C3A535 54%,transparent 75%);box-shadow:0 0 90px #A98E6330}
+.orbit {border-color:#BFA5818A}
+.hero-back1,.hero-back2 {background:linear-gradient(145deg,#E6DAC5,#CDB79B);border-color:#B2946B;box-shadow:7px 12px 24px #79604338}
+.hero-card {background:linear-gradient(140deg,#F8F2E5,#DCC8AC 70%);border-color:#AF865A;box-shadow:14px 19px 29px #78583F4A,0 0 36px #E4C99E6B}
+.hero-card:before {border-color:#B89B6E}
+.hero-card:after,.hero-question {color:#8F6B49}
+.hero-card.has-main-image {background:var(--card-paper)}
+.hero-main-image {background:var(--card-paper)}
+/* cardsign 僅顯示於首頁封面卡片右下側。 */
+.panel {background:linear-gradient(145deg,#FFFDF7,#FAF4E8);border:1px solid #DCCDB8;box-shadow:0 10px 24px #8067451C}
+.form-label {color:#5A4535}
+textarea {background:#FFFEFA;color:var(--ink);border:1px solid #D6C7B2;box-shadow:inset 0 1px 2px #80623A0C}
+textarea::placeholder {color:#9B8C7A}
+textarea:focus {border-color:#AD875C}
+.chip {background:#F6F0E5;color:#645447;border:1px solid #D8C7B1}
+.chip.active {background:#DCC5A4;border-color:#A57D54;color:#4E3928}
+.mode {background:#FFFDF6;color:var(--ink);border:1px solid #DACBB8}
+.mode.active {background:linear-gradient(145deg,#F1E2CC,#EAD6B8);border-color:#A9835C;box-shadow:inset 0 0 0 1px #E8D0AE}
+.mode-symbol {color:#9B7957}
+.mode-sub {color:#84786A}
+.primary {background:linear-gradient(110deg,#A87B54,#916341);color:#FFFBF3;box-shadow:0 8px 17px #84644930,inset 0 1px #FFFDFA40}
+.secondary {background:#FFF9EE;border:1px solid #BBA181;color:#775338}
+.line-link {color:#886647}
+.progress-bar {background:#E5D8C4}
+.progress-bar>div {background:linear-gradient(90deg,#AB845D,#D4AF83)}
+.pick-card {background:linear-gradient(145deg,#E7D8BF,#D3B999);border:1px solid #B49977;box-shadow:0 4px 8px #84664536}
+.pick-card:before {border-color:#FEF7E5BA}
+.pick-card.selected {background:linear-gradient(145deg,#D4B28A,#AF8865);border-color:#876244;box-shadow:0 0 0 2px #B7855670,0 0 12px #B48B5A55}
+.pick-card.selected:after {color:#FFFDF6}
+.paw-print .toe,.paw-print .pad {background:#795941}
+.pick-card .paw-print {filter:drop-shadow(0 0 3px #FFF8E5A8)}
+.picked-slot {border-color:#C4B19A;color:#A28B75}
+.picked-slot.filled {background:linear-gradient(145deg,#DCC6A7,#CDB08B);border-color:#9C7954;color:#5B4230;box-shadow:0 0 12px #B5916655}
+.deck-count {color:#8B6649}
+.reading-card {background:linear-gradient(155deg,#FFFCF5,#F6EDE0);border:1px solid #DCC9B1;box-shadow:0 10px 25px #78614920}
+.reading-card .index {color:#8C694D}
+.art,.art.has-external,.art>.external-card-image {background:var(--card-paper)}
+.art-loading {color:#8D7863}
+.face-item {background:#FFFCF4;color:var(--ink);border:1px solid #DCCAB2;box-shadow:0 7px 16px #79624624}
+.face-item .art {border-color:#C4AD8D}
+.face-role,.sheet-card-title .group {color:#837366}
+.pill-row .tag,.tag {background:#EDE1CF;color:#674D39}
+.card-advice,.read-block p,.role-block p {color:#665649}
+.cat-quote {background:#F4E8D6;border-left-color:#AA835D;color:#79573D}
+.read-block {background:#FFFDF7;border:1px solid #DDCEBC}
+.read-block p strong[style] {color:#865E3E !important}
+.ornament {background:linear-gradient(90deg,transparent,#BDA88B,transparent)}
+.topic-flag {background:#F6EDDE;color:#866548;border:1px solid #CBB89D}
+.pair-block {border-left-color:#AD9276;color:#685447}
+.pair-name {color:#865A3B}
+.summary-lead {color:#584537}
+.summary-quote {color:#895D3B}
+.empty {border-color:#C9B8A1;color:#776B5E}
+.status-banner {background:#F4E8D5;color:#6B503B;border-color:#D2B99A}
+.role-block {border-bottom-color:#E3D6C4}
+.role-count {color:#82603F;border-color:#BCA388}
+.role-head strong {color:#6D4B36}
+.role-head span:last-child {color:#7A7064}
+.hint-card {background:#F9F2E7;border-color:#E1D2BD}
+.hint-card strong {color:#865F42}
+.modal-overlay {background:#352C2787}
+.modal {background:#FFFCF5;color:var(--ink);border-color:#C9B295;box-shadow:0 -12px 38px #4A372B39}
+.modal-grab {background:#D0BFA7}
+.modal-close {background:#F1E4D3;color:#6E4E39}
+.modal p {color:#6B5A4C}
+.toast {background:#71513A;color:#FFF9F0;border-color:#B69B7A;box-shadow:0 10px 25px #4A372B40}
+button:focus-visible,textarea:focus-visible {outline-color:#A47751}
+
+
+.plain-reading .story-flow{line-height:1.85}
+.plain-reading .story-head h2{line-height:1.45}
+.plain-reading .plain-reason{margin:0 0 13px}
+.plain-reading .story-section-title{margin-top:16px}
+.plain-reading .plain-next{margin-bottom:0;color:#f1dfc0;background:rgba(231,191,121,.065);border-left:2px solid #cba46a;padding:12px 14px;border-radius:0 9px 9px 0}
+</style>
+
+<style id="interactive-story-v3">
+/* 新版只延伸既有暖米色 UI，不改寫原本定位、封面與抽牌背面 */
+.mode-feature{display:inline-block;padding:2px 5px;border-radius:5px;font-size:9px;background:#E4D0B4;color:#6B4E35;margin-left:2px;vertical-align:middle}
+.guide-kicker{font-size:11px;letter-spacing:1px;color:#896B4F;text-align:center;margin:8px 0 14px}
+.guide-panel{background:#FFFCF6;border:1px solid #D9C5A8;border-radius:20px;padding:18px;margin:16px 0;box-shadow:0 9px 21px #8C6B4220}
+.guide-top{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:11px;color:#876C50}
+.guide-progress{height:5px;border-radius:8px;overflow:hidden;background:#E9DECA;margin:11px 0 19px}
+.guide-progress span{height:100%;display:block;background:#A47B55;transition:width .2s}
+.guide-title{font-family:"Noto Serif TC",Georgia,serif;font-size:19px;line-height:1.55;color:#4C382A;font-weight:700;margin:4px 0 8px}
+.guide-sub{font-size:12px;line-height:1.8;color:#81715F;margin:0 0 16px}
+.answer-choice{border:1px solid #D8C5A9;background:#FBF7ED;color:#493829;border-radius:13px;padding:14px 13px;display:flex;gap:11px;align-items:center;text-align:left;width:100%;min-height:54px;margin:9px 0;line-height:1.6;font-size:13px}
+.answer-choice .letter{width:25px;height:25px;flex:none;border-radius:50%;border:1px solid #B69B79;display:grid;place-items:center;font-size:11px;color:#856B50}
+.answer-choice.active{border-color:#9B724D;background:#EFE0CA;box-shadow:0 0 0 1px #B89870}
+.answer-choice.active .letter{background:#8C6647;color:white;border-color:#8C6647}
+.answer-choice:focus-visible{outline:2px solid #805737}
+.guide-actions{display:grid;grid-template-columns:1fr 1.6fr;gap:10px;margin-top:16px}
+.guide-actions .primary,.guide-actions .secondary{min-height:48px;font-size:13px}
+.guide-skip{margin:8px auto 0;display:block;text-align:center}
+.guide-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:14px 0}
+.guide-card{padding:9px 5px;background:#FFFDF7;border:1px solid #D6C3A6;border-radius:12px;text-align:center;color:#5D4934}
+.guide-card .mini-index{font-family:Georgia,serif;color:#9E7C58;font-size:20px}
+.guide-card strong{display:block;font-size:12px;margin:5px 0}
+.guide-card span{font-size:10px;color:#907A62}
+
+.story-head{background:linear-gradient(145deg,#F6EDDE,#EFE2CE);border:1px solid #D4BFA1;padding:17px;border-radius:16px;margin-bottom:14px}
+.story-head .tiny{font-size:10px;letter-spacing:1.5px;color:#8C7151}
+.story-head h2{font-family:"Noto Serif TC",Georgia,serif;color:#5B422E;font-size:23px;line-height:1.45;margin:8px 0}
+.story-head .topic{font-size:11px;color:#826B55}
+.story-flow{font-size:14px;color:#584838;line-height:2.05}
+.story-flow p{margin:0 0 13px;white-space:pre-wrap}
+.story-flow p:last-child{margin-bottom:0}
+.story-section-title{font-size:13px;font-weight:750;color:#855D3E;margin:17px 0 8px}
+.clue-line{border-left:2px solid #BF9977;padding:7px 11px;margin:11px 0;color:#765C46;font-size:12px;line-height:1.8}
+.short-warning{font-size:11px;color:#8A7460;line-height:1.75;text-align:center}
+.face-grid.five{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}
+.face-grid.five>.face-item:nth-child(1){grid-area:2 / 2}
+.face-grid.five>.face-item:nth-child(2){grid-area:1 / 2}
+.face-grid.five>.face-item:nth-child(3){grid-area:3 / 2}
+.face-grid.five>.face-item:nth-child(4){grid-area:2 / 1}
+.face-grid.five>.face-item:nth-child(5){grid-area:2 / 3}
+.face-grid.five .face-name{font-size:11px}
+.face-grid.five .face-role{font-size:9px}
+.face-grid.five .face-item{padding:5px}
+.role-block{padding:12px 0}
+.role-label{font-size:12px;color:#85684F;font-weight:700;margin-top:8px}
+.role-more{margin-top:8px;padding:9px;border-radius:9px;background:#F7EFE3;font-size:12px;color:#675444;line-height:1.85}
+details.context-details{border:1px solid #E1D2BF;border-radius:12px;padding:12px;background:#FDF9F2;margin-top:13px;color:#6C5843;line-height:1.85;font-size:12px}
+details.context-details summary{cursor:pointer;font-weight:700;color:#846446}
+details.context-details p{margin:8px 0;color:#6C5843;font-size:12px;line-height:1.85}
+.no-card-asset{font-size:11px;text-align:center}
+.result-note{font-size:11px;line-height:1.8;color:#84735F;margin-top:8px}
+@media(max-width:359px){.guide-panel{padding:14px}.story-head h2{font-size:21px}.guide-actions{gap:7px}.face-grid.five .face-name{font-size:10px}}
+
+.plain-reading .story-flow{line-height:1.85}
+.plain-reading .story-head h2{line-height:1.45}
+.plain-reading .plain-reason{margin:0 0 13px}
+.plain-reading .story-section-title{margin-top:16px}
+.plain-reading .plain-next{margin-bottom:0;color:#f1dfc0;background:rgba(231,191,121,.065);border-left:2px solid #cba46a;padding:12px 14px;border-radius:0 9px 9px 0}
+</style>
+
+<style id="five-story-v4">
+/* Keep all existing warm-beige layout rules intact; extend only the five-card UI. */
+.guide-cards.five{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;max-width:470px;margin:15px auto 18px}
+.guide-cards.five>.guide-card{padding:6px 3px;min-width:0}
+.guide-cards.five>.guide-card:nth-child(1){grid-area:2 / 2}
+.guide-cards.five>.guide-card:nth-child(2){grid-area:1 / 2}
+.guide-cards.five>.guide-card:nth-child(3){grid-area:3 / 2}
+.guide-cards.five>.guide-card:nth-child(4){grid-area:2 / 1}
+.guide-cards.five>.guide-card:nth-child(5){grid-area:2 / 3}
+.guide-cards.five .guide-card strong{font-size:11px;overflow-wrap:anywhere}
+.guide-cards.five .guide-card span{font-size:9px}
+.guide-cards.five .guide-card .mini-index{font-size:19px}
+.five-thread{font-size:11px;line-height:1.8;color:#81694E;border-top:1px solid #E0D2BD;padding:11px 0 0}
+.five-extra{display:block;width:100%;border:1px dashed #C9AE8C;color:#805D3D;border-radius:10px;background:#FBF5EA;padding:11px 8px;margin-top:10px;font-size:12px;cursor:pointer}
+.five-extra:hover{background:#F1E5D4}
+.five-review{font-size:12px;color:#795F48;line-height:1.8;background:#F7F0E6;border:1px solid #DFCFB7;border-radius:11px;padding:12px;margin-top:10px}
+.five-story-sub{font-size:12px;color:#745B43;line-height:1.7;margin:6px 0 9px}
+@media(max-width:359px){.guide-cards.five{gap:5px}.guide-cards.five>.guide-card{padding:5px 2px}}
+
+.plain-reading .story-flow{line-height:1.85}
+.plain-reading .story-head h2{line-height:1.45}
+.plain-reading .plain-reason{margin:0 0 13px}
+.plain-reading .story-section-title{margin-top:16px}
+.plain-reading .plain-next{margin-bottom:0;color:#f1dfc0;background:rgba(231,191,121,.065);border-left:2px solid #cba46a;padding:12px 14px;border-radius:0 9px 9px 0}
+</style>
+
+<style id="doris-atlas-v46">
+/* 圖鑑是獨立頁面，不影響既有抽牌及 cardsign 的 CSS。 */
+.atlas-heading{margin:12px auto 8px;text-align:center;color:#4A382D;font-size:27px;line-height:1.5}
+.atlas-intro{margin:0 auto 14px;max-width:390px;text-align:center;font-size:12px;line-height:1.85;color:#796957}
+.atlas-top-action{display:flex;justify-content:flex-start;margin:0 0 12px}
+.atlas-back{display:inline-flex;align-items:center;gap:5px;border:1px solid #CBB69B;color:#6B5139;background:#FFF9EE;border-radius:12px;padding:10px 15px;min-height:43px;font-size:13px;font-weight:700}
+.atlas-group{margin:15px 0 19px;padding:13px 11px 15px;border:1px solid #DDCDB7;border-radius:17px;background:#FFFCF6;box-shadow:0 5px 16px #80674512}
+.atlas-group-title{font-size:15px;color:#685039;margin:0 0 2px}
+.atlas-group-sub{font-size:11px;color:#8B7C6D;margin:0 0 12px}
+.atlas-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.atlas-entry{display:block;width:100%;min-width:0;border:1px solid #D8C7B1;border-radius:11px;padding:7px 5px 9px;text-align:center;color:#594431;background:#FFFDF8;box-shadow:0 3px 8px #80674512}
+.atlas-entry:active{transform:scale(.98)}
+.atlas-entry .art{aspect-ratio:3/4;border-radius:7px;border:1px solid #E4D6C3}
+.atlas-entry .art-loading{font-size:10px;color:#9D8874}
+.atlas-num{display:block;font-family:Georgia,serif;font-size:10px;letter-spacing:1px;color:#9B7855;margin-bottom:5px}
+.atlas-card-name{display:block;font-size:12px;line-height:1.5;font-weight:700;color:#604632;margin-top:7px;overflow-wrap:anywhere}
+.atlas-bottom-action{margin:13px auto 8px}
+.atlas-bottom-action .secondary{background:#FFF9EE;color:#76553A;border-color:#CBB69B}
+@media(max-width:350px){.atlas-group{padding:11px 8px}.atlas-grid{gap:6px}.atlas-entry{padding:6px 4px 8px}.atlas-card-name{font-size:11px}}
+
+.plain-reading .story-flow{line-height:1.85}
+.plain-reading .story-head h2{line-height:1.45}
+.plain-reading .plain-reason{margin:0 0 13px}
+.plain-reading .story-section-title{margin-top:16px}
+.plain-reading .plain-next{margin-bottom:0;color:#f1dfc0;background:rgba(231,191,121,.065);border-left:2px solid #cba46a;padding:12px 14px;border-radius:0 9px 9px 0}
+</style>
+<style id="night-dream-theme-v48">
+/* V4.8 -- 午夜藍・煙紫・月光金。保留外部卡圖原始米白底色。 */
+:root{
+ color-scheme:dark;
+ --bg:#0b1020;--panel:#191f34;--panel2:#23283f;--text:#f5eff0;
+ --sub:#b8bbce;--gold:#e7c999;--hair:#3f4564;--peach:#d7a9b5;
+ --violet:#aca2d6;--rose:#d4abbf;--teal:#99c5c5;
+ --card-paper:#F3F1E4;--ink:#f5eff0;--cocoa:#d8b98c;
+ --cream:#1c2339;--sand:#242a42;
+}
+html{background:#0b1020}
+body{
+ background:
+ radial-gradient(ellipse 700px 620px at 50% -170px,rgba(100,80,144,.40),transparent 78%),
+ radial-gradient(ellipse 480px 520px at 6% 68%,rgba(45,59,115,.32),transparent 84%),
+ radial-gradient(ellipse 650px 600px at 98% 92%,rgba(83,51,97,.28),transparent 82%),
+ #0b1020;
+ color:var(--text)
+}
+#app{background:linear-gradient(170deg,rgba(27,31,55,.72),rgba(10,14,30,.66) 60%,rgba(20,18,41,.64));box-shadow:0 0 76px #05061785}
+.stars{opacity:.68;background-image:radial-gradient(circle,#e4d8d2a3 .7px,transparent 1.4px),radial-gradient(circle,#b8a9d78c .7px,transparent 1.3px);mask-image:linear-gradient(black,transparent)}
+.mark{background:linear-gradient(145deg,#343354,#171d36);border-color:#887c9a;box-shadow:inset 0 0 0 3px #242640;color:var(--gold)}
+.brand-name,.heading,.heading-sm,.atlas-heading{color:#f4e9e7}
+.brand-sub,.eyebrow,.section-label,.read-title,.sheet-card-title .number{color:#dfc396}
+.top-pill{color:#dec69d;border-color:#7c7090;background:#25253c66}
+.intro{color:#c6c1d4}.muted,.hint,.micro,.note{color:#b6b5c9}
+.halo{background:radial-gradient(circle,#ab91c94d 0 30%,#8c76b429 52%,transparent 77%);box-shadow:0 0 100px #baa3e82e}
+.orbit{border-color:#bca5c28a}
+.hero-back1,.hero-back2{background:linear-gradient(150deg,#4c4973,#1c2545);border-color:#9782ab;box-shadow:7px 13px 26px #05091e8f}
+.hero-card{background:linear-gradient(140deg,#373955,#171c34 75%);border-color:#d9b98e;box-shadow:14px 19px 33px #0407159a,0 0 42px #b39cd04a}
+.hero-card:before{border-color:#ab91ad}.hero-card:after,.hero-question{color:#e3c995}
+.hero-card.has-main-image,.hero-main-image{background:var(--card-paper)}
+.hero-main-stack>.hero-card-sign{filter:drop-shadow(0 2px 5px #0b0b1a9c)}
+.panel,.guide-panel,.read-block,.atlas-group{
+ background:linear-gradient(145deg,rgba(38,39,65,.98),rgba(20,27,47,.98));
+ border:1px solid #5b5376;box-shadow:0 15px 32px #05091759
+}
+.form-label{color:#f3e4dd}
+textarea{background:#10172b;color:#f5f0ee;border:1px solid #5b5a79;box-shadow:inset 0 2px 6px #05091490}
+textarea::placeholder{color:#aaa9be}textarea:focus{border-color:#d6b989}
+.chip{background:#20273e;color:#d6cfdf;border-color:#56516c}
+.chip.active{background:#ddc39e;border-color:#e7d2ae;color:#22233b}
+.mode{background:#1e273e;color:#f5edf1;border-color:#585574}
+.mode.active{background:linear-gradient(140deg,#46425e,#2c304d);border-color:#ebcba4;box-shadow:inset 0 0 0 1px #b99cc499,0 0 18px #c3a6ce30}
+.mode-symbol{color:#dec497}.mode-sub{color:#b6bad1}
+.mode-feature{background:#49435e;color:#f4d9bd;border:1px solid #686080}
+.primary{background:linear-gradient(105deg,#e9d2ac,#c9a6bd 95%);color:#222036;box-shadow:0 9px 22px #04081999,inset 0 1px #ffffff91}
+.primary:hover:not(:disabled){filter:brightness(1.065)}
+.secondary,.atlas-back{background:#252943;border:1px solid #8e8199;color:#f0d9bc}
+.secondary:hover,.atlas-back:hover{background:#31324d}
+.line-link{color:#d7bee3}
+.progress-bar{background:#3b3e5b}.progress-bar>div{background:linear-gradient(90deg,#b5a1ce,#ebc99b)}
+.pick-card{background:linear-gradient(150deg,#4e496f,#242d4c);border:1px solid #a193b2;box-shadow:0 4px 9px #0507179e}
+.pick-card:before{border-color:#c8b4c58c}
+.pick-card.selected{background:linear-gradient(145deg,#755c87,#3d3459);border-color:#f1d5ab;box-shadow:0 0 0 2px #e8ca95a8,0 0 16px #b8a3e877}
+.paw-print .toe,.paw-print .pad{background:#e8ceae}
+.pick-card .paw-print{filter:drop-shadow(0 0 5px #ccabe077)}
+.picked-slot{border-color:#686987;color:#aeb7d0}.picked-slot.filled{background:linear-gradient(145deg,#53456a,#2b375b);color:#f3d8b2;border-color:#e1bc9c;box-shadow:0 0 14px #b2a4d64d}
+.deck-count{color:#e9cda6}
+.reading-card,.face-item{background:linear-gradient(150deg,#2a304c,#1d2740);border:1px solid #726b8e;box-shadow:0 9px 24px #05091d8f;color:var(--text)}
+.reading-card .index,.face-number{color:#e5c9a0}
+.face-name{color:#f4e9e9}.face-role{color:#c1c0d7}
+.art,.art.has-external,.art>.external-card-image,.hero-card.has-main-image{background:var(--card-paper)}
+.art-loading{color:#8d7863}
+.face-item .art{border-color:#7b6c82}
+.tag,.pill-row .tag{background:#47425e;color:#f3daba}
+.card-advice,.read-block p,.role-block p{color:#e0dce7}
+.cat-quote,.guide-message{background:#302c48;border-left-color:#d8b491;color:#e8d1c8}
+.ornament{background:linear-gradient(90deg,transparent,#8c7aa6,transparent)}
+.topic-flag{background:#252942;color:#f2d7b4;border:1px solid #776e93}
+.pair-block,.clue-line{border-left-color:#bb99c5;color:#e1d6e3}.pair-name{color:#ebcfa1}
+.summary-lead{color:#f4e7e5}.summary-quote{color:#e9cba6}
+.empty{border-color:#696583;color:#bec0d2}
+.status-banner{background:#2b2b47;color:#e5cfbb;border-color:#807395}
+.role-block{border-bottom-color:#4a4864}.role-count{border-color:#9a84a2;color:#e8c99c}
+.role-head strong{color:#f1d6c9}.role-head span:last-child{color:#bcb6cb}
+.hint-card,.role-more,details.context-details{background:#292d49;border-color:#5c5575;color:#e2d9e4}
+.hint-card strong,details.context-details summary{color:#ebcba6}
+.hint-card p,details.context-details p{color:#e1d8e3}
+.modal-overlay{background:#050714e6}.modal{background:linear-gradient(180deg,#2c2c49,#171d32);color:#f4e9ef;border-color:#9b84a0;box-shadow:0 -12px 40px #01040dcc}
+.modal-grab{background:#8d829d}.modal-close{background:#4b425d;color:#fff1e9}.modal p{color:#ded4e4}
+.toast{background:#362c4b;color:#ffe5c8;border-color:#a98cb4;box-shadow:0 12px 28px #030610a8}
+.guide-kicker,.guide-top,.guide-card span{color:#ccbcdf}
+.guide-progress{background:#3e3c5b}.guide-progress span{background:#d8b59d}
+.guide-title{color:#f4e6ed}.guide-sub{color:#c2b8cc}
+.answer-choice{background:#222942;border-color:#625b7a;color:#f0e9f1}
+.answer-choice .letter{border-color:#b99ebd;color:#e8d3c9}
+.answer-choice.active{background:#48405e;border-color:#d9bca4;box-shadow:0 0 0 1px #d8bbac}
+.answer-choice.active .letter{background:#d9bea4;color:#25233a;border-color:#d9bea4}
+.guide-card{background:#262b45;border-color:#625d7e;color:#eee3e9}
+.guide-card .mini-index{color:#e6cba6}
+.guide-message{color:#eedcd7}
+.story-head{background:linear-gradient(135deg,#45405c,#282b47);border-color:#77688c}
+.story-head .tiny{color:#dec39f}.story-head h2{color:#fff1e9}.story-head .topic{color:#d6c6db}
+.story-flow{color:#e3dce8}.story-section-title{color:#e5c39e}
+.clue-line{color:#dccfe0}.short-warning{color:#bfc0d0}
+.role-label,.result-note{color:#c8c0d7}
+.five-thread{color:#d2c6d9;border-top-color:#655e79}
+.five-extra{border-color:#8f7b9a;color:#f2d6b6;background:#2c2c48}.five-extra:hover{background:#413854}
+.five-review{color:#d5c9de;background:#282b46;border-color:#655d7d}.five-story-sub{color:#d9cbdf}
+.atlas-heading{color:#f2e8ed}.atlas-intro{color:#c6bdce}
+.atlas-back{border-color:#877b98;color:#f1d8b9;background:#2c2b47}
+.atlas-group-title{color:#f3e0d9}.atlas-group-sub{color:#c0b8cc}
+.atlas-entry{background:#252a43;color:#f2e4eb;border-color:#635d7d;box-shadow:0 3px 8px #07091665}
+.atlas-entry .art{border-color:#86788f}.atlas-entry .art-loading{color:#8f7966}
+.atlas-num{color:#e5c49a}.atlas-card-name{color:#f5e9e8}
+.atlas-bottom-action .secondary{background:#262942;color:#f0d6b4;border-color:#837894}
+button:focus-visible,textarea:focus-visible{outline-color:#e9c99c}
+/* 讓卡牌外部圖片保持原始質感，不套深色濾鏡。 */
+.external-card-image,.hero-main-image,.atlas-entry img{filter:none}
+/* 儀式式轉場：視覺停留隨機 3～5 秒；期間預讀本機卡圖，不呼叫外部服務。 */
+.dream-transition{position:fixed;inset:0;z-index:120;display:grid;place-items:center;
+ background:radial-gradient(circle at 50% 43%,rgba(77,65,109,.96),rgba(18,22,42,.985) 48%,#0c1023 100%);
+ opacity:0;transition:opacity .24s ease;pointer-events:all;touch-action:none;}
+.dream-transition.is-visible{opacity:1}
+.dream-transition.is-leaving{opacity:0;pointer-events:none}
+.dream-center{display:flex;flex-direction:column;align-items:center;gap:9px;text-align:center;transform:translateY(7px)}
+.dream-orbit{width:126px;height:126px;display:grid;place-items:center;position:relative;filter:drop-shadow(0 0 20px #bba3e655)}
+.dream-orbit:before,.dream-orbit:after{content:'';position:absolute;border-radius:50%;inset:6px;border:1px solid #a99ab891;animation:dream-pulse 1.6s ease-in-out infinite}
+.dream-orbit:after{inset:18px;border-color:#d9c19d77;animation-delay:-.8s}
+.dream-paw{position:relative;display:grid;place-items:center;width:70px;height:70px;animation:dream-float 1.55s ease-in-out infinite}
+.dream-paw .paw-print{transform:scale(1.45) rotate(-9deg);filter:drop-shadow(0 0 14px #dccba46b)}
+.dream-star{position:absolute;color:#ead7bf;animation:dream-twinkle 1.4s ease-in-out infinite}
+.dream-star.a{top:5px;right:12px;font-size:14px}.dream-star.b{bottom:15px;left:0;font-size:11px;animation-delay:-.55s}
+.dream-label{font-family:"Noto Serif TC",Georgia,serif;font-size:17px;letter-spacing:.14em;color:#f5e8dc;margin-top:9px}
+.dream-note{font-size:11px;letter-spacing:.12em;color:#c9bdd4;line-height:1.8}
+.dream-dots{display:flex;gap:9px;justify-content:center;margin-top:13px}
+.dream-dots i{width:5px;height:5px;border-radius:50%;background:#dbc19e;opacity:.4;animation:dream-twinkle 1.1s ease-in-out infinite}
+.dream-dots i:nth-child(2){animation-delay:.2s}.dream-dots i:nth-child(3){animation-delay:.4s}
+@keyframes dream-pulse{0%,100%{transform:scale(.96);opacity:.45}50%{transform:scale(1.06);opacity:1}}
+@keyframes dream-float{0%,100%{transform:translateY(4px) rotate(-4deg)}50%{transform:translateY(-4px) rotate(3deg)}}
+@keyframes dream-twinkle{0%,100%{opacity:.25;transform:scale(.75)}50%{opacity:1;transform:scale(1.15)}}
+@media(prefers-reduced-motion:reduce){.dream-transition{transition:none}.dream-orbit:before,.dream-orbit:after,.dream-paw,.dream-star,.dream-dots i{animation:none}}
+
+/* V4.12 夢境散牌桌：25 張牌固定在 5×5 錯落格位，取牌後保留空位，取消時原位歸還。 */
+.deck-table{position:relative;height:clamp(360px,116vw,565px);width:100%;margin:12px auto 14px;border:1px solid #53617b;border-radius:21px;overflow:hidden;isolation:isolate;
+ background:radial-gradient(ellipse at 50% 45%,#36405e 0%,#263249 48%,#192438 100%);box-shadow:inset 0 0 38px #03091980,0 16px 31px #0004}
+.deck-table:before{content:'';position:absolute;inset:18px;border:1px solid #a68a6059;border-radius:50%;pointer-events:none;box-shadow:0 0 34px #bc9e6430}
+.deck-table:after{content:'✦';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:48px;color:#ac947527;pointer-events:none}
+.pick-card.scatter-card{position:absolute;left:var(--sx);top:var(--sy);z-index:var(--order);width:clamp(43px,15.2%,76px);height:auto;min-height:0;aspect-ratio:3 / 4.25;display:grid;place-items:center;transform:translate(-50%,-50%) rotate(var(--angle));border-color:#baa079;border-radius:8px;touch-action:manipulation;user-select:none;-webkit-user-select:none;
+ transition:transform .18s ease,opacity .2s ease,box-shadow .2s ease;box-shadow:1px 4px 11px #05091590,0 0 0 1px #c9aa6d25}
+.pick-card.scatter-card:hover{z-index:24;transform:translate(-50%,-56%) rotate(var(--angle)) scale(1.04);box-shadow:0 11px 24px #000a,0 0 12px #d5b77c70}
+.pick-card.scatter-card:focus-visible{z-index:25;outline:3px solid #efd9ab;outline-offset:2px}
+.pick-card.scatter-card:disabled{opacity:.58;cursor:default}
+.pick-card.scatter-card .paw-print{pointer-events:none}
+.pick-card.scatter-card.is-taking{opacity:.18;pointer-events:none}
+.picked-strip{margin:6px 0 12px;min-height:72px}
+.picked-slot{width:49px;height:65px;background:#182438;border:1px dashed #7284a1;font-size:16px;padding:0}
+button.picked-slot{appearance:none;color:#92a3bd}
+button.picked-slot.filled{cursor:pointer}
+button.picked-slot.filled:hover{box-shadow:0 0 0 2px #e5c58c70,0 0 15px #dfb97545}
+.picked-slot .paw-print{position:relative;display:block;flex:none;width:33px;height:37px;transform:scale(.72);transform-origin:50% 50%;margin:0;pointer-events:none}
+
+.scatter-tip{text-align:center;color:#e0cfb0;font-size:11px;line-height:1.8;margin:5px 0 0}
+@media(max-width:360px){.picked-strip{gap:6px}.picked-slot{width:45px;height:61px}.pick-card.scatter-card{min-height:0}}
+@media(prefers-reduced-motion:reduce){.pick-card.scatter-card{transition:none}}
+
+.plain-reading .story-flow{line-height:1.85}
+.plain-reading .story-head h2{line-height:1.45}
+.plain-reading .plain-reason{margin:0 0 13px}
+.plain-reading .story-section-title{margin-top:16px}
+.plain-reading .plain-next{margin-bottom:0;color:#f1dfc0;background:rgba(231,191,121,.065);border-left:2px solid #cba46a;padding:12px 14px;border-radius:0 9px 9px 0}
+</style>
+<style id="card-journal-styles">
+
+/* V4.13 — 牌義手札。僅替換結果頁的逐張回看面板。 */
+#card-journal .journal-tabs{display:grid;grid-template-columns:repeat(var(--journal-count),minmax(0,1fr));gap:6px;margin:5px 0 14px}
+#card-journal .journal-tab{appearance:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:57px;padding:8px 2px;border-radius:10px;border:1px solid #4d5972;background:#222e43;color:#c2ccdb;line-height:1.3;transition:background .18s ease,border-color .18s ease,color .18s ease}
+#card-journal .journal-tab .tab-role{font-weight:730;font-size:clamp(10px,2.6vw,12px);white-space:nowrap}
+#card-journal .journal-tab .tab-no{font-size:10px;letter-spacing:.5px;opacity:.78}
+#card-journal .journal-tab[aria-pressed="true"]{border-color:#d9b67b;background:#38445e;color:#ffe0a4;box-shadow:inset 0 0 0 1px #a7875733}
+#card-journal .journal-tab:focus-visible,#card-journal .journal-pager:focus-visible{outline:2px solid #f4cf8d;outline-offset:2px}
+#card-journal .journal-panel{background:#202c40;border:1px solid #46546d;border-radius:14px;padding:15px 14px;touch-action:pan-y;min-height:210px;animation:journalFade .20s ease both}
+#card-journal .journal-head{display:flex;align-items:center;gap:12px;margin-bottom:15px}
+#card-journal .journal-number{flex:none;display:flex;flex-direction:column;align-items:center;justify-content:center;width:65px;min-height:67px;border-radius:10px;border:1px solid #8e7858;background:#27364d;color:#edd0a0}
+#card-journal .journal-number .journal-glyph{font-size:19px;line-height:1.1}
+#card-journal .journal-number .journal-id{font-size:11px;margin-top:5px;font-family:Georgia,serif;letter-spacing:1px}
+#card-journal .journal-heading{flex:1;min-width:0}
+#card-journal .journal-position{font-size:11px;color:#d0aa70;margin:0 0 3px}
+#card-journal .journal-name{font-size:20px;line-height:1.35;font-weight:750;color:#fff1db;margin:0 0 4px}
+#card-journal .journal-core{font-size:12px;line-height:1.75;color:#bec9d9;margin:0}
+#card-journal .journal-divider{border:0;height:1px;background:linear-gradient(90deg,#82725177,#52617e44,transparent);margin:0 0 14px}
+#card-journal .journal-section-label{color:#dfbd83;font-size:11px;letter-spacing:.35px;font-weight:700;margin:0 0 8px}
+#card-journal .journal-meaning{font-size:13px;line-height:1.95;color:#e1e6ee;margin:0 0 13px;white-space:pre-wrap}
+#card-journal details.journal-extra{border:1px solid #55627a;border-radius:10px;background:#18253a;margin-top:13px;padding:0;overflow:hidden}
+#card-journal details.journal-extra summary{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;cursor:pointer;font-size:12px;line-height:1.5;font-weight:690;color:#ecd1a1;list-style:none;user-select:none}
+#card-journal details.journal-extra summary::-webkit-details-marker{display:none}
+#card-journal details.journal-extra summary::after{content:'⌄';font-size:20px;line-height:15px;transition:transform .16s ease}
+#card-journal details.journal-extra[open] summary::after{transform:rotate(180deg)}
+#card-journal .journal-extra-content{border-top:1px solid #3c4b64;padding:12px 13px 4px}
+#card-journal .journal-extra-content .journal-section-label{margin-top:2px}
+#card-journal .journal-extra-content p{font-size:12px;line-height:1.85;margin:0 0 14px;color:#d0dae9}
+#card-journal .journal-navigation{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:14px}
+#card-journal .journal-pager{appearance:none;display:flex;align-items:center;justify-content:center;min-height:43px;min-width:0;flex:1;max-width:138px;background:#202c40;border:1px solid #52627d;border-radius:10px;color:#f1dec0;font-size:12px;font-weight:660;padding:8px 9px}
+#card-journal .journal-pager:disabled{opacity:.37;cursor:default}
+#card-journal .journal-indicator{white-space:nowrap;font-size:12px;color:#bdc6d5;letter-spacing:1px;font-variant-numeric:tabular-nums}
+#card-journal .journal-navigation.single{justify-content:center}
+#card-journal .journal-navigation.single .journal-indicator{font-size:11px}
+@keyframes journalFade{from{opacity:.5;transform:translateY(4px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:359px){#card-journal.journal-wrap{padding:13px}#card-journal .journal-tabs{gap:4px}#card-journal .journal-tab{padding:7px 0;min-height:54px}#card-journal .journal-panel{padding:12px 10px}#card-journal .journal-head{gap:9px}#card-journal .journal-number{width:55px;min-height:62px}#card-journal .journal-name{font-size:18px}}
+@media(prefers-reduced-motion:reduce){#card-journal .journal-panel{animation:none}#card-journal .journal-tab,#card-journal details.journal-extra summary::after{transition:none}}
+/* V4.15: 結果頁牌義手札預設隱藏，輸入當日密碼才顯示。 */
+.journal-open-button{display:block;width:100%;min-height:47px;margin:12px 0 0;border:1px solid #a88c72;border-radius:13px;background:linear-gradient(135deg,#292b49,#1c293e);color:#f5ddaf;font-size:14px;font-weight:760;letter-spacing:.09em;box-shadow:0 4px 15px #02081740;cursor:pointer}
+.journal-open-button:focus-visible{outline:2px solid #f2c986;outline-offset:3px}
+#journal-mount:empty{display:none}
+#journal-mount #card-journal{margin-top:15px;scroll-margin-top:18px}
+.journal-code-overlay{align-items:center;justify-items:center;padding:18px;z-index:70}
+.journal-code-overlay .journal-code-modal{width:min(100%,350px);height:auto;max-height:min(90dvh,440px);border-radius:18px;padding:22px 22px 24px;box-shadow:0 18px 60px #02050bdc;border:1px solid #a78c79;background:linear-gradient(160deg,#30314d,#1a263b);color:#f7ead7}
+.journal-code-modal .modal-close{margin:-5px -4px 0 10px;float:right}
+.journal-code-modal h3{margin:5px 0 9px;font-size:19px;letter-spacing:.06em;color:#f5d8a2}
+.journal-code-modal .journal-code-desc{color:#bec7d8;font-size:12px;line-height:1.75;margin:0 0 15px}
+.journal-code-modal label{font-size:12px;font-weight:650;color:#ead9ba;display:block;margin-bottom:8px}
+.journal-code-modal input{display:block;width:100%;height:47px;border:1px solid #8d8194;border-radius:11px;background:#101b30;color:#fff0d2;font-size:20px;letter-spacing:.14em;text-align:center;outline:none;font-variant-numeric:tabular-nums}
+.journal-code-modal input:focus{border-color:#efca87;box-shadow:0 0 0 2px #e5c28a40}
+.journal-code-modal .journal-submit{margin-top:14px;min-height:47px}
+/* V4.16：細分探索方向，不增加額外的問答頁。 */
+.focus-section{margin-top:16px;padding:13px;border:1px solid #576077;border-radius:14px;background:linear-gradient(145deg,#1b2940,#171f34)}
+.focus-section-title{margin:0 0 9px;display:flex;align-items:baseline;justify-content:space-between;gap:6px;color:#f0d5a4;font-size:13px;font-weight:720}
+.focus-section-title small{color:#aebbcd;font-size:10px;font-weight:400}
+.focus-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.focus-chip{border:1px solid #485a73;border-radius:10px;background:#18243a;min-height:43px;padding:9px 5px;color:#d5dce8;font-size:12px;line-height:1.3;transition:background .15s,border-color .15s}
+.focus-chip.active{border-color:#edc984;color:#1c2738;background:linear-gradient(120deg,#f1d19a,#d6b47d);font-weight:750}
+.focus-chip:focus-visible{outline:2px solid #f0c884;outline-offset:2px}
+@media(max-width:350px){.focus-section{padding:11px}.focus-grid{gap:6px}.focus-chip{font-size:11.5px;padding:8px 3px}}
+
+.plain-reading .story-flow{line-height:1.85}
+.plain-reading .story-head h2{line-height:1.45}
+.plain-reading .plain-reason{margin:0 0 13px}
+.plain-reading .story-section-title{margin-top:16px}
+.plain-reading .plain-next{margin-bottom:0;color:#f1dfc0;background:rgba(231,191,121,.065);border-left:2px solid #cba46a;padding:12px 14px;border-radius:0 9px 9px 0}
+</style>
+<style id="atlas-secret-v423">
+/* V4.24｜四碼完整即自動驗證；確認鍵與 Enter 可備援；八碼手札不變。 */
+.topbar .mark[data-action="atlas-secret-tap"]{padding:0;flex-shrink:0;touch-action:manipulation;user-select:none;-webkit-user-select:none}
+.atlas-code-modal{max-width:335px;margin:auto;padding:27px 22px 22px;text-align:center}
+.atlas-code-modal h3{font-family:"Noto Serif TC",Georgia,serif;color:var(--gold);font-size:21px;margin:7px 0 17px}
+.atlas-code-label{display:block;color:var(--text);font-size:13px;margin:0 0 11px}
+#atlas-code-input{width:100%;min-height:50px;padding:12px;border:1px solid #84769d;border-radius:11px;background:#151c31;color:var(--text);text-align:center;letter-spacing:.32em;font-size:20px;outline:none}
+#atlas-code-input:focus-visible{border-color:var(--gold)}
+.atlas-code-submit{margin-top:15px;min-height:47px}
+</style>
+</head>
+<body>
+<div id="app"><div class="stars"></div></div>
+<script>
+
+'use strict';
+const cards = [{"id":1,"name":"飛撲獵物","scene":"貓咪在半空中朝地面微小的幾何獵物飛撲，四肢伸展，動作明確而集中。","core":"果斷出擊、精準鎖定、把握時機","positive":"若目標與條件已經清楚，不妨集中精力採取具體行動，將反覆猶豫轉化為可執行的一步。","caution":"在未確認全貌前過度急躁，可能讓努力偏離重點；先檢查資訊、成本和周遭風險。","synthesis":"精準的出擊始於仔細觀察。看準方向後勇敢行動，同時保有修正路線的彈性。","group":0,"keys":["果斷出擊","精準鎖定","把握時機"],"pace":2,"tags":["action","goal"],"focus":"鎖定目標","step":"把想法化為行動"},{"id":2,"name":"高處俯瞰","scene":"貓咪安靜蹲坐在高處幾何平台邊緣，微微低頭，觀察下方場景。","core":"全局視野、冷靜抽離、客觀觀察","positive":"暫時從眼前的情緒與細節抽離，重新整理資訊與各方條件，或許更容易看見整體脈絡。","caution":"抽離有助觀察，但若長期停留在旁觀位置，也可能錯過實際參與與必要對話。","synthesis":"看得遠，是為了走得穩。既保有清楚的視野，也記得在適當時機投入行動。","group":0,"keys":["全局視野","冷靜抽離","客觀觀察"],"pace":-1,"tags":["observe","clarity"],"focus":"拉高視角","step":"盤點全局條件"},{"id":3,"name":"好奇探索","scene":"貓咪低伏身體緩緩探頭，鼻尖靠近地上一株小巧的幾何花草。","core":"保持好奇、細節線索、主動試探","positive":"帶著開放的態度留意日常的小線索，循序接觸新事物，可能開啟不同的理解。","caution":"面對陌生資訊或邀請，先確認來源與安全條件，避免在不熟悉時一次投入過多。","synthesis":"好奇心可以為生活帶來新鮮感；搭配適度查證與試探，探索會更加自在。","group":0,"keys":["保持好奇","細節線索","主動試探"],"pace":0,"tags":["explore","curiosity"],"focus":"探索小線索","step":"嘗試低風險的一小步"},{"id":4,"name":"大字仰睡","scene":"貓咪四腳朝天仰臥地上，四肢與尾巴放鬆，呈現安適的睡姿。","core":"卸下防備、充分休息、安心接納","positive":"若目前條件允許，試著放慢腳步，安排真正的休息，也練習接納可信賴的支持。","caution":"放鬆不等於放棄所有界線；在關鍵資訊尚未確認前，仍需保有基本的自我保護。","synthesis":"休息和警覺不必互相排斥。在可安心的範圍裡恢復力量，再面對下一步。","group":0,"keys":["卸下防備","充分休息","安心接納"],"pace":-2,"tags":["rest","safety"],"focus":"卸下戒備","step":"安排充分的休息"},{"id":5,"name":"專注磨爪","scene":"貓咪伸直前腳，專注抓撓垂直的幾何貓抓柱，身姿挺拔。","core":"實力打磨、宣示立場、釋放壓力","positive":"把精力放回可累積的技能與準備，透過有節奏的練習建立自己的底氣。","caution":"留意是否把焦慮轉成無效的逞強或破壞行為；情緒需要出口，行動則需要方向。","synthesis":"穩定練習比一時用力更持久。照顧情緒、磨練能力，才能在機會出現時從容應對。","group":0,"keys":["實力打磨","宣示立場","釋放壓力"],"pace":1,"tags":["prepare","boundary"],"focus":"打磨實力","step":"將精力放在準備上"},{"id":6,"name":"追逐光點","scene":"貓咪高高躍起，前爪伸向空中閃爍的幾何光點。","core":"純粹熱情、追尋理想、享受過程","positive":"保留對新事物的熱情與玩心，允許探索不全然以功利回報為目的。","caution":"也要定期確認目標是否有實現路徑，避免把大量心力耗在無法掌握的幻象上。","synthesis":"熱情讓人開始奔跑，現實的檢視幫助你找到跑道；玩心與務實可以並行。","group":0,"keys":["純粹熱情","追尋理想","享受過程"],"pace":2,"tags":["explore","ideal"],"focus":"熱情追尋","step":"讓想像與現實對齊"},{"id":7,"name":"踩奶按摩","scene":"貓咪微閉雙眼，在柔軟的幾何墊上交替按壓前爪。","core":"自我安撫、穩定儀式、溫柔節奏","positive":"找回能讓自己平靜的小習慣，例如規律休息、熟悉的活動或安穩的生活節奏。","caution":"熟悉感值得珍惜，但若因此一直迴避必要改變，也可以先從很小的嘗試開始。","synthesis":"先溫柔安頓自己，再一步步向外探索。照顧感受與持續成長並不衝突。","group":0,"keys":["自我安撫","穩定儀式","溫柔節奏"],"pace":-1,"tags":["rest","care"],"focus":"規律安撫","step":"照顧自己的節奏"},{"id":8,"name":"夜間跑酷","scene":"貓咪騰空跳躍，身體伸展、尾巴高揚，以動態線條表現突然爆發的精力。","core":"能量爆發、突破常規、無拘無束","positive":"若你有想嘗試的新方法，可把積累的創意轉為具體的小型實驗，打開既有框架。","caution":"爆發力若缺乏方向與休息，可能打亂節奏；留意實際負荷與周圍人的配合需求。","synthesis":"把衝勁放在合適的方向上，創意便能成為推力，而不是讓自己疲於奔命。","group":0,"keys":["能量爆發","突破常規","無拘無束"],"pace":2,"tags":["action","disrupt"],"focus":"釋放創意與精力","step":"為衝勁設定方向"},{"id":9,"name":"優雅理毛","scene":"貓咪端坐，抬起一條後腿，低頭專注整理毛髮。","core":"自我整頓、重拾秩序、由內而外","positive":"先把可掌握的生活細節、環境和身心狀態整理清楚，讓自己更從容地處理新任務。","caution":"整理若變成無止境的完美追求，也可能拖慢真正重要的事；區分必要準備與表面忙碌。","synthesis":"有條理的生活是支持行動的基礎。整理到足夠好，就可以放心前進。","group":0,"keys":["自我整頓","重拾秩序","由內而外"],"pace":-1,"tags":["order","care"],"focus":"整理自身狀態","step":"理順眼前的生活"},{"id":10,"name":"呼嚕引擎","scene":"貓咪放鬆縮成一團，雙眼微閉，神情安詳而滿足。","core":"內在滿足、平和共振、當下喜悅","positive":"留意此刻有哪些真實可感的幸福與安穩來源，讓平靜成為日常的支持。","caution":"感到滿足很好，但仍可留意尚未處理的小問題，避免以「一切都好」取代實際檢視。","synthesis":"喜悅不需要證明，也不必掩蓋困難。珍惜眼前的好，同時保留清醒的眼光。","group":1,"keys":["內在滿足","平和共振","當下喜悅"],"pace":0,"tags":["rest","support"],"focus":"感受內在滿足","step":"辨認真實的安定來源"},{"id":11,"name":"炸毛弓背","scene":"貓咪弓起背部、毛髮豎立、尾巴膨起，呈現明確防禦姿態。","core":"高度戒備、情緒應激、自我保護","positive":"如果某種互動讓你感到不適，可以先拉開距離，了解讓自己緊繃的因素。","caution":"感受到威脅不等於威脅已被證實；在守住界線的同時，試著區分事實、猜測和過往經驗。","synthesis":"防禦是提醒你值得被保護的需求。先照顧自己，再以實際資訊判斷是否需要繼續戒備。","group":1,"keys":["高度戒備","情緒應激","自我保護"],"pace":-2,"tags":["caution","boundary"],"focus":"提高防備","step":"確認真正的威脅來源"},{"id":12,"name":"飛機耳","scene":"貓咪身體微低伏，雙耳朝兩側壓平，顯得緊張或不自在。","core":"委屈壓抑、無聲抗議、承受壓力","positive":"如果你正勉強承受某些期待，試著辨認自己能負荷的程度，並以合適方式表達不舒服。","caution":"長期忽視自己的需要可能累積疲憊；能溝通的事，盡量不要等到難以承受才說出口。","synthesis":"你的感受值得被聽見。清楚表達界線，有助於建立更可持續的相處方式。","group":1,"keys":["委屈壓抑","無聲抗議","承受壓力"],"pace":-1,"tags":["pressure","boundary"],"focus":"承受不適與壓力","step":"表達自己的負荷"},{"id":13,"name":"窗邊凝望","scene":"貓咪坐在幾何窗框前，望向窗外一隻由簡單幾何形狀拼成的飛鳥。","core":"渴望自由、心生嚮往、規劃藍圖","positive":"如果你正在嚮往不同生活，可以先把想像中的方向寫得更具體，再尋找可行的第一步。","caution":"長久只看著遠方、卻沒有準備行動，也可能累積失落；留意現實條件和真正需要。","synthesis":"遠方的風景可以成為目標。把嚮往變成可安排的步驟，窗外就不只是想像。","group":1,"keys":["渴望自由","心生嚮往","規劃藍圖"],"pace":0,"tags":["change","desire"],"focus":"嚮往新方向","step":"勾勒可行的藍圖"},{"id":14,"name":"慢眨眼","scene":"貓咪安靜端坐、頭微傾，雙眼柔和地緩慢閉合。","core":"釋出善意、放下敵意、溫柔信任","positive":"若情境適合，可以用真誠的傾聽與溫和的表達開啟對話，降低不必要的對立。","caution":"善意不等於無條件信任；若曾出現反覆違反界線的情況，可保留距離並觀察實際行為。","synthesis":"溫柔可以和清楚的界線同行。信任不靠猜測，而是從一次次尊重中慢慢建立。","group":1,"keys":["釋出善意","放下敵意","溫柔信任"],"pace":0,"tags":["connect","support"],"focus":"柔和示好","step":"建立真誠交流"},{"id":15,"name":"哈氣警告","scene":"貓咪張嘴露出尖牙、身體緊繃，作出警告姿態。","core":"明確拒絕、守住底線、表達立場","positive":"當重要原則受到挑戰時，可以清楚說明自己的需求和可接受範圍。","caution":"強烈情緒可能讓訊息失焦；在安全條件允許下，以堅定、具體的說法代替擴大衝突。","synthesis":"拒絕並不需要傷害對方。清楚表達界線，讓彼此知道如何互相尊重。","group":1,"keys":["明確拒絕","守住底線","表達立場"],"pace":1,"tags":["boundary","action"],"focus":"清楚拒絕","step":"說明自己的界線"},{"id":16,"name":"翻肚誘惑","scene":"貓咪翻身露出部分肚皮，四肢微彎，呈現親近又帶保留的姿態。","core":"魅力展現、試探靠近、亦真亦假","positive":"適度展現輕鬆與親切，可以增加互動機會；不必在初次接觸時急著定義關係。","caution":"看起來迷人的邀請仍需了解條件和意圖；保留界線，不以表面親近替代可靠的互動證據。","synthesis":"你可以開放心門，也可以慢慢確認。親密與自我保護可以同時存在。","group":1,"keys":["魅力展現","試探靠近","亦真亦假"],"pace":1,"tags":["connect","caution"],"focus":"靠近與試探","step":"確認互動的條件"},{"id":17,"name":"呆滯放空","scene":"貓咪筆直坐著、眼神短暫失焦，舌尖露出一小截。","core":"資訊過載、大腦當機、暫時抽離","positive":"若感覺思緒繁雜，不妨暫停接收資訊，給自己一段不用立即回答的時間。","caution":"在疲憊時更容易忽略細節；重要的工作與決策可以延後核對，或請可信賴的人共同檢查。","synthesis":"空白並非浪費。讓注意力重新整理，再回來處理真正重要的訊息。","group":1,"keys":["資訊過載","大腦當機","暫時抽離"],"pace":-2,"tags":["rest","confusion"],"focus":"資訊過載","step":"暫時減少雜訊"},{"id":18,"name":"夜視瞳孔","scene":"貓咪蹲坐在深灰色場景中，雙眼映出微光，放大的瞳孔帶出警覺與專注。瞳孔不畫成純白圓點。","core":"辨識訊息、看穿表象、直覺敏銳","positive":"在局勢不明時，先放慢判斷，留意被忽視的訊息並逐項查證。","caution":"不確定感也容易引發過度聯想；不要把猜測或直覺當成對他人的事實判定。","synthesis":"敏銳的觀察若加上求證，就能成為清晰的判斷；別讓黑暗放大了想像中的怪物。","group":1,"keys":["辨識訊息","看穿表象","直覺敏銳"],"pace":-1,"tags":["observe","clarity"],"focus":"留意細節","step":"查證實際線索"},{"id":19,"name":"互相理毛","scene":"兩隻幾何貓咪親暱靠近，彼此輪流低頭舔拭對方的頭頂與頸部，清楚表現互相照顧。","core":"雙向滋養、平等互信、溫柔支持","positive":"這張牌象徵互相照應的理想互動，提醒你珍惜善意，也檢視實際相處是否讓彼此都被理解。","caution":"若照顧長期只由一方承擔，可能形成負擔；適時說清楚期待與可負荷的程度。","synthesis":"好的連結需要願意來回的支持。觀察實際行動、真誠回應，讓關係保持平衡。","group":2,"keys":["雙向滋養","平等互信","溫柔支持"],"pace":0,"tags":["support","connect"],"focus":"互相照應","step":"尋找平等的支持"},{"id":20,"name":"尾巴勾勾","scene":"一隻貓向前邁步，另一隻安靜端坐，兩隻自然長度的尾巴輕輕交勾。","core":"無聲默契、獨立相伴、心靈連結","positive":"可以練習在陪伴中保有各自的興趣與步調，不必以時時刻刻相處作為親密的唯一標準。","caution":"默契不能完全代替溝通；若感到距離改變，不妨用具體提問確認彼此需要。","synthesis":"自由與連結可以共存。保留空間，也留意把關心說出來的時機。","group":2,"keys":["無聲默契","獨立相伴","心靈連結"],"pace":0,"tags":["connect","boundary"],"focus":"獨立而連結","step":"尊重彼此空間"},{"id":21,"name":"領地標記","scene":"貓咪用臉頰和下巴磨蹭垂直幾何桌腳，呈現熟悉環境中的領地標記行為。","core":"建立歸屬、確認位置、畫出界線","positive":"在新環境中清楚表達自己的角色與需求，逐步建立可安心投入的空間。","caution":"歸屬感不等於所有權；記得尊重其他人的界線、選擇與自主。","synthesis":"站穩自己的位置，也讓他人保有位置，才更容易建立互相尊重的關係。","group":2,"keys":["建立歸屬","確認位置","畫出界線"],"pace":0,"tags":["boundary","security"],"focus":"建立歸屬","step":"確認互動界線"},{"id":22,"name":"背對背坐","scene":"兩隻貓咪背靠背而坐，頭朝不同方向，身體接近但各自安靜。","core":"各自冷靜、空間需求、互不干擾","positive":"若互動暫時緊繃，可以給彼此一段整理情緒的時間，之後再討論需要談的問題。","caution":"空間有助冷靜，但若長期不願對話，也可能累積誤解；可約定再溝通的時機。","synthesis":"暫時背對背不必等於關係疏離。尊重距離，也保留重新轉身的可能。","group":2,"keys":["各自冷靜","空間需求","互不干擾"],"pace":-1,"tags":["rest","boundary"],"focus":"需要留白","step":"安排冷靜與溝通"},{"id":23,"name":"搶奪紙箱","scene":"兩隻貓咪擠進同一個狹窄幾何紙箱，彼此推擠、爭取有限位置。","core":"資源競爭、利益衝突、立場碰撞","positive":"當資源有限時，先清楚提出自己的需要，並了解可能的分配方式。","caution":"若只執著於眼前的小空間，可能忽略替代方案；不要未經確認就把競爭理解成惡意。","synthesis":"爭取應有權益，也留意能否擴大選擇；有時真正的解法在箱子外面。","group":2,"keys":["資源競爭","利益衝突","立場碰撞"],"pace":1,"tags":["conflict","resources"],"focus":"資源與立場碰撞","step":"尋找合宜的分配"},{"id":24,"name":"蹭腿撒嬌","scene":"貓咪尾巴高揚，沿著人類幾何小腿彎身輕蹭，表現主動靠近。","core":"主動示好、尋求協助、柔軟身段","positive":"若需要協助，可以直接且真誠地表達需求，不必把求助視為失去能力。","caution":"尋求支持時也要保留自主，避免為了得到回應而過度迎合。","synthesis":"柔軟是一種勇氣。把需要說清楚，也相信自己能參與解決問題。","group":2,"keys":["主動示好","尋求協助","柔軟身段"],"pace":1,"tags":["connect","support"],"focus":"主動求助","step":"提出真實需求"},{"id":25,"name":"門縫偷窺","scene":"半開的幾何門後方，貓咪小心探出半顆頭，觀察門外環境。","core":"探索未知、謹慎試探、保持距離","positive":"面對新環境或不熟悉的人，先收集資訊、確認安全，再決定如何接近。","caution":"一直停留在觀察階段，可能讓自己錯過想參與的事；但是否跨出仍以實際情況為準。","synthesis":"謹慎是保護自己的一種方式。準備足夠後，再選擇適合自己的步伐。","group":2,"keys":["探索未知","謹慎試探","保持距離"],"pace":-1,"tags":["observe","caution"],"focus":"謹慎探看","step":"先了解安全條件"},{"id":26,"name":"母雞蹲陣","scene":"三隻幾何貓咪並排呈收爪的「母雞蹲」姿態，神情安靜，各自仍有獨立輪廓。","core":"團隊共識、穩定陪伴、集體力量","positive":"留意哪些合作與團隊規則能提供支持，讓個人的力量在協作中發揮。","caution":"群體一致不等於想法一定正確；對重要決策仍要保有獨立判斷。","synthesis":"團隊能帶來安定感；在互相支持的同時，也請保留每個人的聲音。","group":2,"keys":["團隊共識","穩定陪伴","集體力量"],"pace":0,"tags":["support","group"],"focus":"融入團隊","step":"兼顧合作與主見"},{"id":27,"name":"傲嬌轉頭","scene":"貓咪靠在人身邊坐著，頭卻轉向外側，呈現親近與保留並存的姿態。","core":"口是心非、渴望關注、別扭試探","positive":"這張牌可以提醒你注意是否有難以表達的在意。若想確認心意，不妨用坦率的對話代替猜測。","caution":"反話與冷淡有時會造成誤解；不要僅憑外在姿態斷定他人的真實意圖。","synthesis":"把想被理解的感受說出來，可能比等待對方猜中更能拉近距離。","group":2,"keys":["口是心非","渴望關注","別扭試探"],"pace":-1,"tags":["connect","confusion"],"focus":"表達不夠坦率","step":"練習清楚說明需求"},{"id":28,"name":"金色罐頭","scene":"貓咪抬頭看向已開啟的幾何罐頭，旁邊以簡單線形或色塊表現香氣。","core":"成果累積、實質資源、留意回報","positive":"可以盤點已經付出的努力與目前能運用的資源，留意值得評估的機會。","caution":"即使機會很吸引人，也要確認附帶的條件、成本與責任；不可把牌面當成收益保證。","synthesis":"保持務實與開放，先把條件看清楚，才能穩穩承接真正適合自己的收穫。","group":3,"keys":["成果累積","實質資源","留意回報"],"pace":1,"tags":["resources","opportunity"],"focus":"累積實質成果","step":"核對機會條件"},{"id":29,"name":"空空食盆","scene":"貓咪低頭望著面前空無一物的扁平幾何食盆，姿態安靜。","core":"資源匱乏、期待落空、需要補給","positive":"如果感覺自己正在耗盡心力或資源，可以先盤點缺少什麼，再找尋適當補充方式。","caution":"反覆投入而沒有足夠回應時，值得檢查是否需要調整期待、界線或資源配置。","synthesis":"發現不足，不代表失敗。先照顧最基本的需要，再決定該留下、協調或另尋方向。","group":3,"keys":["資源匱乏","期待落空","需要補給"],"pace":-1,"tags":["scarcity","resources"],"focus":"感到資源不足","step":"盤點真正的缺口"},{"id":30,"name":"打翻水杯","scene":"貓咪在高台上伸出前爪，幾何水杯正傾倒，水花以簡潔碎片呈現。","core":"突發插曲、情緒起伏、打破僵局","positive":"若計畫遭遇意外變動，可以先處理眼前影響，再思考是否有改良安排的機會。","caution":"急躁與疏忽可能增加善後成本；對真正的損失應以事實與需要處理的程度評估。","synthesis":"突發事件未必帶來好處，但冷靜處理、調整方法，可以減少混亂並重新取得主導。","group":3,"keys":["突發插曲","情緒起伏","打破僵局"],"pace":2,"tags":["disrupt","risk"],"focus":"遇上突發變動","step":"冷靜應對插曲"},{"id":31,"name":"一束陽光","scene":"貓咪蜷縮在地面，一束斜射的白色幾何光線籠罩身體，周圍留白。","core":"有利條件、順勢而為、溫暖支持","positive":"看看周遭是否有可運用的有利條件或實際支持；善用這些資源，讓計畫穩健向前。","caution":"環境條件可能改變，享受順境的同時，也要持續建立自己的能力與備案。","synthesis":"珍惜當下的光亮，同時練習自己辨認方向；好條件與主動準備相互加成。","group":3,"keys":["有利條件","順勢而為","溫暖支持"],"pace":0,"tags":["support","opportunity"],"focus":"擁有有利條件","step":"善用當下的支持"},{"id":32,"name":"毛線球陣","scene":"貓咪趴在纏繞的幾何毛線中，以圓形色塊與交錯線段呈現打結。","core":"思緒混亂、問題纏繞、整理頭緒","positive":"如果事情相互牽連而難以釐清，不妨先找出其中最關鍵的一條線索，再逐步處理。","caution":"在沒有順序的情況下急著一次解決全部問題，可能反而增加負擔；必要時可尋求協助。","synthesis":"問題並不一定簡單，但可以拆小。從能確認的部分開始，讓複雜逐漸變得可處理。","group":3,"keys":["思緒混亂","問題纏繞","整理頭緒"],"pace":-2,"tags":["confusion","pressure"],"focus":"陷入糾結混亂","step":"找出最重要的線頭"},{"id":33,"name":"未關的門","scene":"微開的幾何門扇透出一道光，貓咪坐在門檻前凝望，門並未完全敞開。","core":"機會浮現、微露縫隙、主動探索","positive":"若生活中出現值得評估的新選項，可以先蒐集資訊、嘗試接觸，不必一次做完所有決定。","caution":"不宜因害怕未知而無限期觀望，也不宜把一點線索誤認為已經確定的機會。","synthesis":"門縫象徵可能性。先確認門後的條件，再決定是否推開那一步。","group":3,"keys":["機會浮現","微露縫隙","主動探索"],"pace":1,"tags":["opportunity","explore"],"focus":"新方向露出縫隙","step":"小規模探索可能性"},{"id":34,"name":"神秘小禮物","scene":"貓咪端坐低頭，身前放著一件小巧的幾何物件，保留「是什麼禮物」的想像空間。","core":"意外驚喜、獨特心意、換位思考","positive":"留意生活中那些不一定符合期待、卻可能帶來溫暖的小事，並練習用不同角度理解表達方式。","caution":"不應直接推定禮物代表對方的心意；可以感謝善意，也可以坦率說明自己的需要。","synthesis":"換位思考讓互動更柔軟。理解彼此表達方式的差異，能減少不必要的誤會。","group":3,"keys":["意外驚喜","獨特心意","換位思考"],"pace":0,"tags":["support","connect"],"focus":"看見獨特心意","step":"確認彼此期待"},{"id":35,"name":"貓薄荷派對","scene":"貓咪在地上愉快翻滾，周圍散落簡化的幾何葉片與顆粒。","core":"盡情放鬆、釋放壓力、短暫歡愉","positive":"若生活過度緊繃，可以安排適度的休閒、玩樂和沒有成果壓力的時間。","caution":"休閒若成為長期迴避必要事項的方式，可能需要重新調整生活平衡。","synthesis":"快樂值得被保留。讓玩樂真正幫你補充精神，而不是取代需要面對的課題。","group":3,"keys":["盡情放鬆","釋放壓力","短暫歡愉"],"pace":1,"tags":["rest","joy"],"focus":"短暫放鬆","step":"兼顧歡笑與責任"},{"id":36,"name":"貓砂掩埋","scene":"貓咪微微前傾，以一隻前腳向後撥動幾何貓砂，揚起少量砂礫碎片。","core":"主動告別、清理過去、劃下句點","positive":"如果某件事已完成或不再適合，可以嘗試好好整理、交代必要責任，再為它劃下句點。","caution":"結束不等於掩蓋；尚需處理的事實、責任或情緒，值得以適當方式面對。","synthesis":"真正放下是妥善收尾後向前走，而不是假裝問題從來不存在。","group":3,"keys":["主動告別","清理過去","劃下句點"],"pace":-1,"tags":["ending","change"],"focus":"結束一段舊事","step":"妥善收束與放下"},{"id":37,"name":"滿月凝視","scene":"深炭灰色大圓月位於後景，前景是一隻純白、端坐仰望的貓咪剪影。","core":"情緒明朗、週期圓滿、內在清晰","positive":"可以藉「月亮逐漸圓滿」的意象，回顧一段歷程中已經變得清楚的感受與需求。","caution":"當情緒特別強烈時，避免把瞬間感受當成全部事實；重要決定可先休息、核對資訊。","synthesis":"圓滿象徵看見階段性的輪廓。承認情緒，也用清醒的步調回應自己的需要。","group":4,"keys":["情緒明朗","週期圓滿","內在清晰"],"pace":0,"tags":["emotion","change"],"focus":"情緒與週期轉變","step":"覺察當下感受"},{"id":38,"name":"影子分身","scene":"一隻淺灰貓咪低頭看地面，地上延伸出形體鮮明的深黑幾何長影。","core":"內在陰影、自我覺察、接納全貌","positive":"試著看見平常不願承認的感受、恐懼與需要，以較少批判的方式理解自己。","caution":"強烈的排斥不一定全來自外界，也可能混有過往經驗；在責怪他人前可先檢視自身反應，但不必把他人的傷害歸咎於自己。","synthesis":"接納陰影不是認同所有行為，而是認識自己的更多面向，減少被未察覺的情緒牽著走。","group":4,"keys":["內在陰影","自我覺察","接納全貌"],"pace":-1,"tags":["reflect","emotion"],"focus":"面對內在陰影","step":"正視自己的需求"},{"id":39,"name":"鏡中幻影","scene":"垂直的幾何鏡框內外，黑白反轉的兩隻貓咪隔鏡伸爪，形成對照。","core":"關係投射、認知偏差、看清真實","positive":"重新檢查自己對某個人或事件的理解，分清「已看到的行為」與「自己賦予的意義」。","caution":"期待、恐懼和過往經驗可能造成認知濾鏡；不要據此否定對方，也不要把猜測當成已確認的事實。","synthesis":"擦亮心中的鏡子不是讀懂他人的秘密，而是更清楚地辨別證據與解讀，讓溝通更公平。","group":4,"keys":["關係投射","認知偏差","看清真實"],"pace":-1,"tags":["reflect","clarity"],"focus":"辨別投射與事實","step":"核對現實資訊"},{"id":40,"name":"屋頂漫步","scene":"貓咪沿幾何三角形屋脊謹慎行走，身體保持平衡，路徑顯得狹窄。","core":"步步為營、風險平衡、高處挑戰","positive":"在有挑戰的任務裡，可先釐清可接受的風險、必要裝備與下一步，再穩健推進。","caution":"冒險精神值得珍惜，但不可忽略實際安全條件；必要時選擇較穩妥的替代路徑。","synthesis":"勇氣不等於不怕跌倒。看清腳下的位置，會讓你更有餘裕欣賞高處的風景。","group":4,"keys":["步步為營","風險平衡","高處挑戰"],"pace":1,"tags":["risk","action"],"focus":"穩健面對風險","step":"評估步伐與代價"},{"id":41,"name":"夢境浮游","scene":"閉眼側睡的貓咪上方，漂浮數個大小漸變的白色幾何泡泡，象徵夢與想像。","core":"潛意識聯想、靈感湧現、願望藍圖","positive":"夢境和突發想法可以成為探索個人願望、情緒與創意的素材，不妨記錄並回頭整理。","caution":"夢不必然預告外界事件，也不能證明他人意圖；好的想像仍需要具體行動及事實檢驗。","synthesis":"把夢當成靈感的信件，不必當成未來的通知。選擇值得實踐的部分，逐步帶進生活。","group":4,"keys":["潛意識聯想","靈感湧現","願望藍圖"],"pace":-1,"tags":["reflect","ideal"],"focus":"夢境與靈感","step":"記錄並檢驗想法"},{"id":42,"name":"十字路口","scene":"地面由深淺幾何圖形構成兩條分岔道路，貓咪停在交會處觀望。","core":"方向抉擇、轉折節點、傾聽內心","positive":"若面臨選擇，可整理每條路的優點、代價和個人價值，再決定較符合目前需要的方向。","caution":"只依直覺或只聽外界意見都可能忽略條件；對重大決定要納入時間、資源與風險。","synthesis":"沒有哪條路因抽到牌而被注定。理解自己的取捨後，才能真正為選擇負責。","group":4,"keys":["方向抉擇","轉折節點","傾聽內心"],"pace":0,"tags":["decision","change"],"focus":"比較不同方向","step":"列出可行選項"},{"id":43,"name":"鈴鐺聲響","scene":"由灰階多邊形拼成的項圈與圓形鈴鐺特寫，強調清晰的聲音意象。","core":"警醒提醒、外界訊號、敏銳覺察","positive":"可以主動檢查近期值得留意的通知、對話與未處理事項，辨別哪些訊息真正重要。","caution":"鈴鐺象徵注意，而非預告必然收到某則消息；也不要讓外界評價取代自己的判斷。","synthesis":"聽見提醒之後仍需辨認來源。分清訊號與雜音，再決定是否回應。","group":4,"keys":["警醒提醒","外界訊號","敏銳覺察"],"pace":0,"tags":["observe","signal"],"focus":"察覺外界提醒","step":"核實訊息的重要性"},{"id":44,"name":"鼻尖蝴蝶","scene":"貓咪安靜坐著，鼻尖停著一隻由四個小三角形拼成的白色蝴蝶。","core":"溫柔轉化、靜心觀察、保留空間","positive":"當自己不再一味催促成果時，可能更容易注意到日常裡細緻的美好與靈感。","caution":"過度控制可能壓縮關係與創意的空間；但「放下追逐」也不等於任何好事會自動出現。","synthesis":"適度放慢、保留彈性。美好能否靠近仍取決於真實條件，而你可以先讓自己更願意看見它。","group":4,"keys":["溫柔轉化","靜心觀察","保留空間"],"pace":0,"tags":["rest","opportunity"],"focus":"放下過度控制","step":"給美好留些空間"},{"id":45,"name":"凌空翻身","scene":"貓咪在半空中扭轉身體、舒展四肢，正嘗試調整姿態以準備落地。","core":"靈活應變、調整姿態、強大韌性","positive":"遇到變動時，可盤點手上資源、調整做法並尋找協助，嘗試重新取得平衡。","caution":"適應能力不代表每次都能化險為夷；避免把意外風險合理化成證明自己的機會。","synthesis":"韌性是願意因應現實，不是保證永遠不受傷。及時修正，往往比逞強更可靠。","group":4,"keys":["靈活應變","調整姿態","強大韌性"],"pace":2,"tags":["adapt","risk"],"focus":"靈活調整姿態","step":"尋找重新站穩的方法"},{"id":46,"name":"晨間伸展","scene":"貓咪前腳伸向前方、胸口壓低、臀部翹起，呈現自然的起身伸懶腰姿態。","core":"剛起步、暖身階段、喚醒能量","positive":"對剛開始的計畫或關係，可以先做好必要準備，用小步驟建立穩定節奏。","caution":"尚未具備條件時急著承擔太多，可能讓自己疲憊；但準備也不應變成無止境拖延。","synthesis":"好的開始不必很快。先把身心與條件調整到適合的位置，再逐漸增加速度。","group":5,"keys":["剛起步","暖身階段","喚醒能量"],"pace":0,"tags":["prepare","action"],"focus":"起步暖身","step":"先做好基本準備"},{"id":47,"name":"定格靜止","scene":"貓咪走到一半突然停住，一隻前腳懸空，姿勢定格在觀察的瞬間。","core":"瞬間警覺、暫緩決定、觀察異常","positive":"當某個細節讓你產生疑慮時，可以暫停下一步，重新確認資料、環境與自身感受。","caution":"有疑慮不表示危險已存在；檢查後若無實際問題，也可讓自己重新行動。","synthesis":"停下是為了看清，不是永遠停住。讓觀察與求證決定下一步，而不是讓恐懼決定。","group":5,"keys":["瞬間警覺","暫緩決定","觀察異常"],"pace":-2,"tags":["caution","observe"],"focus":"暫停確認疑點","step":"釐清條件再前進"},{"id":48,"name":"鍵盤霸佔","scene":"貓咪趴在一片幾何鍵盤方格上，遮住原本正在使用的工作區。","core":"外在干擾、重新排序、生活平衡","positive":"當既定安排被打斷時，先區分緊急、重要與可延後的事情，再重新安排注意力。","caution":"外在中斷不必然代表身體或生活出了問題；但若長期疲憊，仍值得檢視負荷與休息。","synthesis":"計畫有時需要讓位給其他需要。調整優先順序，可以讓生活更有彈性。","group":5,"keys":["外在干擾","重新排序","生活平衡"],"pace":-2,"tags":["disrupt","order"],"focus":"外在打斷安排","step":"重新排列優先次序"},{"id":49,"name":"豎尾小跑","scene":"貓咪尾巴高高豎起、末端微勾，神情輕快地向前小跑。","core":"積極迎接、愉悅進展、順流推進","positive":"如果目前事情推進得較順，不妨保持開放與積極，善用眼前可確認的機會。","caution":"進展輕快時仍需核對基本細節，不要因為興奮而忽略已知限制。","synthesis":"帶著喜悅向前，不必把每一步都變成壓力；穩穩地跑，才能享受路上的風景。","group":5,"keys":["積極迎接","愉悅進展","順流推進"],"pace":1,"tags":["action","opportunity"],"focus":"輕快向前","step":"保持積極並核對細節"},{"id":50,"name":"迎風嗅聞","scene":"貓咪端坐抬頭嗅聞，身旁是斜向幾何風線與一片被吹動的落葉。","core":"察覺變化、趨勢轉換、順應時節","positive":"可以留意周遭條件是否正在改變，及早更新資訊與調整方法，讓準備更貼近現況。","caution":"別把主觀預感當成已發生的趨勢；對重要變化應查證，並避免只靠過去的成功經驗。","synthesis":"學會聽風，也要看天氣。把敏感度和事實核對放在一起，才能走得更穩。","group":5,"keys":["察覺變化","趨勢轉換","順應時節"],"pace":0,"tags":["change","observe"],"focus":"察覺環境變化","step":"隨條件調整方向"},{"id":51,"name":"水窪倒影","scene":"貓咪蹲坐，低頭看地面雨後水窪，水面有幾圈幾何漣漪。","core":"情緒沉澱、雨過天晴、向內傾聽","positive":"若經歷波動，可以先容許情緒慢慢平復，再回頭整理自己真正的感受與需要。","caution":"情緒強烈時的想法可能較片面，但不應因此否定感受本身；重大判斷宜補足資訊。","synthesis":"等水面平靜，你也許能看得更清楚。照顧情緒與了解事實可以同步進行。","group":5,"keys":["情緒沉澱","雨過天晴","向內傾聽"],"pace":-2,"tags":["emotion","rest"],"focus":"讓情緒沉澱","step":"先讓心情慢慢平穩"},{"id":52,"name":"膝上王座","scene":"一個簡化的人類坐姿雙腿輪廓，貓咪安穩地蜷縮在膝蓋上休息。","core":"安心依靠、信任支持、穩定連結","positive":"這張牌提醒你辨認生活中哪些人事物能提供可靠支持，並透過持續互動好好經營。","caution":"單張牌不能保證關係長久穩定；信任仍要由實際行為、互惠與尊重逐步建立。","synthesis":"安心不必等於依賴。互相扶持、同時保有自主，連結才更有韌性。","group":5,"keys":["安心依靠","信任支持","穩定連結"],"pace":0,"tags":["support","security"],"focus":"感受安心連結","step":"經營可靠互惠"},{"id":53,"name":"換毛季節","scene":"貓咪甩動身體，周圍飄散細小的白色與淺灰幾何毛絮。","core":"自然蛻變、適應新生、逐步成長","positive":"如果正經歷習慣或角色轉換，給自己一些調整時間，允許過程有不熟悉與不舒適。","caution":"改變不一定總是正向，也不必為改變而改變；評估哪些舊事物需要放下、哪些仍值得保留。","synthesis":"成長未必轟轟烈烈。慢慢調整到適合自己的樣子，就是實在的前進。","group":5,"keys":["自然蛻變","適應新生","逐步成長"],"pace":-1,"tags":["change","adapt"],"focus":"逐步蛻變","step":"給自己適應的時間"},{"id":54,"name":"沙漏凝視","scene":"貓咪端坐，專注望著由兩個對頂三角形組成的簡化幾何沙漏。","core":"時間醞釀、尊重過程、耐心守候","positive":"某些計畫需要累積與等待；可先處理能力範圍內的準備，並設定合理的檢視時間點。","caution":"耐心不等於消極拖延；若環境已經改變，也可能需要更新計畫，而非無條件等待。","synthesis":"時間不能保證想要的結果，但能提供觀察、修正和累積的機會。讓等待成為有方向的準備。","group":5,"keys":["時間醞釀","尊重過程","耐心守候"],"pace":-2,"tags":["time","prepare"],"focus":"等待時機成熟","step":"在等待中持續準備"}];
+const topicCross = {"general":[{"title":"隨心提問 × 行動與姿態（01–09）","meaning":"這組牌邀請你注意行動方式與身心節奏。抽到 01 飛撲獵物，可檢視是否有條件支持果斷採取行動；抽到 04 大字仰睡，則可思考目前是否需要先恢復體力與安全感。實際重點仍取決於抽到哪張牌及你的問題。","caution":"避免僅靠焦慮驅使自己忙碌，也別在未看清方向時急著衝刺。若是 08 夜間跑酷，可檢查衝勁是否有適當出口與清楚目標。"},{"title":"隨心提問 × 情緒與神態（10–18）","meaning":"這組牌將焦點放在自身感受、壓力與看待事情的方式。若抽到 12 飛機耳，值得檢查是否勉強配合；若是 10 呼嚕引擎，則可回顧目前有哪些真實可感的安穩來源。","caution":"不要否認情緒，也不要將情緒直接視為對外界的事實證明。抽到 17 呆滯放空時，可先休息、核對資訊，再處理重要事項。"},{"title":"隨心提問 × 關係與互動（19–27）","meaning":"可從互動距離、雙向回應與界線觀察目前的生活課題。例如 19 互相理毛提醒檢視互惠，22 背對背坐提醒思考是否需要私人空間。","caution":"避免過度迎合（24 蹭腿撒嬌）、以反話代替溝通（27 傲嬌轉頭），或把有限資源的競爭理解為所有人都在與你作對（23 搶奪紙箱）。"},{"title":"隨心提問 × 徵兆與日常物件（28–36）","meaning":"這組牌邀請你檢視生活中的實際條件、資源與安排。28 金色罐頭可作為盤點成果的提示，30 打翻水杯可作為預留意外應變空間的提醒，33 未關的門則象徵值得評估的新選項。","caution":"好處需要核對條件，混亂需要釐清原因（32 毛線球陣），資源不足時也值得及時補給（29 空空食盆）。牌面不表示這些事件已客觀發生。"},{"title":"隨心提問 × 直覺與命運轉折（37–45）","meaning":"可思考自己是否正在改變判斷方式或面對選項。39 鏡中幻影提醒分辨事實和投射；40 屋頂漫步、45 凌空翻身提醒評估風險與調整方式。","caution":"直覺可以提示你重新觀察，但不能代替佐證。若抽到 42 十字路口，請列出實際選項、限制和後果，再由自己決定。"},{"title":"隨心提問 × 時間、節奏與安定（46–54）","meaning":"焦點可放在準備程度、推進速度與支持系統。49 豎尾小跑象徵較輕快的節奏；52 膝上王座提醒檢視可靠連結；54 沙漏凝視可提醒接受部分事情需要醞釀。","caution":"區分準備中的等待與沒有進度的拖延。47 定格靜止可以提示短暫暫停、檢查疑慮，並不等於現實中必有危險。"}],"love":[{"title":"感情 × 行動與姿態（01–09）","meaning":"可以思考是否適合主動傳達心意、調整互動方式，或先照顧自己的狀態。例如 01 飛撲獵物提醒在評估雙方互動及界線後採取行動；09 優雅理毛提醒把重心放回自己。","caution":"勿以追求效率的方式催促關係進展。04 大字仰睡可提醒信任需由互動累積，不是因為抽到牌就可以放下所有警戒。"},{"title":"感情 × 情緒與神態（10–18）","meaning":"以這組牌探索「自己在關係裡的感受」及「哪些情緒需要被溝通」。10 呼嚕引擎、14 慢眨眼可象徵溫柔與安心；11 炸毛弓背、12 飛機耳則提醒辨認壓力或戒備。","caution":"不能以牌卡推論伴侶的真實想法。抽到 16 翻肚誘惑可檢視互動中的魅力與界線；如有疑慮，宜直接對話與觀察實際行為。"},{"title":"感情 × 關係與互動（19–27）","meaning":"觀察是否存在可見的互惠、各自空間與溝通習慣。19 互相理毛象徵雙向照顧的理想，20 尾巴勾勾象徵獨立相伴，22 背對背坐提醒給彼此整理情緒的空間。","caution":"21 領地標記提醒尊重自主，27 傲嬌轉頭提醒少用猜測和試探。無論抽到什麼牌，都不可直接宣布某段關係健康、冷淡或不忠。"},{"title":"感情 × 徵兆與日常物件（28–36）","meaning":"可以從現實生活安排、時間資源及互動機會檢視關係。33 未關的門可象徵探索新連結，30 打翻水杯提醒處理日常插曲。","caution":"29 空空食盆、32 毛線球陣可用來提問「我的需求是否被說清楚」「是否有反覆困擾的模式」。是否繼續或結束關係（36 貓砂掩埋），應根據真實互動與安全考量決定。"},{"title":"感情 × 直覺與命運轉折（37–45）","meaning":"這組牌重點在自我認識與選擇。39 鏡中幻影提醒檢視理想化或過往經驗造成的投射，42 十字路口提醒辨識關係中的不同道路。","caution":"情緒起伏時（37 滿月凝視）可緩一緩重大決定，並透過對話確認對方立場；牌面不能證明對方「有緣」「另有隱情」或必然會做某個選擇。"},{"title":"感情 × 時間、節奏與安定（46–54）","meaning":"可討論關係速度與支持基礎。46 晨間伸展提醒新互動不必急於定義，52 膝上王座提醒觀察支持與互信，51 水窪倒影提醒感受需要沉澱。","caution":"54 沙漏凝視不代表等待必有結果；47 定格靜止只提示檢視尚未釐清的疑慮，不表示對方一定出現異常。可設定實際溝通和評估時間點。"}],"work":[{"title":"職涯 × 行動與姿態（01–09）","meaning":"可從執行策略與專業準備尋找突破。01 飛撲獵物提醒明確定義任務和時機，05 專注磨爪代表技能累積，02 高處俯瞰提示整體評估。","caution":"別因看似忙碌就忽略產出。06 追逐光點提醒確認目標可行性；09 優雅理毛提醒別用表面整理取代核心工作；08 夜間跑酷提醒協調團隊節奏。"},{"title":"職涯 × 情緒與神態（10–18）","meaning":"可檢視壓力、資訊量與職涯期待。17 呆滯放空象徵暫時過載，13 窗邊凝望象徵對其他職涯方向的嚮往。","caution":"12 飛機耳提醒留意超量負荷；18 夜視瞳孔與 16 翻肚誘惑提醒檢查合約和合作條件，但不能據此斷言同事、主管或客戶有惡意。"},{"title":"職涯 × 關係與互動（19–27）","meaning":"以團隊協作、需求溝通與資源分配作為觀察角度。26 母雞蹲陣可反思團隊節奏，19 互相理毛可反思互惠，24 蹭腿撒嬌提醒適時尋求專業協助。","caution":"23 搶奪紙箱提醒資源可能有限，21 領地標記提醒釐清職責。留意不為迎合多數意見而放棄必要的專業判斷。"},{"title":"職涯 × 徵兆與日常物件（28–36）","meaning":"可檢查成果指標、資源及工作機會。28 金色罐頭用於盤點投入與回報，33 未關的門用於審視新的專案或職涯選項。","caution":"29 空空食盆可提醒盤點資源與成長空間，32 毛線球陣可提醒梳理流程，30 打翻水杯可提醒建立突發應變程序；36 貓砂掩埋提醒錯誤應妥善處理，不宜掩蓋。"},{"title":"職涯 × 直覺與命運轉折（37–45）","meaning":"適合用來整理職涯岔路、能力與風險。42 十字路口提示比較留任或轉職的實際條件，40 屋頂漫步提示進行高難度任務前的風險評估。","caution":"43 鈴鐺聲響提醒分辨外界評價與自身目標，不代表職場已有某種消息。遇到不確定的任務，請核對資料與權責分工。"},{"title":"職涯 × 時間、節奏與安定（46–54）","meaning":"可評估啟動期、進度及工作生活平衡。46 晨間伸展對應前置準備，49 豎尾小跑象徵輕快推進，50 迎風嗅聞提醒留意產業與組織變化。","caution":"48 鍵盤霸佔提示留意干擾、疲憊和優先順序；若實際工作負荷過重，宜調整排程與尋求支持，而非期待抽牌替你排除問題。"}],"money":[{"title":"財富 × 行動與姿態（01–09）","meaning":"可從技能、收入來源和收支習慣尋找改善方向。05 專注磨爪象徵能力累積，01 飛撲獵物提示行動前先明確定義可驗證目標，02 高處俯瞰提示檢視整體財務結構。","caution":"06 追逐光點提醒確認收益假設與實際風險；08 夜間跑酷可提醒避免情緒性消費。不能把抽到行動牌視為買進或賣出的訊號。"},{"title":"財富 × 情緒與神態（10–18）","meaning":"可檢查金錢決策是否受到焦慮、滿足感或資訊疲勞影響。10 呼嚕引擎提醒辨認真正需要，17 呆滯放空提醒休息並整理資訊。","caution":"16 翻肚誘惑提醒核對看似誘人的方案條款；18 夜視瞳孔提醒細讀資訊而非憑直覺斷定真偽。重大財務決定仍需參考客觀資料，必要時請教合格專業人士。"},{"title":"財富 × 關係與互動（19–27）","meaning":"可從合作、分潤與求助管道檢視財務安排。19 互相理毛象徵雙方權益兼顧，24 蹭腿撒嬌提醒適時向可信賴的專業人士請教。","caution":"21 領地標記與 23 搶奪紙箱提醒事先確認書面權責、分潤及退出條件，不能藉牌卡判定任何人的誠信。"},{"title":"財富 × 徵兆與日常物件（28–36）","meaning":"可盤點收入、開銷、存款與預備金。28 金色罐頭可象徵努力和資源的連結，31 一束陽光提醒善用現有有利條件，30 打翻水杯提醒預留臨時支出彈性。","caution":"29 空空食盆提示查核現金流，32 毛線球陣提示整理帳務，36 貓砂掩埋提醒不要把財務問題隱藏。牌面不等於實際收益、損失或市場行情。"},{"title":"財富 × 直覺與命運轉折（37–45）","meaning":"可藉 42 十字路口梳理不同配置方案的取捨，藉 40 屋頂漫步檢視風險承受能力；39 鏡中幻影提醒分辨期待報酬與客觀條件。","caution":"在情緒波動時（37 滿月凝視）可暫緩非必要的衝動操作；41 夢境浮游提醒理想不能代替資料；45 凌空翻身提醒過去度過風險不代表未來必然成功。"},{"title":"財富 × 時間、節奏與安定（46–54）","meaning":"可檢視財務目標的時間跨度、現金流需求和準備程度。46 晨間伸展象徵規劃初期，52 膝上王座提醒評估支持系統，54 沙漏凝視提醒長期紀律與耐心。","caution":"47 定格靜止應讀為「提醒重新核對風險和資訊」，不是「市場已經發出異常訊號」。是否投入資金，應依實際財務條件與可驗證風險決定。"}],"self":[{"title":"自我探索 × 行動與姿態（01–09）","meaning":"把抽象的成長意願轉成可實行的小步驟。07 踩奶按摩可象徵日常自我安撫，09 優雅理毛可象徵整頓環境，04 大字仰睡可提醒安排足夠休息。","caution":"不要把忙碌當作成長證明，也不必因暫時休息而自責；若一直停留在熟悉的舒適模式，可試著設立安全且小幅的新嘗試。"},{"title":"自我探索 × 情緒與神態（10–18）","meaning":"這組牌協助辨認感受、需求與防禦反應。12 飛機耳可提醒練習表達負荷，11 炸毛弓背可提醒理解自己想保護的界線，14 慢眨眼可象徵溫和回應。","caution":"情緒本身值得尊重，但不代表感受到威脅就一定存在威脅；可同時照顧感受並核對具體情況。"},{"title":"自我探索 × 關係與互動（19–27）","meaning":"透過對互動的反思，更理解自己的界線、求助方式和親密需求。20 尾巴勾勾可提醒獨立與陪伴並存，24 蹭腿撒嬌象徵開口求助，22 背對背坐提醒允許彼此空間。","caution":"19 互相理毛提醒檢查付出是否平衡；25 門縫偷窺可提示是否因擔憂而遲遲不願參與，但仍須尊重個人步調與實際安全。"},{"title":"自我探索 × 徵兆與日常物件（28–36）","meaning":"可從放下負擔、修整生活與探索新方向切入。36 貓砂掩埋象徵妥善告別，33 未關的門象徵值得探索的可能性。","caution":"29 空空食盆提醒照顧自己的需要；35 貓薄荷派對可提醒休閒和逃避之間的界線。情緒困擾若持續影響生活，牌卡不能代替合適的專業支持。"},{"title":"自我探索 × 直覺與命運轉折（37–45）","meaning":"38 影子分身邀請看見不願承認的需求，39 鏡中幻影提醒檢查認知投射，44 鼻尖蝴蝶象徵放慢節奏、保留接納美好事物的空間。","caution":"42 十字路口提醒拿回選擇權，43 鈴鐺聲響提醒區分外界期待與自身價值；不把任何象徵當成命中注定的安排。"},{"title":"自我探索 × 時間、節奏與安定（46–54）","meaning":"提醒尊重自己的成長速度。53 換毛季節象徵逐步蛻變，51 水窪倒影象徵情緒沉澱，52 膝上王座提醒建立可依靠、可互相支持的連結。","caution":"54 沙漏凝視提醒等待期間持續準備；不以「一切都會好」取代實際照顧、尋求協助或調整生活的需要。"}]};
+const groups = [
+ {id:'action',name:'行動與姿態',subtitle:'外在行動與身心節奏'},
+ {id:'emotion',name:'情緒與神態',subtitle:'感受、防禦與訊息辨識'},
+ {id:'relation',name:'關係與互動',subtitle:'溝通、界線與互惠'},
+ {id:'omen',name:'徵兆與日常物件',subtitle:'資源、事件與生活條件'},
+ {id:'intuition',name:'直覺與命運轉折',subtitle:'視角、抉擇與風險'},
+ {id:'time',name:'時間、節奏與安定',subtitle:'準備、等待與安定'}
+];
+const topics=[['general','隨心提問'],['love','感情'],['work','職涯'],['money','財富'],['self','自我探索']];
+/* 選填的探索方向僅作敘事語境，不參與洗牌、不更動固定牌義與原本的語意關係權重。 */
+const focusOptions={
+ love:[
+  {id:'family',label:'親情・家人',context:'家人之間的理解、期待與個人空間'},
+  {id:'friends',label:'友情・朋友',context:'朋友間的信任、互惠與相處距離'},
+  {id:'ambiguous',label:'曖昧・暗戀',context:'尚未明確的互動、節奏與期待'},
+  {id:'partner',label:'愛情・伴侶',context:'伴侶間的支持、溝通與共同選擇'},
+  {id:'other',label:'其他關係',context:'重要人際關係中的溝通、界線與支持'}
+ ],
+ work:[
+  {id:'jobchange',label:'求職・轉職',context:'職涯機會、條件評估與準備步驟'},
+  {id:'workplace',label:'職場人際',context:'同事合作、職責分工與相處界線'},
+  {id:'skills',label:'專業發展',context:'技能累積、投入方式與成長方向'},
+  {id:'venture',label:'創業規劃',context:'創業構想、資源條件與風險評估'}
+ ],
+ money:[
+  {id:'budget',label:'收支管理',context:'日常收支、支出優先序與資源配置'},
+  {id:'income',label:'收入機會',context:'可能的收入途徑、投入成本與條件'},
+  {id:'assets',label:'資產規劃',context:'長期資產配置、目標與風險承受程度'},
+  {id:'security',label:'財務安全',context:'緊急預備、穩定需求與現實保障'}
+ ],
+ self:[
+  {id:'emotion',label:'情緒覺察',context:'自己的感受、壓力來源與調節方式'},
+  {id:'values',label:'自我價值',context:'個人的價值觀、需求與自我認同'},
+  {id:'direction',label:'人生方向',context:'不同人生選擇、願望與現實條件'},
+  {id:'balance',label:'生活平衡',context:'生活節奏、休息需求與多方責任'}
+ ]
+};
+function focusFor(topic=state.topic){
+ if(topic!==state.topic)return null;
+ return (focusOptions[topic]||[]).find(option=>option.id===state.focus)||null;
+}
+/* V4.17: 狀況專屬問法。只修改提問及選項文字；保留每個選項的語意標籤與牌義關係。 */
+const focusGuideProfiles = {"love":{"family":{"first":"想到你想探索的家人關係，目前比較接近哪個階段？","stages":["還在整理自己對家人的想法與期待。","已經開始溝通或嘗試調整相處方式。","有個反覆出現的相處難題需要面對。"],"five":"如果從家人相處的角度閱讀這五張牌，你最想先梳理哪一種力量？","follow":{"pace":"面對家人的期待與自己的步調，你現在更需要哪一種安排？","resources":"要讓家庭相處更有餘裕，哪種支持或資源最值得先盤點？","relation":"在家人之間，你最想先釐清哪種相處界線？","change":"家庭互動若要有所改變，你希望先從哪個地方開始？","clarity":"想到這段家人關係，什麼最需要與既有印象分開確認？","rhythm":"在家庭責任與自身生活之間，你希望先調整什麼節奏？","risk":"嘗試改變家人互動之前，你最想確認哪項現實顧慮？"},"choices":{"relation":["彼此應承擔的責任與期待。","每個人能保留的自主空間。","關心與付出如何被理解和回應。"]}},"friends":{"first":"對於這段友情，你目前比較接近哪種情況？","stages":["還在理解彼此的相處方式。","已有互動，正在維繫或調整這段友情。","有誤解、距離或期待需要釐清。"],"five":"把這五張牌放進友情裡，你最在意它們呈現的哪一條線索？","follow":{"pace":"這段友情的互動節奏，你想先做哪種調整？","resources":"維持這段友情時，你最想盤點哪一種付出或支持？","relation":"對於朋友之間的靠近與距離，你最在意哪件事？","change":"如果友情正在改變，你希望用什麼方式理解這個變化？","clarity":"關於這段友情，你最想釐清哪一種誤解或不確定？","rhythm":"在聯絡頻率與個人生活之間，怎樣的節奏較適合你？","risk":"在重新互動或談清楚之前，你最希望確認哪一項？"},"choices":{"relation":["彼此真實表達過的關心與期待。","聯絡距離與個人空間是否合適。","雙方付出是否讓自己感到自在。"]}},"ambiguous":{"first":"這段尚未明確的互動，目前比較接近哪種狀態？","stages":["還在觀察互動與了解自己的感受。","已經有來往，想慢慢看清相處節奏。","對互動訊號或期待產生疑問。"],"five":"面對曖昧或暗戀的未定狀態，這五張牌中哪個面向最值得你探索？","follow":{"pace":"面對尚未定義的關係，你更希望如何掌握靠近的速度？","resources":"想更了解這段互動時，你最需要補足哪種條件？","relation":"在還沒確認彼此期待之前，你最想守住什麼界線？","change":"如果想讓這段互動往前一步，你傾向先做什麼？","clarity":"對於曖昧中的訊號，你現在最需要區分哪一件事？","rhythm":"在期待與等待之間，你希望怎樣照顧自己的節奏？","risk":"在進一步表達心意之前，你最想確認什麼？"},"choices":{"relation":["哪些互動是確實發生的，而非自行猜測。","雙方能接受的接近速度與距離。","自己的期待是否已經說清楚。"],"clarity":["對方實際表達過的內容與行為。","我自己的喜歡與期待。","同一互動可能有的其他解釋。"]}},"partner":{"first":"對於你在意的伴侶關係，現在比較接近哪個階段？","stages":["正在理解彼此的需求與相處模式。","正在溝通或實際調整共同生活。","有個需要一起面對的相處難題。"],"five":"若從伴侶相處出發，這五張牌最讓你想深入哪一個面向？","follow":{"pace":"當你和伴侶的節奏不完全一致，你希望先調整什麼？","resources":"在共同生活或相處中，哪種支持最值得先確認？","relation":"在親密與自主之間，你最想先協調哪一點？","change":"若希望伴侶關係有新的相處方式，你想先處理哪個部分？","clarity":"關於你與伴侶的期待，哪些地方最需要直接確認？","rhythm":"在陪伴、獨處與生活責任之間，你希望怎樣安排？","risk":"要一起做出調整之前，你最想確認哪些現實條件？"},"choices":{"relation":["彼此對承諾與溝通的理解。","親密相處與個人空間的平衡。","照顧與付出的分擔方式。"]}},"other":{"first":"這段重要的人際關係，目前比較接近哪種狀態？","stages":["還在理解彼此的互動方式。","已經開始相處或調整合作方式。","存在一個需要說清楚的問題。"],"five":"回到你關心的人際互動，五張牌的哪個面向最值得探索？","follow":{"pace":"在這段人際互動中，你最希望調整什麼節奏？","resources":"為了讓互動更順暢，哪些條件或支持值得盤點？","relation":"在這段關係中，你目前最在意哪一種界線？","change":"如果相處方式需要調整，你想先從哪件事著手？","clarity":"關於這段互動，哪些地方還需要用事實來釐清？","rhythm":"怎樣的聯繫與距離，能更符合你的需求？","risk":"面對這段互動的下一步，你最希望確認什麼？"},"choices":{"relation":["各自對關係的理解是否相同。","彼此能接受的界線與空間。","雙方的付出與回應是否合宜。"]}}},"work":{"jobchange":{"first":"如果你正在考慮求職或轉職，目前走到哪個階段？","stages":["還在比較方向、職缺或必要條件。","已經開始投遞、面試或實際探索。","現有條件讓下一步的選擇卡住。"],"five":"面對求職或轉職選擇，這五張牌讓你最想先評估什麼？","follow":{"pace":"在職涯轉換的節奏上，你最想先確定什麼？","resources":"為下一個職涯選擇做準備，最需要盤點什麼？","relation":"求職或轉職過程中，你最在意哪種合作與溝通條件？","change":"面對轉職可能性，你目前最想釐清哪個方向？","clarity":"比較工作機會時，哪一類資訊最需要查證？","rhythm":"在求職準備與目前生活之間，你想怎樣安排進度？","risk":"做出轉職決定之前，你最想核對哪種成本或限制？"},"choices":{"change":["先了解其他職缺與工作條件。","盤點現職仍需完成的安排。","預留時間逐步準備與適應。"],"risk":["薪資、工時與合約等具體條件。","用人主管與團隊的實際合作方式。","自己的能力準備與可承受風險。"]}},"workplace":{"first":"在你關心的職場人際中，目前比較接近哪種情況？","stages":["還在觀察分工與互動方式。","正在合作、溝通或調整相處。","遇到職責、期待或溝通上的阻礙。"],"five":"從職場人際的角度看，這五張牌哪個面向最值得先梳理？","follow":{"pace":"面對同事合作或溝通，你希望先調整哪種節奏？","resources":"要讓團隊互動更順利，哪種支持最值得確認？","relation":"在職場合作中，你最想先釐清哪種界線？","change":"如果工作互動需要改善，你最想先改變什麼？","clarity":"關於職場的人際訊號，哪種資訊最需要核對？","rhythm":"在合作需求與自己的負荷之間，你希望怎麼安排？","risk":"在提出想法或調整分工前，你最希望確認什麼？"},"choices":{"relation":["職責分工與溝通內容是否明確。","工作界線與自主空間是否合理。","協助與成果如何互相回應。"],"clarity":["已確認的工作安排與溝通記錄。","自己的感受與想改善的部分。","其他可能的誤解或工作限制。"]}},"skills":{"first":"談到專業發展，你現在比較接近哪個階段？","stages":["正在選擇要投入的能力或領域。","已經持續學習、練習或累積作品。","遇到瓶頸，正在思考如何突破。"],"five":"關於專業能力的累積，哪條牌卡故事線最能幫你釐清方向？","follow":{"pace":"想讓專業能力穩定進步，你最需要哪種推進方式？","resources":"目前發展專業能力，哪種資源最值得補強？","relation":"在學習與專業合作上，你最想確認哪個互動條件？","change":"如果要調整專業方向，你會先考慮哪個面向？","clarity":"評估自己的能力進度時，最需要哪一類依據？","rhythm":"在專業練習與休息之間，你希望先調整什麼？","risk":"投入新技能或機會前，你最想確認哪種代價？"},"choices":{"rhythm":["安排恢復與消化的時間。","建立能持續的練習節奏。","選一個範圍小的實作驗證能力。"],"resources":["可投入的練習時間與精力。","課程、工具與回饋資料。","同儕、導師或合作支持。"]}},"venture":{"first":"關於創業構想或計畫，你目前比較接近哪個階段？","stages":["正在探索需求、產品或可行模式。","已經開始測試、籌備或小規模營運。","面臨資金、合作或執行上的阻礙。"],"five":"思考創業規劃時，五張牌中哪個面向最值得優先檢視？","follow":{"pace":"創業計畫要向前推進，你希望先怎麼掌握節奏？","resources":"對創業構想而言，最值得先盤點哪項資源？","relation":"在創業合作中，你最希望事先說清楚什麼？","change":"面對創業計畫的調整，你會先從哪個方向驗證？","clarity":"判斷創業構想是否可行，哪類證據還不足？","rhythm":"你希望如何平衡創業投入與其他生活責任？","risk":"投入更多資源前，哪一種創業風險需要先確認？"},"choices":{"risk":["成本、現金流及合約責任。","合夥分工與需求對象的回饋。","自己的時間負荷與風險承受度。"],"clarity":["實際需求與營運數字。","自己對創業的目標與期待。","替代方案與外部市場條件。"]}}},"money":{"budget":{"first":"談到日常收支管理，你目前走到哪個階段？","stages":["正在整理支出、收入與生活需求。","已經開始記帳、配置或調整預算。","某項收支壓力或習慣需要處理。"],"five":"以收支管理為方向，這五張牌最值得先釐清哪個部分？","follow":{"pace":"調整收支習慣時，你希望採取哪種步調？","resources":"整理個人收支時，哪項缺口最值得優先確認？","relation":"如果支出涉及他人，哪種分擔或界線值得先說清楚？","change":"為了改善收支安排，你更傾向從哪裡開始？","clarity":"在檢視收支時，哪一類資料還不夠清楚？","rhythm":"哪種日常習慣最能幫助你穩定管理預算？","risk":"做出預算調整前，你最想確認哪一項現實限制？"},"choices":{"resources":["必要生活費與時間負荷。","收入、固定支出和帳務資料。","可尋求的分擔或諮詢協助。"],"clarity":["確定的金額與帳務紀錄。","對消費的需求與感受。","可行的其他安排與替代方案。"]}},"income":{"first":"關於增加或調整收入，你目前比較接近哪個階段？","stages":["還在評估可能的收入來源。","正在嘗試或比較不同機會。","投入後遇到條件或回報上的問題。"],"five":"當你探索收入機會，哪種牌卡線索最值得深入？","follow":{"pace":"面對可能的收入機會，你希望用什麼方式推進？","resources":"評估收入途徑時，你最缺少哪項條件？","relation":"收入涉及合作或委託時，你最重視哪個安排？","change":"如果想拓展收入來源，你目前最想嘗試哪種方向？","clarity":"辨認收入機會是否值得投入，哪類資料最需核實？","rhythm":"在增加收入與生活負荷之間，你想怎麼取捨？","risk":"對於新的收入來源，你最需要確認哪種風險？"},"choices":{"risk":["投入成本、報酬條件及契約。","合作對象與責任歸屬。","自身時間與能力是否足以負擔。"],"resources":["可投入的時間及精力。","可查證的收益資料與必要工具。","專業諮詢或可靠的合作管道。"]}},"assets":{"first":"關於資產的長期安排，你目前處於哪個階段？","stages":["正在盤點資產、目標與風險承受度。","已經比較方案或實際進行配置。","現有安排需要重新檢視。"],"five":"把五張牌放在長期資產規劃上，你最想檢視哪個面向？","follow":{"pace":"進行長期資產規劃時，你想先確認哪種節奏？","resources":"在配置資產前，哪項財務條件需要先盤點？","relation":"若資產規劃涉及共同決定，你最重視什麼界線？","change":"當資產目標需要調整，你會優先評估什麼？","clarity":"比較資產配置選項時，哪類資訊尚需核實？","rhythm":"你希望資產規劃如何配合實際用錢時間？","risk":"談到資產安排，你最需要先確認哪種風險？"},"choices":{"risk":["資金流動性與可能損失。","共同決策及書面權責。","個人風險承受能力與期限。"],"clarity":["費用、條款與實際數據。","財務目標與自身可接受的波動。","不同方案的條件與替代選擇。"]}},"security":{"first":"談到財務安全與生活保障，你目前較接近哪個階段？","stages":["正在確認自己的保障需求。","已開始建立預備金或調整保障安排。","某項財務不確定性讓你需要重新規劃。"],"five":"想到財務安全，這五張牌中哪個面向最值得優先評估？","follow":{"pace":"要逐步建立財務安全感，你想先調整什麼？","resources":"談到生活保障，你最需要盤點哪種現有資源？","relation":"若財務責任涉及家人或合作對象，哪種界線值得確認？","change":"當保障需求出現變化，你會優先處理哪件事？","clarity":"評估目前財務安全程度時，哪些資訊需要再確認？","rhythm":"在日常生活與長期保障之間，你想怎麼穩定累積？","risk":"為了降低財務不確定性，你最想先核對什麼風險？"},"choices":{"resources":["每月必要支出與緊急需求。","存款、保險或契約等實際資料。","可求助的專業與生活支持。"],"risk":["突發支出與現金流限制。","共同責任與保障約定。","自己目前的緩衝能力和優先序。"]}}},"self":{"emotion":{"first":"對於想理解的情緒或感受，你目前走到哪個階段？","stages":["正在辨認自己感受到什麼。","已嘗試表達或使用調節方法。","有些感受反覆出現，還不知道如何照顧。"],"five":"從情緒覺察出發，五張牌哪個面向最有助你理解自己？","follow":{"pace":"當情緒與行動節奏不同步，你想先怎樣照顧自己？","resources":"面對情緒負荷，你最需要確認哪種支持？","relation":"在表達感受或與人互動時，你最在意哪個界線？","change":"如果希望調整情緒應對方式，你想先嘗試什麼？","clarity":"想更了解自己的感受，你最需要釐清哪個層次？","rhythm":"什麼樣的生活節奏有助你容納與整理情緒？","risk":"嘗試新方法之前，你最想照顧哪個限制？"},"choices":{"clarity":["確實發生的事件與當下反應。","自己尚未說清楚的感受與需求。","可能存在的不同解釋。"],"rhythm":["減少刺激、給自己休息空間。","維持穩定的照顧習慣。","在可負擔時嘗試新的表達方式。"]}},"values":{"first":"當你思考自我價值與認同，現在比較接近哪種狀態？","stages":["正在辨認自己真正重視什麼。","已嘗試依照價值觀做出選擇。","外界期待與自己的想法產生拉扯。"],"five":"面對自我價值的課題，哪條牌卡主線最值得深入？","follow":{"pace":"當自我期待與外界節奏不同時，你希望怎樣前進？","resources":"想更忠於自己的價值，你最需要哪種支持？","relation":"在重視他人與保有自我之間，你最想確認什麼？","change":"若要更靠近真正重視的生活，你想先調整哪個部分？","clarity":"思考「我重視什麼」時，哪一層需要先分清楚？","rhythm":"你希望怎樣在日常中保留自己的選擇空間？","risk":"依價值觀做選擇之前，你最在意哪個代價？"},"choices":{"clarity":["實際經歷與他人給予的評價。","自己真正重視的價值與需求。","也值得考慮的其他人生觀點。"],"relation":["他人的話與自己的真實想法。","不願退讓的自主界線。","希望保留的互惠與支持。"]}},"direction":{"first":"談到人生方向，你目前比較接近哪個階段？","stages":["正在想像與比較不同可能性。","已開始朝一個方向做些嘗試。","遇到選擇困難或現實阻礙。"],"five":"從人生方向看這五張牌，你最想先理解哪一種力量？","follow":{"pace":"面對人生選擇，你現在最需要怎樣的行動節奏？","resources":"探索人生方向時，你最需要盤點哪種條件？","relation":"若選擇涉及他人的期待，你希望怎麼保有自主？","change":"走向不同人生方向時，你最想先確認哪一項？","clarity":"比較不同人生可能性時，哪個部分還不清楚？","rhythm":"你希望如何讓人生規劃與眼前生活並行？","risk":"面對新的方向，你最希望先評估哪種代價？"},"choices":{"change":["先探索另一種生活可能性。","整理目前仍想保留的事物。","給自己逐步轉換的時間。"],"clarity":["可行的現實條件。","自己真正嚮往的生活。","其他未考慮的選擇。"]}},"balance":{"first":"關於生活平衡，你目前比較接近哪種狀態？","stages":["正在觀察時間與精力都花在哪裡。","已開始調整作息或生活安排。","某種責任或壓力讓節奏難以維持。"],"five":"想找回生活平衡時，五張牌哪個面向最值得先整理？","follow":{"pace":"當事情同時湧來，你希望怎樣安排先後順序？","resources":"讓生活更有餘裕之前，你最想盤點哪種資源？","relation":"在照顧別人的同時，你希望為自己保留什麼？","change":"如果要調整生活安排，你比較想先改變什麼？","clarity":"判斷自己是否失去平衡時，哪些訊號需要確認？","rhythm":"你現在最想恢復哪種生活節奏？","risk":"重新分配時間與責任之前，你最想確認什麼限制？"},"choices":{"rhythm":["先留出真正休息的時間。","建立可維持的日常安排。","減少一件負擔並開始小幅調整。"],"resources":["時間、睡眠與精力。","具體排程與可用工具。","能共同分擔責任的支持。"]}}}};
+function guideProfile(topic=state.topic){const f=focusFor(topic);return f?(focusGuideProfiles[topic]||{})[f.id]||null:null}
+function focusPrompt(question,topic){
+ const focus=focusFor(topic),profile=guideProfile(topic);
+ if(!focus||!profile)return question;
+ let q={...question,focusId:focus.id,options:question.options.map(o=>({...o}))};
+ const kind=q.kind?.startsWith('five-')&&q.kind!=='five-focus'&&q.kind!=='five-secondary'
+   ? (q.sourceKind || fiveLenses.find(l=>`five-${l.key}`===q.kind)?.guide)
+   : (q.sourceKind||q.kind);
+ if(q.kind==='phase'){
+   q.text=profile.first;
+   q.options=q.options.map((o,i)=>({...o,label:profile.stages[i],focus:["目前仍在理解與準備","正在進行或嘗試","有待釐清的阻礙"][i]}));
+ }else if(q.kind==='five-focus'){
+   q.text=profile.five;
+ }else if(q.kind==='five-secondary'){
+   // A voluntary third question should not presume events or another person's intentions.
+   q.text=`除了剛才的主線，關於「${focus.label}」，你還希望兼顧哪個面向？`;
+ }else if(kind && profile.follow[kind]){
+   q.text=profile.follow[kind];
+   const labels=profile.choices?.[kind];
+   if(labels)q.options=q.options.map((o,i)=>({...o,label:labels[i]||o.label,focus:labels[i]?labels[i].replace(/[。！？?！]$/g,''):o.focus}));
+ }
+ return q;
+}
+function focusContext(cardsInReading,topic){
+ const focus=focusFor(topic);
+ if(!focus)return '';
+ const distinct=cardsInReading.filter(Boolean);
+ const major=distinct.length>=2?`「${distinct[0].focus}」與「${distinct[1].focus}」`:`「${distinct[0]?.focus||'這張牌'}」`;
+ return `在你選擇的「${focus.label}」方向中，可以將${major}放進${focus.context}的脈絡觀察；卡牌只提供思考角度，不代表相關事件或他人心意已經確定。`;
+}
+function focusPickerHtml(){
+ const list=focusOptions[state.topic];
+ if(!list)return '';
+ return `<div class="focus-section" role="group" aria-label="探索方向，可選填"><div class="focus-section-title"><span>✧ 探索方向</span><small>選填・協助聚焦</small></div><div class="focus-grid">${[{id:'',label:'不指定・自由探索'},...list].map(v=>`<button type="button" class="focus-chip ${state.focus===v.id?'active':''}" data-action="focus" data-focus="${v.id}" aria-pressed="${state.focus===v.id}">${escapeHtml(v.label)}</button>`).join('')}</div></div>`;
+}
+
+const modes={1:['直覺定錨',['此刻的提醒']],3:['動態演變',['背景與現況','關鍵影響','可探索的方向']],5:['深度十字',['問題核心','可運用的助力','值得檢視的風險','可能的背景因素','下一步方向']]};
+const state={stage:'setup',mode:3,topic:'general',focus:'',question:'',deck:[],selected:[],selectedSlots:[],result:[],answers:[null,null,null],guideIndex:0,guideQuestions:[],reading:null,variant:0,tableCards:[],reserveCards:[],scatterLayout:[],journalIndex:0,journalUnlocked:false};
+const getCard=id=>cards[+id-1];
+const num=id=>String(id).padStart(2,'0');
+const topicName=topic=>(topics.find(x=>x[0]===topic)||topics[0])[1];
+function escapeHtml(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function randomInt(n){if(window.crypto&&crypto.getRandomValues){const a=new Uint32Array(1);const max=Math.floor(4294967296/n)*n;let v;do{crypto.getRandomValues(a);v=a[0]}while(v>=max);return v%n}return Math.floor(Math.random()*n)}
+function shuffle(items){const a=items.slice();for(let i=a.length-1;i>0;i--){const j=randomInt(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+function hasTag(c,t){return c.tags.includes(t)}
+function isAny(c,...tags){return tags.some(t=>hasTag(c,t))}
+function pairKey(a,b){return [a.id,b.id].sort((x,y)=>x-y).join('-')}
+function relation(a,b){
+ const matches=(p,q)=>(hasTag(a,p)&&hasTag(b,q))||(hasTag(a,q)&&hasTag(b,p));
+ let type='complement',topic='不同視角',score=2;
+ if(matches('scarcity','support')||matches('scarcity','opportunity')||matches('scarcity','resources')){type='transition';topic='資源缺口與補充';score=10}
+ else if(matches('ending','opportunity')||matches('ending','explore')||matches('change','ending')){type='transition';topic='告別與新方向';score=9}
+ else if(matches('prepare','action')||matches('prepare','opportunity')){type='transition';topic='準備與推進';score=9}
+ else if(matches('confusion','clarity')||matches('ideal','clarity')||matches('caution','clarity')){type='adjustment';topic='想像與現實的核對';score=9}
+ else if(matches('pressure','rest')||matches('disrupt','order')){type='adjustment';topic='負荷與休整';score=9}
+ else if(matches('connect','boundary')||matches('support','boundary')){type='balance';topic='靠近與界線';score=9}
+ else if(matches('risk','opportunity')||matches('risk','action')){type='balance';topic='機會與風險';score=9}
+ else if(matches('conflict','support')||matches('conflict','connect')){type='balance';topic='競爭與協調';score=9}
+ else if(matches('decision','time')||matches('decision','caution')){type='balance';topic='選擇與時機';score=9}
+ else if((a.pace>=1&&b.pace<=-2)||(b.pace>=1&&a.pace<=-2)){type='contrast';topic='行動與暫停';score=10}
+ else if(matches('change','security')){type='balance';topic='改變與安定';score=8}
+ else if(a.tags.some(t=>b.tags.includes(t))){type='support';topic='相互強化的訊息';score=6}
+ else if(b.pace>a.pace+1){type='transition';topic='節奏漸進';score=5}
+ else if(b.pace<a.pace-1){type='adjustment';topic='放緩與調整';score=5}
+ return {a,b,type,topic,score,key:pairKey(a,b)};
+}
+function analyzeThree(picks,topic){
+ const edges=[relation(picks[0],picks[1]),relation(picks[1],picks[2]),relation(picks[0],picks[2])];
+ const bonuses=[1.18,1.20,.82];
+ const topicWords={love:['connect','boundary','support','security'],work:['action','prepare','resources','decision'],money:['resources','scarcity','risk','opportunity'],self:['reflect','emotion','care','change'],general:[]}[topic]||[];
+ edges.forEach((r,i)=>{r.weight=r.score*bonuses[i]+(r.a.tags.concat(r.b.tags).some(t=>topicWords.includes(t))?.7:0)});
+ edges.sort((x,y)=>y.weight-x.weight);
+ return {primary:edges[0],secondary:edges[1],all:edges};
+}
+const firstQuestions={
+ general:{text:'關於心中這件事，你目前走到哪個階段？',options:[['我還在探索或準備。','準備與探索','phase-explore'],['我已經開始採取行動。','已在行動','phase-active'],['事情正在進行，但遇到一些阻礙。','遇到卡點','phase-blocked']]},
+ love:{text:'這段你在意的互動，目前比較接近哪種狀態？',options:[['還在認識、理解或探索。','了解與探索','phase-explore'],['已有互動，正在嘗試溝通或調整。','正在互動','phase-active'],['有些相處問題需要釐清。','需要釐清','phase-blocked']]},
+ work:{text:'你關心的職涯方向或發展課題，目前走到哪個階段？',options:[['還在思考或蒐集資訊。','思考與準備','phase-explore'],['正在執行、嘗試或推進。','正在執行','phase-active'],['已經投入，但遇到需要處理的阻礙。','遇到阻礙','phase-blocked']]},
+ money:{text:'對於財富、資源或理財規劃，你目前比較接近哪個階段？',options:[['整理現況與自己的需求。','盤點現況','phase-explore'],['比較選項、條件與代價。','比較方案','phase-active'],['已經採取行動，正在檢查成果或問題。','檢視結果','phase-blocked']]},
+ self:{text:'在這次自我探索的課題中，你目前比較接近哪個階段？',options:[['正在覺察與整理想法。','內在覺察','phase-explore'],['開始嘗試新的方法。','嘗試改變','phase-active'],['想持續前進，但目前遇到卡點。','探索卡點','phase-blocked']]}
+};
+const followQuestions={
+ pace:{text:'面對「前進」與「暫停」這兩種節奏，你此刻最需要什麼？',options:[['確認更多資訊與條件。','核對資訊','information','把未知條件查清楚，而不是靠衝動決定。'],['先採取一個小而可控的行動。','試著小步行動','smallstep','把勇氣化成成本可控的嘗試。'],['先處理目前的現實限制。','調整限制','constraint','確認有哪些限制必須先處理、哪些可以逐步改善。']]},
+ resources:{text:'如果要補足眼前的缺口，哪一項最值得先盤點？',options:[['時間、精力與休息。','時間與精力','energy','先確認自己的負荷與恢復空間。'],['實際資訊、工具或金錢資源。','實際條件','resource','透過盤點資訊與資源降低不確定性。'],['可信任的協助或合作。','人際支持','support','試著分辨可尋求的互惠支持。']]},
+ relation:{text:'在你關心的互動中，現在最希望先釐清哪一點？',options:[['彼此真正說過與做過的事。','核對互動','communication','從可觀察的互動與直接溝通著手。'],['各自需要多少空間與界線。','尊重界線','boundary','同時照顧靠近與保留空間的需求。'],['付出與回應是否合宜。','互惠程度','reciprocity','先觀察雙方實際付出及期待，避免代替他人作答。']]},
+ change:{text:'面對這段可能的轉變，哪個描述最貼近你的想法？',options:[['想先探索新的選項。','嘗試探索','explore','先從資訊蒐集與小範圍探索開始。'],['希望整理舊事再往前。','收束舊事','closure','先處理未完成的安排，讓新階段有空間。'],['需要更多時間適應變化。','逐步適應','adapt','將改變拆成可負擔的步驟。']]},
+ clarity:{text:'這次你最想確認的是哪一類資訊？',options:[['眼前可查證的事實與條件。','事實條件','facts','先把看得到、查得到的內容列清楚。'],['自己真正的感受與期待。','自身感受','feelings','分清楚自己的感受、期望與外界已知事實。'],['有哪些替代的理解與選項。','不同視角','options','嘗試列出其他解釋，而非急著相信單一答案。']]},
+ rhythm:{text:'眼前最適合你調整的節奏是什麼？',options:[['放慢腳步、恢復精力。','放慢修整','rest','先照顧負荷，再決定如何推進。'],['維持規律，慢慢累積。','穩定累積','steady','用持續可行的步驟取代過度催促。'],['確認方向後主動嘗試。','逐步行動','smallstep','在風險可控的前提下試探下一步。']]},
+ risk:{text:'在做下一步決定前，哪種風險最需要你親自確認？',options:[['實際成本、責任或限制。','客觀條件','facts','先比較可核實的成本與條件。'],['溝通與彼此的期待。','溝通期待','communication','用實際對話取代猜測他人的動機。'],['自己的準備程度與界線。','自我準備','prepare','把準備與照顧自己放在重要位置。']]}
+};
+function createQuestion(def){return {text:def.text,options:def.options.map((v,i)=>({id:String(i),label:v[0],focus:v[1],tag:v[2],detail:v[3]||''}))}}
+function chooseFollowup(analysis,picks,firstAnswer){
+ const ts=picks.flatMap(c=>c.tags);const rel=analysis.primary;
+ let type='rhythm';
+ if(rel.topic==='資源缺口與補充'||ts.includes('scarcity')||ts.filter(t=>t==='resources').length>=2)type='resources';
+ else if(rel.topic==='靠近與界線'||(ts.includes('connect')&&ts.includes('boundary')))type='relation';
+ else if(rel.topic==='行動與暫停'||rel.type==='contrast')type='pace';
+ else if(rel.topic==='告別與新方向'||ts.includes('ending')&&ts.includes('change'))type='change';
+ else if(rel.topic==='想像與現實的核對'||ts.includes('reflect')||ts.includes('clarity')&&ts.includes('ideal'))type='clarity';
+ else if(rel.topic==='機會與風險'||rel.topic==='競爭與協調'||ts.includes('risk')&&ts.includes('decision'))type='risk';
+ else if(rel.topic==='準備與推進'||rel.topic==='負荷與休整')type='rhythm';
+ else if(ts.includes('confusion')||ts.includes('observe'))type='clarity';
+ else if(ts.includes('connect')||ts.includes('support'))type='relation';
+ else if(ts.includes('change')||ts.includes('opportunity'))type='change';
+ // The follow-up always asks about a distinct dimension (need/condition) rather than repeating phase.
+ return {...createQuestion(followQuestions[type]),kind:type};
+}
+/* V4.20 - Situational guidance: card-derived semantic lanes, concrete choices,
+   contextual follow-up; symbols, draw order, and answer tags stay unchanged. */
+const guideSceneChoices = {
+ general: {
+  pace:'我想知道該先準備，還是可以開始做了。',
+  resources:'我想確認目前缺少哪種實際支持。',
+  relation:'我在意的是合作、相處或各自的界線。',
+  change:'我正在比較留在原處和嘗試改變。',
+  clarity:'我想分清自己想像的事與確實知道的事。',
+  risk:'我想先看清這個選擇的代價與風險。',
+  stability:'我希望先讓生活與心情穩定下來。',
+  opportunity:'我想看看有沒有值得小步嘗試的新方向。'
+ },
+ love: {
+  pace:'我在意關係要不要再往前一步。',
+  resources:'我想看看彼此有沒有足夠時間與心力。',
+  relation:'我想弄清怎樣相處才不會讓誰勉強。',
+  change:'我在思考要繼續維持，還是調整相處方式。',
+  clarity:'我分不清哪些是實際互動，哪些是我的期待。',
+  risk:'我想先確定哪些界線需要被尊重。',
+  stability:'我希望找到讓自己更安心的相處方式。',
+  opportunity:'我想探索一種新的互動可能。'
+ },
+ work: {
+  pace:'我想確認現在該採取行動，還是先準備。',
+  resources:'我想盤點工作需要的時間、能力或支援。',
+  relation:'我想把職責、合作與個人界線弄清楚。',
+  change:'我正在比較現況和另一種職涯選擇。',
+  clarity:'我希望用實際資訊看清工作上的問題。',
+  risk:'我想衡量新的工作決定可能付出的成本。',
+  stability:'我需要找到能長久維持的工作節奏。',
+  opportunity:'我想評估一個新的職涯機會是否值得試。'
+ },
+ money: {
+  pace:'我想知道財務安排應該先準備還是調整。',
+  resources:'我想盤點收入、支出或手邊可用的資源。',
+  relation:'我想釐清共同用錢或合作分攤的責任。',
+  change:'我正在比較維持現況和改變財務做法。',
+  clarity:'我想把期待的收益和實際數字分清楚。',
+  risk:'我想確認投入、借貸或承諾的風險。',
+  stability:'我更在意生活保障與現金流的穩定。',
+  opportunity:'我想評估新的收入或資源機會。'
+ },
+ self: {
+  pace:'我想知道現在該前進，還是先照顧好自己。',
+  resources:'我想看看自己有哪些需要補足的支持。',
+  relation:'我在意與人相處時，如何保有自己的界線。',
+  change:'我正在考慮調整一直以來的生活方式。',
+  clarity:'我想把自己的感受和對事情的推測分開。',
+  risk:'我想了解嘗試改變時最擔心的代價。',
+  stability:'我希望找回安心、休息與穩定感。',
+  opportunity:'我想給自己機會，試試新的生活可能。'
+ }
+};
+const guideSceneOverrides={
+ love: {
+  family:{relation:'我想釐清家人間的責任和個人空間。',resources:'我想看看家庭照顧與自己的負荷怎麼分配。',change:'我希望家庭相處能有不同做法。'},
+  friends:{relation:'我想知道友情裡怎樣靠近才自在。',clarity:'我想分清朋友的實際回應與自己的猜測。',change:'我想了解這段友情能否換種相處方式。'},
+  ambiguous:{relation:'我想拿捏靠近的距離，不急著替關係命名。',clarity:'我想分清曖昧中的互動和自己的期待。',pace:'我想知道要不要主動跨出一步。'},
+  partner:{relation:'我想協調陪伴、分工和各自的空間。',resources:'我想知道雙方能分擔多少時間與責任。',change:'我想和伴侶試著調整相處方式。'}
+ },
+ work:{
+  jobchange:{change:'我想比較留在現職與探索新工作。',risk:'我想先核對換工作的成本與條件。'},
+  workplace:{relation:'我想釐清同事合作、分工與溝通界線。',clarity:'我想分清職場事實與可能的誤會。'},
+  skills:{pace:'我想確認何時能把練習變成實際成果。',resources:'我想知道技能成長還需要什麼資源。'},
+  venture:{risk:'我想確認創業投入與合夥責任的風險。',opportunity:'我想先小規模測試創業構想。'}
+ },
+ money:{
+  budget:{resources:'我想整理固定支出與真正可調整的錢。',stability:'我想讓每個月的收支更安心。'},
+  income:{opportunity:'我想比較新收入來源是否值得投入。',risk:'我想查清額外收入的成本與條件。'},
+  assets:{risk:'我想看懂資產配置的風險與期限。',clarity:'我想把期待報酬和真實條款分開。'},
+  security:{stability:'我想知道保障與預備金該先顧哪個。',resources:'我想盤點遇到突發支出時可用的資源。'}
+ },
+ self:{
+  emotion:{clarity:'我想分清實際事件與自己的情緒反應。',stability:'我想找到能讓心情恢復的方式。'},
+  values:{relation:'我想分清自己的選擇與別人的期待。',change:'我想把重視的價值放進日常生活。'},
+  direction:{change:'我想比較目前的道路與另一種人生方向。',opportunity:'我想小步探索自己嚮往的生活。'},
+  balance:{resources:'我想確認時間與精力都花在哪裡。',stability:'我想保留能真正休息的生活空間。'}
+ }
+};
+function situationalSceneLabel(lens,topic=state.topic){
+ const f=focusFor(topic);const scoped=guideSceneOverrides[topic]?.[f?.id]?.[lens.key];
+ return scoped||guideSceneChoices[topic]?.[lens.key]||guideSceneChoices.general[lens.key]||lens.brief;
+}
+const guideFirstPrompts={
+ general:'這次你想先釐清什麼？',
+ love:'關於這份感情，你目前更想了解哪一件事？',
+ work:'面對這次職涯課題，你現在最在意哪一點？',
+ money:'這次談到財富，你最想先弄清楚什麼？',
+ self:'關於自己的狀態，你想從哪裡開始了解？'
+};
+const guideFirstFocusPrompts={
+ family:'在家人的相處裡，你現在最在意哪件事？',friends:'想到這段友情，你最想釐清什麼？',
+ ambiguous:'面對尚未確定的互動，你最想先知道什麼？',partner:'和伴侶相處時，你想優先了解哪件事？',
+ jobchange:'面對求職或轉職，你最想先確認哪一點？',workplace:'在職場互動中，你最想先處理哪個部分？',
+ skills:'談到專業成長，你想先弄清楚什麼？',venture:'對創業計畫，你最想優先確認什麼？',
+ budget:'想到日常收支，你最想先整理哪件事？',income:'對收入機會，你最想先了解哪個部分？',
+ assets:'對長期資產規劃，你最想先確認哪項條件？',security:'對財務保障，你最在意的是哪一點？',
+ emotion:'想照顧自己的情緒，你最想先理解哪個部分？',values:'在自我價值這件事上，你最想釐清什麼？',
+ direction:'談到人生方向，你最想探索哪個問題？',balance:'如果想讓生活平衡一點，你會先看哪件事？'
+};
+function fiveSituationalFirstQuestion(analysis,topic){
+ const lenses=analysis.lenses.slice(0,3),focus=focusFor(topic);
+ return {kind:'five-focus',text:guideFirstFocusPrompts[focus?.id]||guideFirstPrompts[topic]||guideFirstPrompts.general,
+  options:lenses.map((lens,i)=>({id:String(i),tag:lens.key,label:situationalSceneLabel(lens,topic),focus:lens.title,detail:lens.brief}))};
+}
+const threeSituationalStates={
+ pace:{text:'如果先看行動的時機，你比較接近哪種狀態？',labels:['還在比較方向，不確定要不要動。','已經採取一些行動，想確認是否繼續。','想前進，但有個現實顧慮卡著。']},
+ resources:{text:'想到目前可用的資源，你比較接近哪種情況？',labels:['還不清楚真正需要補足什麼。','已經開始調整分配，想看看是否有效。','知道哪裡不足，但現在不容易補上。']},
+ relation:{text:'談到互動、合作或界線，你現在在哪個階段？',labels:['還在觀察彼此的相處或分工。','已經嘗試溝通，希望找出更適合的做法。','有件互動或責任上的事一直說不清楚。']},
+ change:{text:'面對可能的轉變，你目前比較接近哪種狀態？',labels:['還在比較不同的路。','已開始嘗試新做法，想看看後續。','舊安排尚未處理好，或轉換遇到限制。']},
+ clarity:{text:'這件事還不夠明朗時，你目前比較接近哪種狀態？',labels:['還在蒐集資訊，也整理自己的想法。','已經查過或談過，想核對理解是否正確。','資訊互相矛盾，或有件事始終不清楚。']},
+ rhythm:{text:'說到自己的節奏，你目前比較接近哪一種？',labels:['還在找適合的起步方式。','已建立一些習慣，想知道能否持續。','安排太滿或進度卡住，想重新調整。']},
+ risk:{text:'準備評估條件與代價時，你現在比較接近哪種情況？',labels:['尚未把可能的成本或限制查清楚。','已經開始嘗試，需要確認風險是否可控。','有個風險或現實限制讓自己猶豫。']}
+};
+/* Focused first-stage questions keep the card relationship, but avoid assuming that
+   money is romance or that a friendship is necessarily a couple relationship. */
+const threeTopicQuestions = {
+ love: {
+  pace:'想到這段感情的進展，你現在比較接近哪種情況？',
+  resources:'在這段關係裡，時間與心力目前大概是什麼狀態？',
+  relation:'對這段互動的距離和界線，你目前在哪一步？',
+  change:'如果相處方式可能改變，你現在在哪個階段？',
+  clarity:'這段關係還有不確定的地方，你目前怎麼看待？',
+  rhythm:'關於相處節奏，你現在比較接近哪種情況？',
+  risk:'面對感情裡的顧慮，你目前走到哪一步？'
+ },
+ work: {
+  pace:'關於目前的工作決定，你正在準備還是行動？',
+  resources:'想到工作需要的時間、能力或支援，你目前是哪種情況？',
+  relation:'在合作或分工上，你現在比較接近哪種情況？',
+  change:'關於職涯方向的調整，你目前在哪個階段？',
+  clarity:'對工作資訊與自己的判斷，你現在比較接近哪種狀態？',
+  rhythm:'目前工作進度與生活節奏，哪種描述比較接近你？',
+  risk:'想到職涯選擇的代價，你目前做了哪些確認？'
+ },
+ money: {
+  pace:'在財務安排上，你現在比較接近準備還是行動？',
+  resources:'對可用的錢、時間與資源，你目前掌握多少？',
+  relation:'如果財務牽涉其他人，你目前如何看待分攤與責任？',
+  change:'如果想改變現有財務安排，你目前到哪一步？',
+  clarity:'在金錢或理財資訊上，哪種狀態最接近你？',
+  rhythm:'對日常收支或長期安排，你目前在哪個階段？',
+  risk:'在承擔財務風險之前，你目前確認到哪裡？'
+ },
+ self: {
+  pace:'想做出改變時，你現在比較接近哪種狀態？',
+  resources:'想到自己的時間、精力與支持，你目前是哪種情況？',
+  relation:'在相處與個人界線之間，你目前比較接近哪一種？',
+  change:'對生活方式或自我認識的改變，你現在在哪一步？',
+  clarity:'想理解自己的感受與判斷，你現在是哪種狀態？',
+  rhythm:'如果想調整生活節奏，你現在走到哪一步？',
+  risk:'面對改變可能帶來的不安，你目前怎麼看待？'
+ }
+};
+const threeTopicStageLabels = {
+ love: {
+  pace:['還在觀察，不確定是否想更進一步。','已經有互動，想確認要不要調整方式。','有些期待或顧慮讓我暫時難以行動。'],
+  relation:['還在理解彼此能接受的距離。','已嘗試表達自己的需要。','有些界線或期待還沒說清楚。'],
+  clarity:['還在觀察實際互動，不想急著下結論。','已經談過或確認過一些事情。','有些訊號彼此矛盾，想再釐清。']
+ },
+ work: {
+  pace:['還在比較工作選項與條件。','已開始投遞、討論或執行。','有個成本或責任讓我暫時難決定。'],
+  relation:['還在觀察分工與溝通方式。','已開始協調合作安排。','職責或期待有不清楚的地方。'],
+  change:['正在比較現況和其他職涯方向。','已經開始準備或調整工作方式。','現實限制讓轉換還難以推進。']
+ },
+ money: {
+  pace:['還在比較財務方案和必要條件。','已開始調整收支或執行規劃。','擔心成本或風險，還不能輕易決定。'],
+  resources:['還沒有盤點清楚收入與開銷。','已經整理資源或開始調整。','知道哪裡不足，但短期還難補上。'],
+  relation:['還在釐清共同用錢的約定。','已開始協調分攤或合作安排。','責任、資金歸屬或界線不夠明確。'],
+  change:['還在比較不同的財務做法。','已開始調整預算或配置。','舊有負擔或現實限制還沒解決。'],
+  clarity:['還在蒐集金額、費用和條款。','已拿到資料，想進一步核對。','有些資訊不一致，無法安心判斷。'],
+  risk:['還在比較成本與可能損失。','已開始試行，想確認負擔能否承受。','有個風險或約定讓自己猶豫。']
+ },
+ self: {
+  clarity:['還在觀察自己的情緒和想法。','已試著記錄或表達自己的感受。','目前的感受和事實有些難分清。'],
+  rhythm:['還在摸索適合的生活安排。','已開始調整作息或習慣。','負擔太多，想先找回喘息空間。'],
+  relation:['還在理解自己和別人的相處方式。','已練習表達界線與需求。','有個期待讓自己感到不自在。']
+ }
+};
+
+function threeSituationalFirstQuestion(picks,topic){
+ const analysis=analyzeThree(picks,topic),type=chooseFollowup(analysis,picks,null).kind;
+ const scene=threeSituationalStates[type]||threeSituationalStates.rhythm;
+ // The choices describe possible situations, never assert that the cards prove one.
+ const prompt=threeTopicQuestions[topic]?.[type]||scene.text;
+ const labels=threeTopicStageLabels[topic]?.[type]||scene.labels;
+ return {kind:'phase',sceneKind:type,text:prompt,
+  options:labels.map((label,i)=>({id:String(i),label,focus:label.replace(/[。！？]$/,''),tag:['phase-explore','phase-active','phase-blocked'][i],detail:''}))};
+}
+const guideTopicFollowChoices={
+ general:{
+  pace:['我想查清楚現在能不能開始。','我想先試一件小事看看。','我希望先處理讓自己無法前進的限制。'],
+  resources:['先看看時間與精力夠不夠。','先確認需要的資訊、工具或預算。','先找出願意幫忙的人或管道。'],
+  relation:['先弄清楚彼此實際說過的話。','先講好各自能接受的界線。','先確認付出是否讓自己自在。'],
+  change:['先了解另一個選項。','把還沒結束的事情收好。','給自己一些適應新安排的時間。'],
+  clarity:['先整理可以核實的事實。','先分清自己的感受與期待。','再找幾種合理的解釋比較。'],
+  rhythm:['先休息、減少負擔。','保留一個能穩定持續的習慣。','確認方向後做小幅嘗試。'],
+  risk:['先比較成本、責任與限制。','先把需要溝通的事情問清楚。','先盤點自己的準備與底線。']
+ },
+ love:{
+  pace:['想確認是否有足夠互動可以再靠近。','想從一次溫和的表達開始。','想先保護好自己能接受的節奏。'],
+  resources:['想調整彼此能投入的時間和精力。','想了解有哪些實際需求沒說清楚。','希望找到可信任的人談談自己的感受。'],
+  relation:['想釐清真正說過的期待與承諾。','想保留相處之外的個人空間。','想看看雙方的關心是否有來有往。'],
+  change:['想試一種新的相處方式。','想先處理累積已久的問題。','想給彼此時間適應變化。'],
+  clarity:['想核對實際互動，不只憑猜測。','想先了解自己究竟在期待什麼。','想接受同一個互動可能有不同解釋。'],
+  rhythm:['想先把自己的情緒照顧好。','想維持雙方都舒服的互動頻率。','想挑一件可以清楚表達的小事。'],
+  risk:['想弄清楚自己不能接受的界線。','想先與對方確認彼此的想法。','想評估自己是否準備好改變相處方式。']
+ },
+ work:{
+  pace:['想核對工作條件和開始的時機。','想先做一個小型實作或試探。','想先處理目前最影響進度的限制。'],
+  resources:['想重新分配工時與精力。','想補齊資料、工具或技能。','想知道能向誰要求明確支援。'],
+  relation:['想確認分工與溝通紀錄。','想把責任和自主權分清楚。','想了解合作是否公平、可持續。'],
+  change:['想先探索另一個職涯選擇。','想完成現有工作再轉換。','想預留時間讓能力與生活跟上。'],
+  clarity:['想取得可確認的工作資訊。','想分辨個人感受與客觀表現。','想比較不同的解釋或方案。'],
+  rhythm:['想安排真正能恢復的休息。','想建立穩定的工作節奏。','想先做一件有成果的小任務。'],
+  risk:['想核對薪資、工時與責任。','想把合作期待與權責談清楚。','想看自己是否承擔得起轉變。']
+ },
+ money:{
+  pace:['想先核對能否負擔再行動。','想用少量、可控制的方式嘗試。','想先處理現有債務或其他限制。'],
+  resources:['先確認生活費與可用時間。','先整理收支、帳務或工具資料。','先了解可取得的專業與生活支持。'],
+  relation:['想核對共同支出的約定。','想分清共同資源和個人財務。','想確認分攤與回報是否公平。'],
+  change:['想了解另一種收支或配置方案。','想先把舊帳務與責任整理好。','想分階段調整，不一次改太多。'],
+  clarity:['想核對真實金額、費用和條款。','想分清需要與一時想花錢的感覺。','想拿不同方案的實際條件比較。'],
+  rhythm:['想先降低現在的財務壓力。','想建立能持續的記帳或儲蓄安排。','想在條件清楚後小幅調整。'],
+  risk:['想知道最差情況會損失多少。','想核對合約、共同責任與承諾。','想先確認自己的風險承受範圍。']
+ },
+ self:{
+  pace:['想弄清楚是否準備好改變。','想先試一件不勉強自己的事。','想先照顧目前最影響自己的限制。'],
+  resources:['想先補回時間、睡眠或精力。','想整理自己可以運用的方法與工具。','想找到能安心求助的支持。'],
+  relation:['想分清外界說過的話與我的想法。','想練習表達自己的界線。','想確認哪種互動真的讓自己舒服。'],
+  change:['想先感受不同生活的可能。','想把不適合的舊習慣慢慢收尾。','想給自己時間適應新的自己。'],
+  clarity:['想先釐清已發生的事實。','想理解自己真正的感受與需要。','想試著換個角度理解這件事。'],
+  rhythm:['想先讓自己有足夠休息。','想建立能維持的生活習慣。','想做一件小事，看看感受如何。'],
+  risk:['想先弄清改變可能付出的代價。','想確認哪些期待需要好好說明。','想尊重自己的能力與界線。']
+ }
+};
+const guideStageFollowPrompts={
+ pace:{'phase-explore':'還在評估時，哪件事能幫你判斷何時開始？','phase-active':'既然已經在嘗試，下一步你想先確認什麼？','phase-blocked':'如果前進遇到限制，你想先鬆動哪個部分？'},
+ resources:{'phase-explore':'還沒盤點清楚時，哪種資源最值得先查？','phase-active':'你已開始調整，想優先核對哪個部分是否跟得上？','phase-blocked':'若資源確實受到限制，你想先處理哪個缺口？'},
+ relation:{'phase-explore':'還在理解互動時，你最想先看清哪一點？','phase-active':'已經試著溝通之後，你希望再調整哪件事？','phase-blocked':'如果彼此的期待卡住了，你想先釐清哪一點？'},
+ change:{'phase-explore':'還在比較可能性時，哪個部分值得先了解？','phase-active':'既然已開始調整，你想優先確定什麼？','phase-blocked':'如果轉換不順利，哪件事需要先安頓？'},
+ clarity:{'phase-explore':'資訊還在整理時，你最想先查清什麼？','phase-active':'你已經做過一些確認，接下來要核對哪一層？','phase-blocked':'若不同訊息讓你困惑，你想先把什麼分開看？'},
+ rhythm:{'phase-explore':'正在找步調時，哪種安排對你最重要？','phase-active':'習慣已經開始建立，你最想確保哪件事能持續？','phase-blocked':'節奏被打亂時，你想優先恢復哪個部分？'},
+ risk:{'phase-explore':'在尚未做決定前，你想先確認哪種代價？','phase-active':'已開始嘗試時，你最需要監控哪種風險？','phase-blocked':'如果顧慮讓你遲疑，哪一件事值得先查證？'}
+};
+function situationalSecondQuestion(original,topic=state.topic,stage=null){
+ const kind=original.sourceKind||original.kind?.replace(/^five-/, '')||'rhythm';
+ const k=guideTopicFollowChoices[topic]?.[kind]?kind:(followQuestions[kind]?kind:'rhythm');
+ // Existing focus-specific wording is useful when it is more precise than the broad topic.
+ const profile=guideProfile(topic);
+ const scoped=profile?.choices?.[k];
+ const labels=scoped||guideTopicFollowChoices[topic]?.[k]||guideTopicFollowChoices.general[k];
+ const q={...original,options:original.options.map((o,i)=>({...o,label:labels[i]||o.label,focus:(labels[i]||o.focus).replace(/[。！？?！]$/,'')}))};
+ if(stage&&guideStageFollowPrompts[k]?.[stage])q.text=guideStageFollowPrompts[k][stage];
+ else if(profile?.follow?.[k])q.text=profile.follow[k];
+ // More human and less abstract by topic; follow questions remain tied to original card semantics.
+ return q;
+}
+
+function makeGuides(picks,topic){
+ const analysis=analyzeThree(picks,topic);
+ // First answer describes a situation; second question responds to that answer.
+ const first=threeSituationalFirstQuestion(picks,topic);
+ return {analysis,questions:[first,situationalSecondQuestion(chooseFollowup(analysis,picks,null),topic)]};
+}
+const contextTerms={
+ general:['轉職','換工作','離職','求職','告白','感情','投資','買房','存錢','人際','選擇','生活'],
+ love:['告白','曖昧','分手','復合','交往','伴侶','結婚','感情','相處','關係'],
+ work:['職涯','職業','就業','轉職','換工作','離職','升遷','面試','創業','專案','同事','工作','加薪','職場','技能','進修','退休'],
+ money:['財富','財務自由','資產','現金流','退休金','買房','房貸','投資','存錢','預算','收入','支出','理財','貸款','財務','保障'],
+ self:['自我探索','價值觀','人生','選擇','認識自己','焦慮','習慣','休息','壓力','成長','生活','界線','方向','改變','自我']
+};
+function keywordFromQuestion(question,topic){
+ if(!question)return null;
+ const terms=(contextTerms[topic]||contextTerms.general).concat(contextTerms.general);
+ return terms.find((w,i)=>question.includes(w))||null;
+}
+function relationNarrative(r,variant=0){
+ const a=r.a,b=r.b;
+ const options={
+ contrast:[`「${a.name}」帶來「${a.focus}」，「${b.name}」卻提醒「${b.focus}」。兩種節奏並不互相否定：值得釐清的是，什麼時候適合向前、什麼時候需要先確認。`,`這兩張牌放在一起，有一個值得停下來想的對照：一邊是「${a.focus}」，一邊是「${b.focus}」。它們也許在問你，如何讓行動與審慎同時存在。`,`「${a.name}」與「${b.name}」像是不同速度的兩隻貓。與其急著選一邊，不如把衝勁和警覺都當作訊息，找到適合當下的步伐。`],
+ transition:[`「${a.name}」所象徵的「${a.focus}」，可以與「${b.name}」的「${b.focus}」串成一段轉變。這不是事情已經發生的證據，而是提供你整理先後次序的一條思路。`,`從「${a.focus}」想到「${b.focus}」，這組牌呈現一種可探索的銜接：先理解眼前的條件，再尋找下一步。`,`如果把「${a.name}」看作故事的一端，「${b.name}」就提供另一端的可能。中間需要什麼準備與轉換，正是值得你自己確認的部分。`],
+ adjustment:[`「${a.name}」與「${b.name}」形成一種修正關係：當「${a.focus}」出現時，另一張牌邀請你注意「${b.focus}」。重點不在否定自己，而在調整方法。`,`這兩張牌提醒我們，同一個課題可能需要兩種角度：既看見「${a.focus}」，也不忽略「${b.focus}」。`,`「${a.name}」帶出的線索，遇上「${b.name}」後多了一層提醒。若目前做法不夠順暢，也許可以重新確認資訊、負荷或節奏。`],
+ balance:[`「${a.focus}」與「${b.focus}」放在一起，呈現需要互相照顧的兩端。問題不是哪邊一定正確，而是你如何在現實條件下保留彈性。`,`這組牌讓「${a.name}」與「${b.name}」彼此對照。兩邊都可能有值得保留的部分，關鍵是找出適合你的界線與比例。`,`當「${a.focus}」遇見「${b.focus}」，故事就不再只有單一方向。思考兩種需求是否能共存，也許比急著二選一更有幫助。`],
+ support:[`「${a.name}」與「${b.name}」有相近的象徵方向，彼此加深了「${a.focus}」與「${b.focus}」的提醒。可以先辨認眼前哪些條件值得珍惜或維持。`,`兩張牌像是在不同位置談同一件事：「${a.focus}」和「${b.focus}」能相互補足。這份共通性提供一個值得深入思考的主題。`,`「${a.name}」和「${b.name}」沒有明顯衝突，反而形成連續的提醒。別急著把它解讀為好運保證，先看見你已經掌握的條件。`],
+ complement:[`「${a.name}」帶來「${a.focus}」，「${b.name}」則提供「${b.focus}」的另一個視角。兩者不必勉強合成單一答案，可以並列觀察。`,`這兩張牌未必在談同一種力量：一張偏向「${a.focus}」，另一張偏向「${b.focus}」。先容許課題有不只一個面向。`,`從「${a.name}」到「${b.name}」，故事多出一條可供檢查的線索。你可以對照自身經驗，決定哪部分真正貼近眼前問題。`]
+ };
+ return options[r.type][variant%3];
+}
+function storyTitle(analysis,variant=0){
+ const r=analysis.primary;
+ const titles={contrast:['想前進的心，與需要確認的步伐','快與慢之間，藏著什麼條件？','當行動遇上暫停'],transition:['讓改變有自己的順序','從眼前走向下一個可能','一個階段與另一個階段之間'],adjustment:['重新調整，並不代表退縮','換個角度看眼前的路','把注意力放回真正的問題'],balance:['在兩種需要之間取得平衡','有時答案不必二選一','照顧界線，也照顧可能性'],support:['當兩張牌說著相近的事','這份力量值得被看見','從共通的線索找到重心'],complement:['一件事，可能有兩種視角','把不同線索放在同一張地圖','讓答案保留一些空間']};
+ return titles[r.type][variant%3];
+}
+function topicFrame(topic){return {general:'這次想放在心上思考的事',love:'你關心的感情與互動',work:'你正在思考的職涯方向與發展',money:'與財富、資源和生活保障有關的選擇',self:'你正在探索的內在需求與人生方向'}[topic]||'眼前的事情'}
+function getAnswers(){return state.guideQuestions.map((q,i)=>state.answers[i]===null?null:q.options.find(o=>o.id===state.answers[i])||null)}
+
+/* V4.21: scenario-based guidance + context-safe concise reading. Original 54 card meanings and relation scoring are unchanged. */
+const plainHooks = ["把力氣集中在一個明確目標上", "先拉遠一點看，別被單一細節帶走", "先試試看，再從小線索調整方向", "給自己真正的休息，不必一直撐著", "先磨好基本功，別急著證明什麼", "保留熱情，也記得確認方向是否可行", "先安頓好自己的節奏與情緒", "衝勁很強，但需要一個清楚的出口", "先整理好眼前的事，不用事事求完美", "珍惜已經讓你安心的部分", "不舒服時先保護自己，再確認原因", "別把委屈悶著，負荷需要被說出來", "把嚮往的生活寫成能實行的安排", "用溫和而清楚的方式表達善意", "界線該說清楚時，就不要含糊帶過", "親近可以慢慢來，別單靠表面訊號判斷", "資訊太多時，先停下來整理", "感覺敏銳很好，重要的事仍要查證", "支持應該有來有往，不該只靠一個人", "陪伴和個人空間可以同時存在", "先弄清楚自己的位置，也尊重別人的界線", "需要空間就先冷靜，但別一直避開對話", "資源有限時，先談清楚分配方式", "需要幫忙就直接說，不必硬撐", "對未知保持好奇，同時留好安全距離", "合作有力量，也別丟掉自己的判斷", "心裡在意的事，試著直接說明白", "看到成果或機會時，也要核對實際條件", "先補足真正缺少的資源或照顧", "突發狀況先處理，不必跟著失去節奏", "善用眼前可取得的支持與條件", "事情打結時，先找到最重要的那一條線", "新機會值得了解，但不用立刻答應", "別忽略小小的善意，也要確認彼此期待", "放鬆值得享受，也別用快樂逃避責任", "該結束的事先妥善收好，才有新空間", "情緒正在變清楚，可以先聽懂自己的感受", "願意看見不喜歡的自己，也是理解的一部分", "你看到的未必是全貌，先核對事實", "每一步都可能有代價，先確認落腳點", "靈感可以留下來，但要慢慢檢驗", "選擇很多時，先確定最重視的條件", "有訊號就留意，但別把提醒當成定論", "有些好事適合慢慢靠近，不必急著掌控", "遇到變化就調整姿態，不需要一次完美", "現在是暖身，不必要求自己馬上衝刺", "先停一下，看清楚異常或未知的地方", "干擾一多，就重新排好事情的優先順序", "可以帶著好心情前進，也別漏看細節", "環境在變，方法也可以跟著調整", "情緒像水一樣需要沉澱，不必立即定義", "可靠的依靠能帶來安全感，但仍需互惠", "改變是逐步發生的，給自己適應時間", "等待不是空轉，把時間用在準備上"];
+const plainHeadlines = ["看準目標，再出手。", "先看清全局，再選下一步。", "先試一點，不必一次做到底。", "現在更需要休息，不是硬撐。", "先把實力練穩，機會才接得住。", "有熱情很好，也要看清方向。", "先安頓自己，再處理外面的事。", "把衝勁用在值得的地方。", "整理好眼前的事，就能往前。", "眼前的安穩，也值得好好珍惜。", "先保護自己，再確認發生什麼事。", "有委屈就說清楚，別一直忍。", "想改變生活，先把方向畫出來。", "善意可以表達，信任慢慢累積。", "該守住的界線，不用勉強退讓。", "先看相處的實際行動，別急著下定義。", "事情太滿了，先把雜訊關小。", "直覺是提醒，不是證據。", "真正的支持，應該能彼此照顧。", "親近不必黏緊，留點空間也很好。", "找到自己的位置，也留給別人空間。", "先各自冷靜，再把話說清楚。", "資源不夠時，先談分配，別只爭位置。", "需要幫忙，就開口說。", "先看看門外的狀況，再決定要不要走近。", "團隊能幫忙，但也要保留自己的判斷。", "別等對方猜，重要的話直接說。", "有收穫的可能，也要看清成本。", "先補缺口，不要一直往外掏。", "出了插曲，先收拾眼前的事。", "看見眼前的助力，別一味往難處鑽。", "別越想越亂，先解最重要的一個結。", "門開了一點，可以先去看看。", "收到善意很溫暖，也別忘了彼此的期待。", "放鬆一下沒關係，記得回到日常。", "該放下的，就好好收尾。", "先看懂自己的情緒，不急著作決定。", "連不想承認的感受，也可以慢慢理解。", "先把想像和事實分開。", "這條路能走，但每一步都要站穩。", "靈感值得留下，落地還要驗證。", "兩條路都能選，先想清楚代價。", "聽見提醒後，先核對訊號。", "讓美好自然靠近，不必用力抓。", "走歪了也能調整，重點是站回來。", "先暖身，別要求一步到位。", "先停下來確認，不是退縮。", "別被雜事帶走，先重排順序。", "可以往前，記得看著腳下。", "風向變了，方法也要跟著變。", "等心情沉澱，再看事情全貌。", "有依靠是好事，也記得彼此尊重。", "正在改變的事，不必急著定型。", "還需要時間，就邊等邊準備。"];
+const plainRelations = {"資源缺口與補充": ["先補缺口，再談下一步。", "一邊顯示不足，一邊提供補充的線索。眼前最重要的不是加倍努力，而是弄清楚真正缺的是什麼。"], "告別與新方向": ["先收好舊事，才有空間迎接新事。", "這裡有結束，也有新的可能。不要因為想快點開始，就把還沒處理完的事留在後面。"], "準備與推進": ["準備到能開始，就可以往前。", "這兩張牌談的是先後順序：有些事要先練穩，但也不用準備到完美才跨出第一步。"], "想像與現實的核對": ["先看事實，別急著相信第一個想法。", "現在容易把感覺、期待和實際情況混在一起。把能查證的線索挑出來，會比反覆猜測更有用。"], "負荷與休整": ["先減少負荷，別再勉強加速。", "一邊有壓力或干擾，另一邊提醒你需要整理與休息。硬撐不一定比調整節奏有效。"], "靠近與界線": ["想維持關係，也要有自己的界線。", "親近和保留空間不衝突。這組牌更重視互相尊重，而不是誰應該一味配合。"], "機會與風險": ["機會可以看，但條件要先核對。", "吸引人的可能性和現實成本同時出現。可以探索，但不適合只靠衝動做重大承諾。"], "競爭與協調": ["先談清楚分配，再決定怎麼合作。", "不同需求可能擠在一起。把各自能付出、想得到的說清楚，往往比直接爭輸贏有用。"], "選擇與時機": ["不必急著選，先看時機與條件。", "這組牌同時在問方向與時點。重要的不是立刻定案，而是確認什麼條件會讓選擇更穩。"], "行動與暫停": ["先試水溫，別急著孤注一擲。", "想往前的力道很強，但也有需要停下確認的訊號。先做可回頭的小嘗試，比一下子押上全部更合適。"], "改變與安定": ["想改變，也要顧好自己的底。", "新方向和原有的安全感都重要。比較穩的做法是保留基本支持，再慢慢調整。"], "相互強化的訊息": ["這個方向值得繼續做穩。", "兩張牌在提醒相近的事。與其再找更多答案，不如把眼前最重要的一件事做好。"], "節奏漸進": ["不用跳太快，讓事情一段段推進。", "兩張牌的速度不一樣，但能排出先後順序。先確定起點，再增加投入。"], "放緩與調整": ["先調整節奏，再決定要不要加速。", "這組牌像是在提醒你減速與重新安排。現在把方法理順，可能比往前硬推更實際。"], "不同視角": ["先抓重點，不用把所有事湊成一個答案。", "這兩張牌談的角度不同。先分清楚哪個是眼前要處理的事，其他部分暫時不用一起解決。"]};
+const plainAnswerActions = {"information": "核對還沒確認的條件", "smallstep": "先做一個成本可控的嘗試", "constraint": "先處理最實際的一項限制", "energy": "重新安排精力與休息", "resource": "盤點時間、工具或預算", "support": "向可靠的人提出具體需求", "communication": "把期待說清楚，並聽聽實際回應", "boundary": "說清楚自己能接受的界線", "reciprocity": "看實際付出是否有來有往", "explore": "先了解一個新的選項", "closure": "收好還沒結束的安排", "adapt": "把改變拆成幾個小步驟", "facts": "把可查證的事實列出來", "feelings": "先分清感受和已知事實", "options": "列出兩種以上合理的解釋", "rest": "讓自己有時間休息恢復", "steady": "固定做一件能持續的小事", "prepare": "先做必要的準備", "phase-explore": "先蒐集真正需要的資訊", "phase-active": "檢查目前的做法是否有效", "phase-blocked": "先處理眼前最明顯的卡點", "focus-only": "把心力先放在當下的主要問題"};
+const plainFocusActions = {"family": "先談清楚彼此的期待與能負擔的責任", "friends": "確認雙方舒服的聯絡方式與距離", "ambiguous": "看持續的互動，不用一次訊號猜對方心意", "partner": "把自己的需要與共同安排說明白", "other": "先確認互動界線與實際期待", "jobchange": "比較職缺條件、薪資與可承擔的轉換成本", "workplace": "先釐清分工與溝通方式", "skills": "挑一項能力安排可持續的練習", "venture": "核算啟動成本，再做小規模驗證", "budget": "列出固定開銷與可調整項目", "income": "先確認投入時間、成本與實際回報條件", "assets": "核對目標、期限及自己能承擔的風險", "security": "先盤點必要支出與緊急預備", "emotion": "把讓自己在意的情境和感受分開記下", "values": "確認哪些期待是自己的，哪些來自外界", "direction": "比較目前真正可走的兩條路", "balance": "從時間表中找出一件能減輕負擔的調整"};
+
+/* V4.20 — topic-aware rendering. The 54 original meanings and draw/relationship rules remain untouched.
+   Use a small editorially reviewed bridge for cross-domain cards, not a prediction about financial facts. */
+const plainTopicReadings = {
+ money: {
+  headlines: {
+    11:'有風險疑慮，先保留退路。', 12:'先看承擔多少壓力，別勉強投入。',
+    14:'合作可以談，條件仍要核對。', 15:'財務底線要清楚，不必勉強讓步。',
+    16:'條件越吸引人，越要核對細節。', 19:'合作要互惠，成本與責任先講清楚。',
+    20:'合作可以有，財務自主也要保留。', 21:'資源歸屬要分清楚，避免後續爭議。',
+    22:'暫緩也可以，先整理各自的財務安排。', 23:'資源有限，先釐清如何分配。',
+    24:'需要資源或建議，可以主動求助。', 25:'不熟悉的機會，先觀察再投入。',
+    26:'團隊有助力，財務責任仍要分清。', 27:'金錢需求要說明白，不必靠暗示。',
+    34:'外來的好處，也要看清附帶條件。', 44:'好機會不用強求，先確認是否可行。',
+    52:'有人支持很好，也要保留財務自主。'
+  },
+  hooks: {
+    11:'先評估可能的損失與自己的承受範圍',
+    12:'檢查目前的財務壓力是否超過可承擔的程度',
+    14:'合作與信任值得培養，但仍需核對實際條件',
+    15:'把金錢往來的底線、承諾和責任說清楚',
+    16:'看見有吸引力的方案時，別只看外表',
+    19:'共同投入時要兼顧雙方的權益與負擔',
+    20:'合作或共享資源的同時，保有各自的決定空間',
+    21:'分清資源歸屬，以及誰有權決定如何使用',
+    22:'必要時先暫停，讓各方獨立盤點自己的條件',
+    23:'資源有限時，先談清楚分配方式',
+    24:'需要協助時，具體提出資源或專業建議的需求',
+    25:'不了解條件時先觀察，不必急著投入資金',
+    26:'合作可以分擔負荷，但每個人的責任仍要清楚',
+    27:'對收支或分攤的期待，直接談明白更有效',
+    34:'對額外提供的資源先確認來源與附帶條件',
+    44:'讓機會保留彈性，而非期待好處自然出現',
+    52:'運用可靠的支持，但不要交出全部決策權'
+  },
+  steps: {
+    14:'核對合作條件與彼此承諾', 15:'列出不能接受的財務風險',
+    16:'檢查方案的費用、限制及實際條款', 19:'確認合作的出資、分潤與責任',
+    20:'區分共同資源與個人可自主運用的部分',
+    31:'盤點眼前確實能運用的資源與條件',
+    21:'整理資源或資金的歸屬', 22:'暫停並重新核對收支條件',
+    24:'提出具體的資源需求或諮詢', 25:'先查明方案的成本與限制',
+    26:'釐清分工與財務責任', 27:'把收支分攤方式說明白',
+    34:'核對贈與或資源提供的條件', 44:'留意機會但先確認其可行性',
+    52:'盤點可靠支持並保留自主權'
+  },
+  cautions: {
+    14:'信任不能代替書面條件與核對',15:'表達財務底線時仍要以事實溝通',
+    16:'看似優惠的邀請也可能有成本與限制',
+    19:'若成本長期只由一方負擔，合作難以維持',
+    20:'默契不能代替明確的資金分配和權責',
+    41:'理想中的收益或機會仍需用實際資料查證',
+    21:'資源使用權與所有權不應混淆',
+    22:'暫停是為了核對條件，不宜無限期拖延',
+    24:'尋求支持時要確認費用、責任與自主權',
+    26:'多數人的選擇不等於適合自己的財務條件',
+    27:'不要靠猜測處理金錢需求或分攤問題',
+    34:'收到好處也要了解其來源與附帶義務',
+    44:'期待中的機會並非已經確定的收益',
+    52:'有人支援不代表風險可以完全轉交'
+  },
+  relations: {
+    '靠近與界線':['合作可以有，資源與責任要分清楚。','兩張牌一邊談互相連結，一邊提醒保留界線。放在財富問題裡，重點是確認共同投入、資金使用與各自的決定權。'],
+    '競爭與協調':['資源先談清楚，別急著爭輸贏。','當資源或利益分配出現不同需求，先整理各自的條件與責任，再討論可行的安排。'],
+    '相互強化的訊息':['先把眼前最重要的財務安排做好。','這兩張牌的提醒相近；先檢查當下能控制的收支、資源或風險，不必把所有財務問題一次解決。']
+  }
+ },
+ work: {
+  headlines: {
+    16:'合作先看實際條件，不只看好印象。',19:'好的合作需要互惠與分工。',
+    20:'合作可以緊密，工作自主也要保留。',21:'先分清角色、責任與工作界線。',
+    22:'各自冷靜整理，再討論合作方式。',24:'需要支援，就提出具體需求。',
+    27:'職場期待要講清楚，別只靠暗示。',52:'有支援很好，也要維持自主判斷。'
+  },
+  hooks: {
+    16:'合作前先核對職責、承諾與實際條件',
+    19:'互相支援時也要顧到工作負荷是否公平',
+    20:'保持合作默契，同時保留各自的工作節奏與判斷',
+    21:'明確自己的角色、權責與工作界線',
+    22:'遇到分歧先整理資訊，再重新溝通',
+    27:'把工作期待直接說清楚，避免誤會',
+    52:'善用可靠的工作支持，也保留專業自主'
+  },
+  steps: {20:'釐清協作分工與各自的決策空間',21:'列出自己負責的工作範圍',22:'約定重新協調的時間'},
+  relations: {'靠近與界線':['合作要有默契，也要有清楚分工。','一方面需要協作，另一方面也要保有各自的責任和判斷。職涯上的合作不必變成過度依賴。']}
+ },
+ self: {
+  headlines: {19:'接受支持，也要照顧自己的需求。',20:'維持連結，也留一些空間給自己。',21:'找到自己的界線與安心位置。',22:'允許自己暫時安靜，再慢慢整理。',27:'把在意的感受說清楚，不必悶著。'},
+  hooks: {20:'與人保持連結時，也能保留自己的步調',21:'看清自己真正重視的界線',22:'為自己安排必要的安靜與整理時間'},
+  relations: {'靠近與界線':['與人連結，也不必忽略自己的界線。','一邊有靠近與支持的需求，一邊也需要自主空間。可以先了解自己在哪種相處節奏下比較自在。']}
+ }
+};
+/* V4.21 — context-safe, concise result-only warnings.
+   Full 54-card canonical meanings remain unchanged for the atlas/journal. */
+const plainNeutralCautions = ["還沒看清整體狀況時，別因一時想衝就跳過必要確認。", "觀察很重要，但一直站在旁邊看，也可能錯過需要參與的時機。", "對新的事物先多了解一點，別因初次接觸就急著全盤接受或否定。", "放鬆時也要留意自己的界線，不必勉強接受不舒服的安排。", "努力不等於一直用力，別讓壓力變成無效的逞強。", "熱情值得保留，也要留意期待是否離實際情況太遠。", "熟悉的方式能帶來安心，但不必因此拒絕所有調整。", "衝得太快容易忽略自己的負荷，也別忘記周圍人的步調。", "整理到夠用就好，不必等每個細節都完美才繼續。", "珍惜目前的安穩，也別用「都沒問題」蓋過真正的需要。", "覺得不安不代表事情一定有問題，先確認讓你警覺的是什麼。", "不舒服的感受若一直放著不說，可能會讓壓力越積越多。", "嚮往改變很自然，但也需要一步步想清楚怎麼靠近。", "善意可以表達，但信任還是要看持續的實際行動。", "界線需要清楚，表達時也留意別讓情緒蓋過重點。", "表面的親近不一定代表相同期待，先觀察實際互動。", "思緒疲憊時，先讓自己休息，不必急著回應所有事情。", "直覺可以提醒你留意，但別直接當成對事情的證明。", "如果長期只有一方付出，記得看看是否需要調整。", "默契很珍貴，但重要的期待還是要適時說清楚。", "想保有自己的位置，也要尊重他人的選擇與界線。", "暫時保持距離沒問題，但別讓沉默變成長期的誤解。", "當需求撞在一起，先弄清楚各自重視的是什麼。", "開口求助不等於必須事事配合，記得保留自己的判斷。", "謹慎有助於觀察，但也不必因擔憂而永遠停在原地。", "大家意見一致不代表就適合自己，還是要保留獨立思考。", "不要只靠語氣或表情猜別人的意思，重要的話直接確認。", "看見好處時也先看看附帶的責任，不必急著答應。", "如果一直付出卻沒有得到補充，先想想缺口在哪裡。", "有變化時先處理眼前的影響，別讓慌亂帶著你走。", "眼前的順利值得珍惜，也別忘了情況可能隨時調整。", "事情越亂，越不適合一次處理所有問題，先抓一個重點。", "有新的可能值得了解，但別把尚未明朗的方向當成已確定。", "收到心意很溫暖，但不要只靠一次舉動推定所有期待。", "放鬆很好，也留意自己是否一直避開需要面對的事。", "說再見不代表所有事情都解決了，該處理的部分仍要照顧。", "情緒很強烈時，先讓自己緩一緩，別急著下結論。", "檢視自己的反應很有幫助，但不需要替別人的傷害負責。", "自己的期待可能影響看法，重要的事先回到已知事實。", "面對挑戰要留好退路，不必把冒險當成勇敢的證明。", "有靈感很好，但想像不一定代表事情已經發生。", "面臨選擇時，不只看眼前喜歡哪個，也要想想實際取捨。", "注意到訊號之後，先理解它代表什麼，別急著當成定論。", "不必急著掌控所有變化，但也不能只靠等待。", "願意調整很重要，但不表示每個風險都能順利避開。", "剛開始時別一次要求太多，準備也不必拖成無止境。", "一時覺得不對勁，先停下確認，不要直接認定一定有問題。", "別讓零碎的打斷蓋過真正重要的事，也記得安排休息。", "進展順利時仍要顧到細節，不必因一時高興就加快太多。", "感覺到變化可以先觀察，別把預感直接當成已發生的事。", "心情還沒沉澱時，不必急著替事情定義或作重要決定。", "有人可以依靠很珍貴，但信任仍需要持續的尊重與回應。", "不必為改變而改變，先分清哪些值得留下、哪些可以放下。", "等待需要方向，也記得留意什麼時候該重新調整。"];
+const plainLoveCautions = ["想主動靠近或開口時，先看彼此能不能接受這個節奏。", "站遠一點能看清關係，但也別只顧觀察而忘記真正交流。", "對彼此還不熟悉的想法，先聽清楚再回應，不必急著貼標籤。", "放鬆不代表什麼都要接受，彼此的舒服程度還是重要。", "想把關係處理好，不必一直硬撐或用力證明自己。", "希望相處更美好很好，但別只憑想像期待對方改變。", "熟悉的相處方式讓人安心，也可以慢慢試試新的溝通方法。", "想快點改善氣氛可以理解，但也要尊重彼此能配合的速度。", "想把話說得完美，反而可能一直沒有真正開口。", "相處愉快值得珍惜，但仍可以坦白討論不舒服的地方。", "感到被冒犯值得留意，但先分清實際發生什麼事。", "不必一直吞下委屈，能說清楚的事就試著說清楚。", "想要更多自己的空間時，也可以讓彼此知道你的需要。", "友善的回應不代表什麼都答應，互相尊重需要時間累積。", "守住界線很重要，但盡量說明具體原因，少讓爭執升高。", "看起來親近，不一定表示彼此的期待完全相同。", "情緒很累的時候，不必勉強自己立刻回覆或處理關係。", "別把自己的猜測當成對方的心意，重要的事仍要確認。", "照顧彼此不該只靠一個人，長期不平衡值得談談。", "再熟悉的默契，也不能完全代替把話說清楚。", "想保有歸屬感，也記得家人或朋友有自己的想法。", "彼此需要空間時，可以先冷靜，但別一直避開溝通。", "期待不同不等於有人故意為難，先弄清楚分歧。", "需要關心可以直接說，不必為了得到回應勉強自己。", "對不熟悉的相處方式可以慢慢了解，別急著認定對方的意思。", "大家的意見可能相近，但每個人的感受仍值得被聽見。", "反話或冷淡容易引起誤會，別只憑表情猜測對方心情。", "即使收到很好的照顧，也可以說明自己還需要什麼。", "如果一直付出卻很疲憊，先看看哪些期待需要調整。", "遇到突發摩擦先處理當下情緒，不急著翻舊帳。", "被支持時可以珍惜，也不用因此忽略自己的感受。", "相處中的問題不必一次談完，先挑最重要的部分。", "想重新互動可以先試探看看，但不必預設對方一定會配合。", "收到心意不表示所有問題已解決，可以再了解彼此期待。", "在一起放鬆是好事，也別用玩笑或熱鬧掩蓋需要談的事。", "想結束某種相處模式時，也別忽略還沒說清楚的情緒。", "感受變明確時可以先說給自己聽，不必急著要求對方回應。", "過往經驗會影響我們看人的方式，但別把每次互動都當成重演。", "別只憑印象判斷對方，先看看實際說過什麼、做過什麼。", "想處理棘手的關係時，不必用一次談話承擔全部結果。", "對關係的美好想像可以保留，但別把想像當成對方的承諾。", "選擇不同相處方式時，也要留意彼此目前能接受的程度。", "聽見別人的說法後，先確認內容，不必急著推論背後用意。", "溫柔地退一步可以，但不代表你得一直壓下自己的需求。", "願意改變相處方式很好，也要容許彼此慢慢適應。", "新的溝通方式不必一次做到最好，先從一件小事開始。", "有疑慮時可以先停下來確認，別直接認定對方有惡意。", "日常被打斷時，先看看彼此的安排能不能重新協調。", "相處變得輕鬆時也記得保持尊重，不急著要求更多。", "察覺相處氣氛不同時，先詢問或觀察，別只靠猜。", "在情緒仍起伏時，不必立刻把一句話當成全部真相。", "能依靠彼此很好，但仍需要互相尊重和自己作主的空間。", "相處正在改變時，不必立刻判定是變好還是變壞。", "關係需要時間，但等待時也能好好說清楚自己的需要。"];
+const plainFocusCautions = {"family": {"3": "當家人提出新的想法或做法，先聽清楚彼此在意的事，再決定怎麼回應。", "16": "家人偶爾示好不代表所有期待都相同，仍可以把需要說清楚。", "21": "有家庭歸屬感，也不代表每個人都必須放棄自己的決定權。", "23": "家人意見不同時，先談清楚需要與分工，不急著把分歧當成對立。", "27": "家人的語氣與態度可能有很多原因，重要的事別只靠猜測。", "33": "想換一種和家人相處的方式，可以先試一點，不必預設他們一定接受。"}, "friends": {"3": "朋友有新的想法時，不必急著同意或拒絕，先聽懂彼此的意思。", "20": "朋友再有默契，也可能對聯絡頻率有不同期待。", "27": "朋友的冷淡不一定代表不在乎，先確認實際情況。"}, "ambiguous": {"3": "還在了解對方時，別把一次互動當成關係已經明朗的證據。", "16": "曖昧的靠近不代表承諾，先看實際互動是否持續且互相尊重。", "27": "曖昧中的一句反話不代表真實心意，別只靠猜測。"}, "partner": {"3": "伴侶提出新的相處方式時，先聽清楚需求，再一起討論可行的安排。", "20": "再熟悉的伴侶也不能只靠默契，重要的需要仍要說出口。", "23": "伴侶意見不同時，先談清楚彼此的實際需求，而不是急著爭輸贏。"}};
+const plainLoveRelations = {"資源缺口與補充": ["先照顧沒有被說出口的需要。", "如果付出與回應不平衡，先理解彼此最在意什麼，再找能好好說清楚的方式。"], "告別與新方向": ["想改變相處方式，先把舊的疙瘩處理好。", "過去的誤解若還留著，新互動也容易卡住。先把重要的話說清楚，再慢慢嘗試不同的相處方式。"], "準備與推進": ["先理解彼此，再決定要不要往前。", "想讓關係有變化，可以先把自己的感受說明白，也留給彼此足夠的回應時間。"], "想像與現實的核對": ["別靠猜，先看實際互動。", "感受、期待與對方真正說過的話不一定完全相同。把能確認的部分釐清，比反覆猜測更有幫助。"], "負荷與休整": ["相處有壓力時，先留點喘息空間。", "彼此若都感到疲憊，先照顧當下的感受，暫緩爭執，再找適當時機說清楚。"], "靠近與界線": ["想保持連結，也要尊重彼此的空間。", "親近和保留自主並不衝突。重點是把期待說清楚，不需要任何一方一味配合。"], "機會與風險": ["可以嘗試靠近，但別急著下定論。", "新的互動有可能帶來不同理解，也可能需要時間觀察。不要只靠一次反應認定對方的想法。"], "競爭與協調": ["有不同期待，就先好好說清楚。", "彼此在意的事可能不同。先看見差異，再找能互相尊重的安排，不必急著爭對錯。"], "選擇與時機": ["不必急著定義關係或相處方式。", "如果正在考慮改變，先想清楚自己的需要，也給彼此合理的溝通與調整時間。"], "行動與暫停": ["想開口可以，但不必急著要求答案。", "有想靠近或說清楚的心情，也有需要觀察的部分。從一次坦白而不施壓的交流開始就好。"], "改變與安定": ["想換種相處方式，也要顧及彼此的安全感。", "改變不一定要把原本的連結推翻。先保留彼此珍惜的部分，再慢慢調整不舒服的地方。"], "節奏漸進": ["讓互動慢慢跟上彼此的步調。", "有人準備好了，有人可能還需要時間。先讓雙方知道各自在意什麼，再試著找到合適的速度。"], "放緩與調整": ["先緩一緩，再把話談清楚。", "相處的節奏若讓人吃力，可以先減少壓力，重新確認彼此期待。"]};
+const plainLoveAnswerActions = {"information": "確認彼此實際說過的話和期待", "smallstep": "從一次簡短對話或相處調整開始", "constraint": "辨認目前難以協調的責任或界線", "energy": "調整相處、獨處與休息的時間", "resource": "看看陪伴時間與實際支持能怎麼安排", "support": "向可信賴的人清楚說明自己的需要", "communication": "說清楚自己的感受，也聽聽對方的回應", "boundary": "說清楚彼此能接受的距離和相處方式", "reciprocity": "看看付出與關心是不是有來有往", "explore": "試著了解一種新的相處方式", "closure": "把還在意的話和未完成的溝通妥善處理", "adapt": "從一個小習慣開始調整互動", "facts": "先分清實際互動與自己的推測", "feelings": "先弄清楚自己真正的感受", "options": "想想同一段互動還有沒有其他合理的解釋", "rest": "給彼此一點冷靜與休息的空間", "steady": "維持一個彼此舒服的相處習慣", "prepare": "先整理想表達的重點", "phase-explore": "先了解自己的期待與對方已表達的部分", "phase-active": "留意目前溝通方式是否真的改善互動", "phase-blocked": "先處理最令自己在意的一個相處難題", "focus-only": "先處理當下最重要的相處問題"};
+/* V4.22: topic- and relationship-focus wording for displayed short readings only.
+   All 54 canonical card meanings in `cards` remain byte-identical. */
+const plainRelationshipReadings = {"headlines": {"1": "先看清楚自己想說什麼，再開口。", "2": "換個角度看看這段相處。", "3": "保持好奇，先聽懂彼此的意思。", "4": "舒服的關係，也需要喘息。", "5": "想把關係變好，不必一直硬撐。", "6": "有期待很好，別只靠想像。", "7": "先讓自己安定，再慢慢談。", "8": "想靠近，也要顧到對方的步調。", "9": "整理心情，不用把話說得完美。", "10": "珍惜舒服的相處，也能說出不舒服。", "11": "感到不安時，先照顧自己。", "12": "委屈不要一直悶在心裡。", "13": "想有自己的生活，是很自然的事。", "14": "善意可以先表達，信任慢慢累積。", "15": "有些界線，要清楚說出口。", "16": "親近的訊號，不必急著下定論。", "17": "心累的時候，不必急著回應。", "18": "別只憑感覺猜對方的意思。", "19": "互相照顧，不該只靠一個人。", "20": "有默契很好，也別忘了把話說清楚。", "21": "彼此有歸屬感，也能保留各自的選擇。", "22": "暫時各自冷靜，不代表疏遠。", "23": "意見不同，先弄清楚各自在意什麼。", "24": "需要關心，就試著開口。", "25": "想更了解對方，可以慢慢來。", "26": "有人陪著一起面對，也要尊重各自想法。", "27": "在意的話，試著直接說。", "28": "珍惜得到的關心，也看看彼此需要。", "29": "如果付出太多，記得照顧自己。", "30": "有了摩擦，先處理眼前的事。", "31": "看見被支持的地方，也珍惜它。", "32": "事情越糾結，越需要一次談一件。", "33": "相處可以有新的可能，但不必急。", "34": "收到好意很溫暖，期待仍要確認。", "35": "一起開心很好，也要照顧日常。", "36": "有些相處方式，可以好好告一段落。", "37": "情緒漸漸清楚，就先聽懂自己。", "38": "不喜歡的感受，也值得被看見。", "39": "印象不一定等於事實，先確認。", "40": "想跨過難題，也要一步一步來。", "41": "美好的想像可以留著，別當成承諾。", "42": "想改變相處方式，先弄清楚自己要什麼。", "43": "留意互動中的提醒，但別急著猜。", "44": "有些溫柔，適合慢慢靠近。", "45": "相處方式可以調整，不必要求完美。", "46": "剛開始調整，不用急著看到成果。", "47": "不確定時，可以先停下來確認。", "48": "被瑣事打斷時，先找回相處的時間。", "49": "相處順利也別急著推得太快。", "50": "感受到變化時，先了解原因。", "51": "讓心情沉澱，再看清楚彼此。", "52": "有依靠很好，也別忘了尊重。", "53": "正在改變的關係，不用急著定義。", "54": "有些理解需要時間，不必急著逼出答案。"}, "hooks": {"1": "想主動表達心意時，先確認自己真正希望對方理解什麼", "2": "試著跳出當下的情緒，理解彼此可能有不同的立場", "3": "面對不熟悉的想法，先多了解一點，不必急著判斷", "4": "放鬆相處很重要，不必一直繃緊神經或強迫自己配合", "5": "願意努力是好事，但不需要靠勉強自己來證明在乎", "6": "想要更親近或改善相處，可以保留希望，也要觀察實際互動", "7": "熟悉的互動能帶來安全感，照顧自己的感受同樣重要", "8": "想快點改善關係時，仍要留意彼此能接受的速度", "9": "先想清楚自己在意什麼，比反覆修飾每一句話更重要", "10": "平靜與滿足值得珍惜，偶爾有不同需求也很正常", "11": "有防備心不代表對方一定做錯了什麼，先分清感受與事實", "12": "如果某些相處方式讓你難受，感受值得被好好聽見", "13": "渴望不同的相處模式，不代表你不珍惜這段關係", "14": "溫和的互動有助於彼此理解，但信任仍來自持續的尊重", "15": "說出不能接受的事，是照顧自己，也給彼此理解的機會", "16": "有人示好或靠近，未必代表雙方對關係有相同理解", "17": "如果已經被情緒與訊息塞滿，先休息再對話也可以", "18": "直覺可能提醒你留意細節，但不能代替真正的交流", "19": "好的支持需要有來有往，也要照顧每個人的能力與需要", "20": "即使相處熟悉，仍可以擁有不同的節奏與想法", "21": "想被接納與希望自主可以同時存在，不必選邊站", "22": "需要距離時先整理情緒，並不一定表示不再關心", "23": "相處中的分歧不必立刻變成輸贏，需求可能原本就不同", "24": "尋求照顧不代表軟弱，讓對方知道需求也能減少誤會", "25": "保持好奇與適當距離，有助於在互動中建立理解", "26": "共同支持能帶來安定，但意見一致不必是維持關係的條件", "27": "有時表現得不在乎，反而讓真正的期待更難被理解", "28": "收到照顧或好意很溫暖，但每個人期待的回應可能不同", "29": "感到被忽略或疲累時，可能需要重新調整照顧彼此的方式", "30": "意料外的爭執會打亂心情，不必一口氣翻出所有舊問題", "31": "小小的理解與善意，也可能讓相處多一點溫暖", "32": "誤解或期待累積太多時，全部一起處理反而更難說清楚", "33": "如果希望調整互動，可以先試試新的方式，不預設結果", "34": "一份心意可以拉近距離，也不表示所有事情都已經說開", "35": "放鬆與共享快樂能帶來連結，但不能代替必要的交流", "36": "想告別不適合的互動模式，不一定代表要否定整段關係", "37": "感受浮現時不必急著要求誰給答案，先理解自己的需要", "38": "某些反應可能讓自己意外，理解它有助於重新選擇相處方式", "39": "對方的一句話可能有不同解釋，別讓原有期待決定全部答案", "40": "處理棘手的互動需要勇氣，同時也需要讓自己感到安全", "41": "希望相處更好很自然，但對方真正的心意仍需透過交流確認", "42": "面對不同選擇，重要的是了解自己的需要與接受程度", "43": "對方態度有變化時，可以多觀察，不必一下子認定原因", "44": "親切的互動可以慢慢累積，不必一直追求立即回應", "45": "願意變通可以幫助關係維持彈性，不代表得無限退讓", "46": "理解與信任需要累積，一次對話不一定就能解決全部問題", "47": "察覺不對勁並不表示一定有問題，先了解彼此真實的想法", "48": "日常忙碌容易讓關心變少，可能需要重新安排彼此的生活節奏", "49": "有愉快進展值得開心，但仍要顧到彼此是否自在", "50": "關係中的氣氛可能有變，不必立即把它解讀成好或壞", "51": "情緒緩下來之後，更容易分辨自己想說什麼與實際發生什麼", "52": "可靠的陪伴帶來安心，也需要彼此尊重自主與界線", "53": "相處模式可能慢慢調整，給彼此時間適應不等於放任不管", "54": "如果雙方還在整理感受，可以暫緩定論，同時保留溝通"}, "steps": {"1": "把最在意的一件事清楚說出來", "2": "先聽聽另一種看法，再決定怎麼回應", "3": "問一個真正在意的問題，聽完對方的回答", "4": "為彼此留出安心休息的時間", "5": "挑一件想改善的事，溫和但清楚地說明", "6": "從一次輕鬆的交流確認彼此期待", "7": "找個舒服的時機談談最近的心情", "8": "從一件不造成壓力的小事開始互動", "9": "用簡單直接的說法表達主要感受", "10": "分享一件讓你安心的事，也說出一件需要調整的事", "11": "保留讓自己安心的距離，確認實際發生的事", "12": "挑一件具體的事，說明它對你的影響", "13": "說明你希望保留的私人時間與空間", "14": "用一次不施壓的關心開啟對話", "15": "清楚說明自己的底線與原因", "16": "觀察持續的互動，必要時直接確認期待", "17": "給自己一點安靜時間，再整理想說的話", "18": "把猜測與實際說過的話分開確認", "19": "談談哪些事情可以互相幫忙", "20": "確認彼此舒服的聯絡或相處方式", "21": "把自己的需要說明白，也聽聽對方在意什麼", "22": "約個雙方合適的時間，再重新對話", "23": "先說明彼此真正想解決的問題", "24": "用具體的說法提出一個需要", "25": "先從不讓彼此有壓力的交流開始", "26": "聽聽每個人的想法，找一個彼此能接受的安排", "27": "用直接而不指責的方式說出感受", "28": "向對方表達感謝，也確認彼此的需要", "29": "談談時間、陪伴與實際負擔如何安排", "30": "先釐清這次發生的事情，再討論如何修補", "31": "回應一份你確實感受到的關心", "32": "挑出最影響相處的一件事先談", "33": "從一個小改變開始觀察彼此感受", "34": "表達你感受到的善意，也談談自己的期待", "35": "安排一段舒服的相處，也保留談心的時間", "36": "說清楚你希望停止的做法與保留的連結", "37": "用一句話整理最強烈的感受", "38": "留意最近重複出現的感受與觸發情境", "39": "回到確實說過、做過的事再談", "40": "選擇一個雙方都能負擔的交流時機", "41": "區分你期待的改變與已經發生的互動", "42": "列出兩種可行的相處方式，再決定先試哪一種", "43": "用平和的方式確認你想了解的事情", "44": "留一點時間，讓彼此自在地交流", "45": "先改一個彼此都不太吃力的習慣", "46": "先從容易開口的一件事談起", "47": "先整理疑問，再找合適時機詢問", "48": "保留一段不被打擾的交流時間", "49": "維持目前舒服的步調，再觀察需求", "50": "找個自然的機會確認最近的感受", "51": "等心情較穩時，再聊最在意的事", "52": "表達感謝與需要，同時留給彼此選擇的空間", "53": "先觀察已經改變的部分，再討論下一步", "54": "約定一個適合重新談話的時間"}};
+const plainRelationshipFocusReadings = {"family": {"headlines": {"5": "家人再親近，也不必一味退讓。", "20": "家人有默契，也能有各自的生活。", "23": "家人意見不同，先聽懂彼此的需要。", "26": "家人能互相照應，也要尊重各自想法。", "29": "照顧家人時，也別忘記自己的需要。", "31": "珍惜家人之間已經存在的支持。", "39": "對家人的印象，不一定是事情全貌。", "52": "有家人可以依靠，也要互相尊重。"}, "hooks": {"5": "和家人親近不代表凡事都得配合，自己的感受與界線也重要", "20": "即使是一家人，也可以有不同的生活節奏與個人選擇", "23": "家人可能各有在意的事情，先把需要說清楚比爭對錯更有幫助", "26": "家人能一起面對難題，但每個人的感受與決定都值得被聽見", "29": "照顧別人時也要看見自己的疲憊與需要", "31": "留意家人之間實際能互相照顧的地方", "39": "過去的經驗可能影響對家人的判斷，先回到實際互動", "52": "家庭支持很珍貴，同時也需要尊重各自的決定"}, "steps": {"5": "把你不能接受的相處方式說清楚", "20": "跟家人說說你希望保留的個人空間", "23": "先談談各自在意的安排與需要", "26": "聽聽家人的意見，找出大家都能接受的做法", "29": "說出自己目前需要多少休息與協助", "31": "向家人表達你確實感受到的支持", "39": "確認這次互動的事實，不只依靠既有印象", "52": "與家人談談彼此能提供及需要的支持"}}, "friends": {"headlines": {"26": "朋友之間可以互相挺，也要尊重差異。"}, "hooks": {"26": "朋友可以在需要時互相幫忙，即使想法不同也不代表不珍惜友情"}, "steps": {"26": "聽聽朋友的想法，討論彼此都舒服的做法"}}, "ambiguous": {"headlines": {"26": "互動可以有支持，也別急著認定關係。"}, "hooks": {"26": "有共同話題或互相幫忙，不代表雙方已經對關係有相同期待"}, "steps": {"26": "觀察實際互動，必要時再確認彼此期待"}}, "partner": {"headlines": {"26": "一起面對事情，也要聽見彼此想法。"}, "hooks": {"26": "伴侶可以一起承擔問題，但不需要永遠抱持相同意見"}, "steps": {"26": "找個時間商量雙方都願意配合的安排"}}};
+const plainRelationshipFallbackRelations = {
+  '相互強化的訊息':['彼此的需要值得更清楚地被聽見。','這幾張牌的方向相近，提醒你把心力放在真正需要溝通或照顧的相處細節。'],
+  '不同視角':['先理解各自的感受，不必急著定對錯。','這幾張牌提供不同的相處角度，可以先釐清眼前最重要的一件事，不需要一次解決全部問題。']
+};
+function plainResultCaution(card){
+ const focus=focusFor(state.topic);
+ if(state.topic==='love'){
+   const specialized=focus && plainFocusCautions[focus.id]?.[card.id];
+   return (specialized || plainLoveCautions[card.id-1]).replace(/[。！？]+$/,'');
+ }
+ // Topic-specific authored overrides take precedence; the neutral result
+ // fallback never inserts a source caution written for an unrelated domain.
+ return plainNeutralCautions[card.id-1].replace(/[。！？]+$/,'');
+}
+
+function plainTopicPart(kind,card){
+ // First use an authored focus-specific relationship reading (if available),
+ // then a fully contextual relationship-wide reading for all 54 cards.
+ // Never fall through to cross-domain global wording for love themes.
+ if(state.topic==='love' && ['headlines','hooks','steps'].includes(kind)){
+   const relationFocus=focusFor(state.topic)?.id;
+   const focused=plainRelationshipFocusReadings[relationFocus]?.[kind]?.[card.id];
+   if(focused)return focused;
+   return plainRelationshipReadings[kind][card.id];
+ }
+ const overrides=plainTopicReadings[state.topic];
+ const specific=overrides&&overrides[kind]&&overrides[kind][card.id];
+ const base={headlines:plainHeadlines,hooks:plainHooks};
+ if(specific)return specific;
+ if(kind==='headlines')return base.headlines[card.id-1];
+ if(kind==='hooks')return base.hooks[card.id-1];
+ if(kind==='steps')return card.step;
+ if(kind==='cautions')return plainResultCaution(card);
+ return '';
+}
+function plainTopicRelation(topic){
+ return (state.topic==='love'?(plainLoveRelations[topic]||plainRelationshipFallbackRelations[topic]||plainRelationshipFallbackRelations['不同視角']):null)||plainTopicReadings[state.topic]?.relations?.[topic]||plainRelations[topic]||plainRelations['不同視角'];
+}
+
+function plainExtraHint(){
+ const answers=getAnswers();
+ // A player's actual answer is the only evidence used here; skipped choices are never interpreted.
+ const answer=answers[1] || answers[0];
+ if(!answer)return '';
+ const action=(state.topic==='love'?plainLoveAnswerActions[answer.tag]:null)||plainAnswerActions[answer.tag];
+ if(!action)return '';
+ return action;
+}
+function plainScopeAction(){
+ const f=focusFor(state.topic);
+ return f ? (plainFocusActions[f.id] || '') : '';
+}
+function plainNextFrom(c){
+ const hint=plainExtraHint(),scope=plainScopeAction();
+ // User context wins when present, but keep the direction card visible.
+ let out=`從「${c.name}」來看，可以先${plainTopicPart('steps',c)}。`;
+ if(hint && !out.includes(hint))out+=`你剛才在意的部分，可以試著${hint}。`;
+ else if(scope && !out.includes(scope))out+=`若放在這次的探索方向，可以${scope}。`;
+ return out;
+}
+function plainPairContext(r){
+ const x=plainTopicPart('hooks',r.a),y=plainTopicPart('hooks',r.b);
+ // Two natural patterns deliberately chosen by relationship / card IDs, not arbitrary sentence shuffling.
+ if((r.a.id+r.b.id)%2) return `「${r.a.name}」提醒你${x}；「${r.b.name}」則強調${y}。`;
+ return `「${r.a.name}」強調${x}；「${r.b.name}」則讓人想到${y}。`;
+}
+function makeStory(){
+ const p=state.result,analysis=analyzeThree(p,state.topic),r=analysis.primary;
+ const broadShared=r.type==='support' && r.a.tags.filter(t=>r.b.tags.includes(t)).every(t=>['action','rest','change','observe'].includes(t));
+ const relationTopic=broadShared?'不同視角':r.topic;
+ const msg=plainTopicRelation(relationTopic);
+ // A more specific door/ending/recovery card may change the direction but never rewrite the symbol.
+ let title=msg[0];
+ if(r.topic==='行動與暫停' && p[2].tags.includes('opportunity'))title='可以去看看機會，先別急著下決定。';
+ if(r.topic==='資源缺口與補充' && p[2].tags.includes('time'))title='先補資源，等待也要有準備。';
+ if(r.topic==='靠近與界線' && p[2].tags.includes('rest'))title='先保留空間，關係才有餘裕。';
+ const why=msg[1]+' '+plainPairContext(r);
+ const next=plainNextFrom(p[2]);
+ return {title,why,next,analysis,engine:'relationship-safe-v422'};
+}
+function oneCardReading(c){
+ return {title:plainTopicPart('headlines',c),why:`「${c.name}」提醒你${plainTopicPart('hooks',c)}。`,next:`眼前可以先${plainTopicPart('steps',c)}。`,engine:'relationship-safe-v422'};
+}
+
+/* V4: five-card dynamic reading.  No prediction; source of facts is the player's own choices. */
+const fiveLenses=[
+ {key:'pace',title:'行動節奏與準備',brief:'何時前進、何時先停下確認',tags:{action:2.2,prepare:2.2,caution:1.8,observe:1.4,time:1.7,rest:1,goal:1.3},guide:'pace',step:'區分想前進的意願與已備妥的現實條件，先找出可核實的小步驟'},
+ {key:'resources',title:'資源與負荷',brief:'時間、精力、資訊和可用支持',tags:{scarcity:3,resources:2.5,pressure:1.8,support:1.7,order:1.2,rest:1.1},guide:'resources',step:'列出目前最缺乏的資源，優先處理一項可以確認或補足的缺口'},
+ {key:'relation',title:'互動與界線',brief:'靠近、互惠與各自的空間',tags:{connect:2.5,boundary:2.7,support:1.7,conflict:1.5,group:1.6,security:1.1},guide:'relation',step:'把自己的期待與界線說清楚，再觀察實際互動如何回應'},
+ {key:'change',title:'選擇與轉變',brief:'告別舊模式、試探新方向',tags:{change:2.3,ending:2.5,decision:2.5,adapt:1.8,explore:1.4,opportunity:1.1},guide:'change',step:'先列出你真正擁有的選項，再用小規模探索檢視可行性'},
+ {key:'clarity',title:'事實與感受的區分',brief:'辨別資訊、想像與內在需要',tags:{clarity:2.7,reflect:2.5,observe:1.8,emotion:1.7,ideal:1.3,confusion:1.9,signal:1.3},guide:'clarity',step:'把可查證的事實、自己的感受與未確定的猜測分開整理'},
+ {key:'risk',title:'機會與風險',brief:'看見吸引力，也核對代價',tags:{risk:2.9,caution:2.1,opportunity:1.9,resources:1.2,conflict:1.6,decision:1.3,disrupt:1.4},guide:'risk',step:'核對機會的條件、成本和可承擔的限制，再決定是否試行'},
+ {key:'stability',title:'安定與恢復',brief:'休息、支持與持續累積',tags:{rest:2.8,security:2.4,care:2.2,support:1.8,prepare:1.1,time:1.3,emotion:1.3,joy:1.3},guide:'rhythm',step:'找出能維持身心負荷與生活節奏的小習慣或支持'},
+ {key:'opportunity',title:'探索與可能性',brief:'留意尚未確定、但值得了解的選項',tags:{opportunity:2.6,explore:2.4,curiosity:2,goal:1.2,action:1.2,signal:1.4,ideal:1.3},guide:'risk',step:'先蒐集條件、安排低風險的嘗試，而不是預設機會一定存在'}
+];
+const fiveTopicBias={general:{},love:{relation:2.4,clarity:.7,stability:.7},work:{pace:1.1,resources:1.4,change:1.1,risk:.7},money:{resources:1.9,risk:1.9,clarity:1.1},self:{clarity:1.8,stability:1.1,change:1.2}};
+function analyzeFive(picks,topic){
+ if(!Array.isArray(picks)||picks.length!==5||new Set(picks.map(c=>c.id)).size!==5)throw Error('five-card selection requires five unique cards');
+ const roleWeights=[2.3,1.35,1.45,1.05,1.35], lensScores=[];
+ const edges=[];
+ for(let i=0;i<5;i++)for(let j=i+1;j<5;j++){
+  const r=relation(picks[i],picks[j]);
+  const positionBonus=i===0?1.30:(i===1&&j===2)?1.24:(i===3&&j===4)?1.17:.78;
+  edges.push({...r,i,j,weight:r.score*positionBonus});
+ }
+ edges.sort((a,b)=>b.weight-a.weight || a.i-b.i || a.j-b.j);
+ for(const lens of fiveLenses){
+  let score=(fiveTopicBias[topic]||{})[lens.key]||0;
+  for(let i=0;i<5;i++)for(const tag of picks[i].tags)score+=(lens.tags[tag]||0)*roleWeights[i];
+  const hits=edges.filter(e=>[...e.a.tags,...e.b.tags].some(tag=>lens.tags[tag]>=1.7));
+  score+=hits.slice(0,2).reduce((sum,e)=>sum+e.weight*.18,0);
+  lensScores.push({...lens,score:Math.round(score*100)/100});
+ }
+ lensScores.sort((a,b)=>b.score-a.score || fiveLenses.indexOf(a)-fiveLenses.indexOf(b));
+ return {lenses:lensScores,edges,primary:lensScores[0],cards:picks,topic};
+}
+function selectedFiveLens(analysis,index){
+ const answer=index===undefined?state.answers[0]:index;
+ const q=state.guideQuestions[0];
+ const option=answer===null?null:q?.options?.find(o=>o.id===answer);
+ return analysis.lenses.find(x=>x.key===option?.tag)||analysis.lenses[0];
+}
+function fiveQuestionTwo(lens){
+ const q=createQuestion(followQuestions[lens.guide]);
+ return {...q,kind:`five-${lens.key}`,sourceKind:lens.guide,text:followQuestions[lens.guide].text};
+}
+function makeGuidesFive(picks,topic){
+ const analysis=analyzeFive(picks,topic);
+ const first=fiveSituationalFirstQuestion(analysis,topic);
+ return {analysis,questions:[first,situationalSecondQuestion(fiveQuestionTwo(analysis.lenses[0]),topic)]};
+}
+function fiveQuestionThree(analysis){
+ const first=selectedFiveLens(analysis);
+ const alts=analysis.lenses.filter(x=>x.key!==first.key).slice(0,2);
+ if(alts.length<2)return null;
+ return {kind:'five-secondary',text:`除了「${first.title}」，你還想讓哪個面向一起進入思考？`,options:[
+  ...alts.map((l,i)=>({id:String(i),label:situationalSceneLabel(l,state.topic),tag:l.key,focus:l.title,detail:l.brief})),
+  {id:'2',label:'先把剛剛選的那件事弄清楚就好。',tag:'focus-only',focus:'維持單一主軸',detail:'不延伸另一個議題'}
+ ]};
+}
+function fiveChooseEdge(analysis,lens){
+ return analysis.edges.slice().sort((a,b)=>{
+  const sx=e=>(e.a.tags.concat(e.b.tags)).reduce((n,t)=>n+(lens.tags[t]||0),0)+e.weight*.40;
+  return sx(b)-sx(a);
+ })[0];
+}
+function fiveStory(){
+ const p=state.result,analysis=analyzeFive(p,state.topic),[center,up,down,left,right]=p;
+ const lens=selectedFiveLens(analysis),edge=fiveChooseEdge(analysis,lens);
+ const headline=plainTopicPart('headlines',center);
+ // Center card is the anchor; use the strongest edge only when it adds an actual relation.
+ let why=`中央的「${center.name}」提醒你${plainTopicPart('hooks',center)}。`;
+ if(edge.score>=8 && edge.a.id!==edge.b.id){
+   const message=plainTopicRelation(edge.topic)[1];
+   const partner=edge.a.id===center.id?edge.b:edge.b.id===center.id?edge.a:null;
+   const crossDomain=partner&&['money','work','self'].includes(state.topic)&&edge.topic==='靠近與界線'&&!partner.tags.some(t=>['connect','boundary'].includes(t));
+   why+=crossDomain?`「${partner.name}」則提醒你${plainTopicPart('hooks',partner)}。`:partner?`加上「${partner.name}」的視角：${message}`:`另外，「${edge.a.name}」與「${edge.b.name}」也帶出一個重點：${message}`;
+ }else{
+   why+=`這次可以把重心放在「${lens.title}」，先處理最重要的一件事。`;
+ }
+ const upIsGap=up.tags.some(t=>['scarcity','caution','confusion','pressure','risk'].includes(t));
+ const supports=state.topic==='love' ? `上方的「${up.name}」提醒你${plainTopicPart('hooks',up)}。至於「${down.name}」，則要留意：${plainTopicPart('cautions',down)}。` : `${upIsGap?'上方的「'+up.name+'」提醒你':'可以借力的是「'+up.name+'」：'}${plainTopicPart('hooks',up)}。但「${down.name}」也提醒你，${plainTopicPart('cautions',down)}。`;
+ let next=`接下來，「${right.name}」建議你${plainTopicPart('steps',right)}。`;
+ const hint=plainExtraHint(),scope=plainScopeAction();
+ if(hint && !next.includes(hint))next+=`你選擇關注的部分，可以${hint}。`;
+ else if(scope && !next.includes(scope))next+=`以這次的探索方向來說，可以${scope}。`;
+ // Only bring in the background if it has a strong direct connection to the direction.
+ const movement=relation(left,right);
+ if(movement.score>=9 && movement.key!==edge.key)
+   next=`從「${left.name}」到「${right.name}」，先後順序值得留意。`+next;
+ return {title:headline,why,supports,next,analysis,lens,engine:'relationship-safe-v422'};
+}
+
+function cardArt(c){return `<div class="art" data-card-id="${c.id}" aria-label="${escapeHtml(c.name)} 的卡圖"><span class="art-loading">loading</span><img class="external-card-image" alt="${escapeHtml(c.name)} 的正式卡圖" loading="${state.stage==='atlas'?'lazy':'eager'}" decoding="async"></div>`}
+// Image probe: accept local PNG/JPG/JPEG with uppercase extensions; no fallback drawings.
+const imageExtensions=['png','jpg','jpeg','PNG','JPG','JPEG'];
+const cardImageCache=new Map();
+function lookupCardImage(id,done){let it=cardImageCache.get(id);if(it){if(it.status==='loading')it.callbacks.push(done);else done(it.src);return}it={status:'loading',src:null,callbacks:[done]};cardImageCache.set(id,it);let idx=0;const finish=src=>{it.src=src;it.status=src?'found':'missing';it.callbacks.splice(0).forEach(cb=>cb(src))};const next=()=>{if(idx>=imageExtensions.length){finish(null);return}const src=`card${num(id)}.${imageExtensions[idx++]}`;const probe=new Image();probe.onload=()=>finish(src);probe.onerror=next;probe.src=src};next()}
+function makeCoverLookup(name){const it={status:'idle',src:null,callbacks:[]};return done=>{if(it.status==='found'||it.status==='missing'){done(it.src);return}it.callbacks.push(done);if(it.status==='loading')return;it.status='loading';let idx=0;const finish=src=>{it.src=src;it.status=src?'found':'missing';it.callbacks.splice(0).forEach(cb=>cb(src))};const next=()=>{if(idx>=imageExtensions.length){finish(null);return}const src=`${name}.${imageExtensions[idx++]}`;const probe=new Image();probe.onload=()=>finish(src);probe.onerror=next;probe.src=src};next()}}
+const mainCoverNames=Array.from({length:10},(_,i)=>`cardmain${num(i+1)}`);
+const mainCoverLookups=new Map(mainCoverNames.map(name=>[name,makeCoverLookup(name)]));
+const lookupCardSign=makeCoverLookup('cardsign');
+let homeCoverOrder=[];function resetHomeCover(){homeCoverOrder=shuffle(mainCoverNames)}
+function lookupRandomMainCover(done){let pos=0;const next=()=>{if(pos>=homeCoverOrder.length){done(null);return}mainCoverLookups.get(homeCoverOrder[pos++])(src=>src?done(src):next())};next()}
+function hydrateMainCover(){const hero=document.getElementById('hero-main-cover');const sign=document.getElementById('hero-card-sign');if(hero){lookupRandomMainCover(src=>{if(!src||!hero.isConnected||hero!==document.getElementById('hero-main-cover'))return;const img=hero.querySelector('.hero-main-image');if(!img)return;img.src=src;hero.classList.add('has-main-image')})}if(sign){lookupCardSign(src=>{if(!src||!sign.isConnected||sign!==document.getElementById('hero-card-sign'))return;sign.onload=()=>sign.isConnected&&sign.classList.add('is-visible');sign.onerror=()=>sign.isConnected&&sign.classList.remove('is-visible');sign.src=src;if(sign.complete&&sign.naturalWidth)sign.classList.add('is-visible')})}}
+function hydrateCardImages(root=document){root.querySelectorAll('.art[data-card-id]').forEach(el=>{if(el.dataset.imageBound==='1')return;el.dataset.imageBound='1';const img=el.querySelector('img.external-card-image');lookupCardImage(+el.dataset.cardId,url=>{if(!url||!img.isConnected)return;const show=()=>img.isConnected&&el.classList.add('has-external');img.addEventListener('load',show,{once:true});img.addEventListener('error',()=>el.classList.remove('has-external'),{once:true});img.src=url;if(img.complete&&img.naturalWidth)show()})})}
+function header(){
+ const mark=state.stage==='setup'
+  ? '<button class="mark" type="button" data-action="atlas-secret-tap" aria-label="挪威貓貓神諭卡標誌">☾</button>'
+  : '<div class="mark" aria-hidden="true">☾</div>';
+ return `<div class="stars"></div><header class="topbar"><div class="brand">${mark}<div><div class="brand-name">挪威貓貓直覺神諭卡</div><div class="brand-sub">CATS ORACLE</div></div></div></header>`;
+}
+function setupView(){return `<div class="eyebrow">⋆˚✦ THE CAT KNOWS ✦˚⋆</div><h1 class="heading serif">今天，聽聽挪威貓貓<br>想對你說什麼</h1><p class="intro">讓貓咪的日常動作，帶你找到另一個思考的角度。</p><div class="hero-art"><div class="halo"></div><div class="orbit"></div><div class="hero-back1"></div><div class="hero-back2"></div><div class="hero-main-stack"><div class="hero-card" id="hero-main-cover"><span class="hero-question">?</span><img class="hero-main-image" alt="隨機首頁封面"></div><img id="hero-card-sign" class="hero-card-sign" alt="封面右下角標誌" decoding="async"></div></div><section class="panel"><div class="section-label">提問主題</div><div class="chips">${topics.map(([k,n])=>`<button class="chip ${k===state.topic?'active':''}" data-action="topic" data-topic="${k}" aria-pressed="${k===state.topic}">${n}</button>`).join('')}</div>${focusPickerHtml()}<div class="section-label">選擇牌陣</div><div class="mode-grid">${[1,3,5].map(n=>`<button class="mode ${state.mode===n?'active':''}" data-action="mode" data-mode="${n}" aria-pressed="${n===state.mode}"><div class="mode-symbol">${n===1?'✦':n===3?'✦ ✦ ✦':'✧ ✦ ✧'}</div><div class="mode-title">${n} 張牌</div></button>`).join('')}</div><div class="space"></div><button class="primary" data-action="start">開始洗牌　✦</button></section><p class="note">牌卡只是象徵性的自我探索工具，不替他人代言，也不取代客觀資訊與現實判斷。</p>`}
+function atlasView(){
+ // 沿用 cards 的完整 54 張資料及 6 個分類，避免圖鑑與抽牌內容不同步。
+ const sections=groups.map((g,gi)=>{
+  const items=cards.filter(c=>c.group===gi);
+  return `<section class="atlas-group"><h2 class="atlas-group-title serif">${escapeHtml(g.name)}</h2><p class="atlas-group-sub">${escapeHtml(g.subtitle)} · ${items.length} 張</p><div class="atlas-grid">${items.map(c=>`<button class="atlas-entry" data-action="detail" data-id="${c.id}" aria-label="閱讀第 ${num(c.id)} 張 ${escapeHtml(c.name)} 的完整牌義"><span class="atlas-num">NO. ${num(c.id)}</span>${cardArt(c)}<span class="atlas-card-name">${escapeHtml(c.name)}</span></button>`).join('')}</div></section>`;
+ }).join('');
+ return `<div class="atlas-top-action"><button class="atlas-back" data-action="atlas-back">← 返回首頁</button></div><div class="eyebrow">DORIS · CAT ORACLE</div><h1 class="atlas-heading serif">54 張貓咪神諭卡圖鑑</h1><p class="atlas-intro">依六種主題收藏全部 54 張牌。點選卡牌即可查看畫面意象、核心象徵、順勢指引、潛在警示與綜合啟示。</p>${sections}<div class="atlas-bottom-action"><button class="secondary" data-action="atlas-back">返回首頁</button></div>`;
+}
+const pawMarkup='<span class="paw-print" aria-hidden="true"><i class="toe"></i><i class="toe"></i><i class="toe"></i><i class="toe"></i><i class="pad"></i></span>';
+/* 25 張散牌構成 5×5 固定格位，從洗好的 54 張牌取前 25 張；被選走不再補牌。 */
+const SCATTER_SIZE=25;
+const SCATTER_POSITIONS=[
+ // 五列五行：保留可輕觸的間距，讓牌角輕微歪斜、位置有自然錯落。
+ [12.0,11.8,-11],[31.1,12.6,8],[50.2,11.2,-9],[68.9,12.4,13],[87.9,11.7,-11],
+ [12.7,30.4,11],[30.3,31.4,-13],[49.5,30.2,15],[69.9,31.5,-14],[87.3,30.5,9],
+ [11.7,50.7,-10],[31.4,49.7,13],[50.0,50.8,-6],[69.1,49.5,10],[88.1,50.2,-13],
+ [12.5,69.9,9],[30.9,68.4,-12],[49.4,70.1,13],[69.8,69.1,-9],[87.6,68.6,12],
+ [12.3,88.2,-9],[30.4,87.8,11],[50.3,88.2,-12],[69.3,87.7,9],[88.2,88.0,-9]
+];
+function initScatterDeck(reshuffle=false){
+ if(reshuffle||!state.deck.length)state.deck=shuffle(cards.map(c=>c.id));
+ state.tableCards=state.deck.slice(0,SCATTER_SIZE);
+ state.reserveCards=state.deck.slice(SCATTER_SIZE);
+ state.selectedSlots=[];
+ state.scatterLayout=SCATTER_POSITIONS.map(([x,y,r])=>[x+(randomInt(13)-6)/10,y+(randomInt(17)-8)/10,r+(randomInt(9)-4)]);
+}
+function selectionTray(){return Array.from({length:state.mode},(_,i)=>i<state.selected.length?
+ `<button type="button" class="picked-slot filled" data-action="unpick" data-index="${i}" aria-label="取消第 ${i+1} 張已選牌，放回牌桌" title="點選取消這張牌">${pawMarkup}</button>`:
+ `<div class="picked-slot" aria-label="等待選取第 ${i+1} 張牌">${i+1}</div>`).join('')}
+function scatterCardsHtml(){return state.tableCards.map((id,i)=>{
+ if(id===null)return ''; // 被選走的牌位保持空白，位置與其他卡牌都不移動。
+ const [x,y,r]=state.scatterLayout[i%SCATTER_SIZE]||SCATTER_POSITIONS[i%SCATTER_SIZE];
+ return `<button type="button" class="pick-card scatter-card" data-action="pick" data-id="${id}" style="--sx:${x}%;--sy:${y}%;--angle:${r}deg;--order:${i+1}" aria-label="選擇牌桌上的第 ${i+1} 張牌" ${state.selected.length===state.mode?'disabled':''}>${pawMarkup}</button>`
+}).join('')}
+function pickView(){return `<div class="eyebrow">THE DECK IS IN YOUR HANDS</div><h1 class="heading-sm serif">把選擇交給直覺</h1><p class="intro">輕觸散落的牌，讓它飛入上方牌位。<br>請選出 <b style="color:var(--gold)">${state.mode}</b> 張不重複的貓咪牌。</p><div class="progress-bar"><div id="progress-fill" style="width:${state.selected.length/state.mode*100}%"></div></div><div class="deck-count" aria-live="polite">已選擇 <b id="selected-count">${state.selected.length}</b> / ${state.mode} 張</div><div class="picked-strip" id="selection-tray">${selectionTray()}</div><div class="deck-table" id="deck-table" role="group" aria-label="25 個固定格位的散牌桌，可點選尚未取走的卡牌">${scatterCardsHtml()}</div><button id="reveal-btn" class="primary" data-action="reveal" ${state.selected.length===state.mode?'':'disabled'}>${state.mode!==1?'翻開卡牌，進入直覺牽引':'揭開挪威貓貓的啟示'}　✧</button>`}
+
+function guideView(){
+ const q=state.guideQuestions[state.guideIndex],isFive=state.mode===5;
+ const numQuestions=state.guideQuestions.length;
+ const canExtra=isFive&&state.guideIndex===1&&state.answers[1]!==null&&fiveQuestionThree(analyzeFive(state.result,state.topic))!==null;
+ return `<div class="eyebrow">⋆˚ THE CAT ASKS ⋆˚</div><h1 class="heading-sm serif">貓貓想多了解你一點</h1><p class="intro">卡牌已經確定。你的回答只會調整解讀方向，不會更換牌卡，也不會替別人的想法下定論。</p><section class="guide-panel"><div class="guide-top"><span>${isFive?'五張牌・故事牽引':'三張牌・直覺牽引'}</span><span>第 ${state.guideIndex+1} / ${numQuestions} 題${isFive?'（最多 3 題）':''}</span></div><div class="guide-progress"><span style="width:${(state.guideIndex+1)/numQuestions*100}%"></span></div><div class="guide-title">${escapeHtml(q.text)}</div><p class="guide-sub">選擇最貼近你想討論的方向即可。沒有符合的答案，隨時可以略過。</p>${q.options.map((o,i)=>`<button data-action="guide-answer" data-value="${o.id}" class="answer-choice ${state.answers[state.guideIndex]===o.id?'active':''}" aria-pressed="${state.answers[state.guideIndex]===o.id}"><span class="letter">${'ABC'[i]}</span><span>${escapeHtml(o.label)}</span></button>`).join('')}<div class="guide-actions"><button class="secondary" data-action="guide-back">${state.guideIndex===0?'返回選牌':'上一題'}</button><button class="primary" data-action="guide-next" ${state.answers[state.guideIndex]===null?'disabled':''}>${state.guideIndex===0?'下一題':'閱讀解讀'}　✦</button></div>${canExtra?'<button class="five-extra" data-action="guide-extra">＋ 想再釐清一個面向（選答第三題）</button>':''}<button class="line-link guide-skip" data-action="guide-skip">不確定／這些都不符合，略過這題</button></section>`;
+}
+
+function faceCard(c,i,role){return `<div class="face-item" style="--delay:${i*80}ms"><div class="face-number">NO. ${num(c.id)}</div>${cardArt(c)}<div class="face-name">${escapeHtml(c.name)}</div><div class="face-role">${escapeHtml(role)}</div></div>`}
+/* 牌義手札只顯示一張；依牌位切換而不重繪整張占卜頁。 */
+const journalShortRoles={
+ '此刻的提醒':'提醒',
+ '背景與現況':'背景',
+ '關鍵影響':'關鍵',
+ '可探索的方向':'方向',
+ '問題核心':'核心',
+ '可運用的助力':'助力',
+ '值得檢視的風險':'風險',
+ '可能的背景因素':'背景',
+ '下一步方向':'方向'
+};
+function journalPanel(c,i,role){
+ // 保留完整四層牌義：核心象徵與綜合啟示直接可見；順勢及警示可展開。
+ return `<div class="journal-head"><div class="journal-number" aria-hidden="true"><span class="journal-glyph">✧</span><span class="journal-id">NO. ${num(c.id)}</span></div><div class="journal-heading"><div class="journal-position">${escapeHtml(role)} · 第 ${i+1} 張</div><h3 class="journal-name">${escapeHtml(c.name)}</h3><p class="journal-core">${escapeHtml(c.core)}</p></div></div><hr class="journal-divider"><div class="journal-section-label">✦ 綜合啟示</div><p class="journal-meaning">${escapeHtml(c.synthesis)}</p><details class="journal-extra"><summary>閱讀順勢指引與潛在警示</summary><div class="journal-extra-content"><div class="journal-section-label">順勢指引</div><p>${escapeHtml(c.positive)}</p><div class="journal-section-label">潛在警示</div><p>${escapeHtml(c.caution)}</p></div></details>`;
+}
+function journalView(picks,roles){
+ const count=picks.length;
+ const idx=Math.min(count-1,Math.max(0,state.journalIndex||0));
+ state.journalIndex=idx;
+ const tabs=count>1?`<div class="journal-tabs" role="group" aria-label="選擇牌位" style="--journal-count:${count}">${picks.map((c,i)=>`<button type="button" class="journal-tab" data-action="journal-select" data-index="${i}" aria-pressed="${i===idx}" aria-label="第 ${i+1} 張 ${escapeHtml(roles[i])}：${escapeHtml(c.name)}"><span class="tab-role">${escapeHtml(journalShortRoles[roles[i]]||roles[i])}</span><span class="tab-no">${num(c.id)}</span></button>`).join('')}</div>`:'';
+ const nav=count>1?`<div class="journal-navigation"><button type="button" class="journal-pager" data-action="journal-prev" ${idx===0?'disabled':''} aria-label="上一張牌義">‹　上一張</button><span class="journal-indicator" id="journal-count">${idx+1} / ${count}</span><button type="button" class="journal-pager" data-action="journal-next" ${idx===count-1?'disabled':''} aria-label="下一張牌義">下一張　›</button></div>`:`<div class="journal-navigation single"><span class="journal-indicator">✧ 此刻的提醒 ✧</span></div>`;
+ return `<section class="read-block journal-wrap" id="card-journal"><div class="read-title">✦　牌義手札</div>${tabs}<div class="journal-panel" id="journal-panel" aria-live="polite" aria-atomic="true">${journalPanel(picks[idx],idx,roles[idx])}</div>${nav}</section>`;
+}
+function updateJournal(index){
+ if(state.stage!=='result'||!state.result.length)return;
+ const picks=state.result,roles=modes[state.mode][1];
+ const idx=Math.max(0,Math.min(picks.length-1,index));
+ if(idx===state.journalIndex)return;
+ state.journalIndex=idx;
+ const panel=document.getElementById('journal-panel');
+ if(!panel)return;
+ // 只更新內文，不讓故事頁重新載入，也避免閱讀時頁面跳至最上方。
+ panel.innerHTML=journalPanel(picks[idx],idx,roles[idx]);
+ panel.style.animation='none';void panel.offsetWidth;panel.style.animation='';
+ document.querySelectorAll('#card-journal .journal-tab').forEach((tab,i)=>tab.setAttribute('aria-pressed',String(i===idx)));
+ const prev=document.querySelector('#card-journal [data-action="journal-prev"]');
+ const next=document.querySelector('#card-journal [data-action="journal-next"]');
+ const indicator=document.getElementById('journal-count');
+ if(prev)prev.disabled=idx===0;
+ if(next)next.disabled=idx===picks.length-1;
+ if(indicator)indicator.textContent=`${idx+1} / ${picks.length}`;
+}
+function resultView(){const picks=state.result,roles=modes[state.mode][1],three=state.mode===3;
+ const top=`<div class="eyebrow">✧ YOUR CAT ORACLE ✧</div><h1 class="heading-sm serif">挪威貓貓的直覺啟示</h1><div class="center"><span class="topic-flag">${escapeHtml(topicName(state.topic))}${focusFor(state.topic)?' ／ '+escapeHtml(focusFor(state.topic).label):''} ・ ${state.mode} 張牌</span></div><div class="face-grid ${state.mode===1?'one':state.mode===5?'five':''}">${picks.map((c,i)=>faceCard(c,i,roles[i])).join('')}</div><div class="ornament"></div>`;
+ const r=state.mode===1?oneCardReading(picks[0]):state.reading||(three?makeStory():fiveStory());
+ let story=`<section class="read-block plain-reading"><div class="story-head"><div class="tiny">${state.mode===1?'一張牌的提醒':'這次的重點'}</div><h2>${escapeHtml(r.title)}</h2></div><div class="story-flow"><p class="plain-reason">${escapeHtml(r.why)}</p>`;
+ if(r.supports)story+=`<p class="plain-reason">${escapeHtml(r.supports)}</p>`;
+ story+=`<div class="story-section-title">✦ 可以怎麼做</div><p class="plain-next">${escapeHtml(r.next)}</p></div></section>`;
+ return top+story+`<div class="space"></div><div class="result-actions"><button class="secondary" data-action="copy">複製解讀文字</button><button class="primary" data-action="restart">再次抽牌　✦</button></div><button class="journal-open-button" type="button" data-action="journal-unlock">✦　牌義手札</button><div id="journal-mount">${state.journalUnlocked?journalView(picks,roles):''}</div><p class="note">本解讀為象徵性的自我探索提示，不代表對他人心意或外部事件的事實判定。重要決定請搭配實際資訊、溝通及必要的專業建議。</p>`;
+}
+
+function render(){document.getElementById('app').innerHTML=header()+`<main>${state.stage==='setup'?setupView():state.stage==='pick'?pickView():state.stage==='guide'?guideView():state.stage==='atlas'?atlasView():resultView()}</main>`;hydrateCardImages();if(state.stage==='setup')hydrateMainCover()}
+function topScroll(){window.scrollTo({top:0,behavior:'instant'})}
+function showToast(message){document.querySelectorAll('.toast').forEach(el=>el.remove());const el=document.createElement('div');el.className='toast';el.textContent=message;document.body.appendChild(el);setTimeout(()=>el.remove(),2200)}
+
+function taipeiAtlasCode(instant=new Date()){
+ const parts=new Intl.DateTimeFormat('en-US',{timeZone:'Asia/Taipei',month:'2-digit',day:'2-digit'}).formatToParts(instant);
+ const month=parts.find(p=>p.type==='month').value.padStart(2,'0');
+ const day=parts.find(p=>p.type==='day').value.padStart(2,'0');
+ return '7310'+month+day;
+}
+/* V4.15 — 手札密碼驗證：點擊確認、Enter 及手機鍵盤均可觸發；只執行一次。 */
+function openJournalGate(){
+ if(state.stage!=='result'||!state.result.length)return;
+ if(state.journalUnlocked){
+  const shown=document.getElementById('card-journal');
+  if(shown)shown.scrollIntoView({behavior:dreamReducedMotion()?'instant':'smooth',block:'start'});
+  else state.journalUnlocked=false;
+  if(shown)return;
+ }
+ closeModal();
+ const overlay=document.createElement('div');
+ overlay.className='modal-overlay journal-code-overlay';
+ overlay.innerHTML=`<section class="modal journal-code-modal" role="dialog" aria-modal="true" aria-labelledby="journal-code-heading"><button class="modal-close" type="button" data-action="close-modal" aria-label="關閉視窗">×</button><h3 id="journal-code-heading">✦ 牌義手札</h3><p class="journal-code-desc">輸入八位數密碼，翻閱本次抽到的牌義。</p><form id="journal-code-form" novalidate><label for="journal-code-input">開啟密碼</label><input id="journal-code-input" type="tel" inputmode="numeric" maxlength="8" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="八位數密碼" placeholder="輸入 8 位數"/><button class="primary journal-submit" type="button" id="journal-code-confirm">確認開啟</button></form></section>`;
+ document.body.appendChild(overlay);
+ document.body.style.overflow='hidden';
+ const field=overlay.querySelector('#journal-code-input');
+ const button=overlay.querySelector('#journal-code-confirm');
+ const form=overlay.querySelector('#journal-code-form');
+ let completed=false;
+ function verifyJournalCode(){
+  if(completed||!overlay.isConnected)return;
+  completed=true;
+  const input=field.value.normalize('NFKC').replace(/[\s\u200B-\u200D\uFEFF]/g,'');
+  const valid=input===taipeiAtlasCode();
+  closeModal();
+  if(!valid){
+   showToast('密碼錯誤，未開啟牌義手札');
+   return;
+  }
+  if(state.stage!=='result'||!state.result.length)return;
+  const mount=document.getElementById('journal-mount');
+  if(!mount){showToast('目前無法顯示牌義手札，請重新開啟結果頁');return;}
+  state.journalUnlocked=true;
+  state.journalIndex=0;
+  try{
+   mount.innerHTML=journalView(state.result,modes[state.mode][1]);
+   showToast('牌義手札已開啟');
+   requestAnimationFrame(()=>{
+    const panel=document.getElementById('card-journal');
+    if(panel)panel.scrollIntoView({behavior:dreamReducedMotion()?'instant':'smooth',block:'start'});
+   });
+  }catch(err){
+   state.journalUnlocked=false;
+   mount.innerHTML='';
+   showToast('牌義手札載入失敗，請再試一次');
+   console.error('牌義手札載入失敗',err);
+  }
+ }
+ button.addEventListener('click',event=>{event.preventDefault();verifyJournalCode()});
+ form.addEventListener('submit',event=>{event.preventDefault();verifyJournalCode()});
+ field.addEventListener('keydown',event=>{
+  if(event.key==='Enter'){
+   event.preventDefault();verifyJournalCode();
+  }
+ });
+ // 手機瀏覽器的虛擬鍵盤可能不顯示送出鍵，因此確認按鈕一律可直接點擊。
+ try{field.focus({preventScroll:true})}catch(e){field.focus()}
+}
+function backFromAtlas(){state.stage='setup';state.question='';state.focus='';resetHomeCover();render();topScroll()}
+function enterAtlas(){
+ // 圖鑑只由首頁標誌的四連點與四位數密碼開啟。
+ state.question='';state.selected=[];state.selectedSlots=[];state.result=[];state.reading=null;
+ state.answers=[null,null,null];state.guideQuestions=[];state.guideIndex=0;
+ state.stage='atlas';render();topScroll();
+}
+let atlasTapCount=0,atlasLastTap=0;
+function secretAtlasTap(){
+ if(state.stage!=='setup'||dreamTransitionBusy)return;
+ const now=Date.now();
+ if(now-atlasLastTap>2400)atlasTapCount=0; // 中斷連點便重新計數。
+ atlasTapCount++;atlasLastTap=now;
+ if(atlasTapCount>=4){atlasTapCount=0;atlasLastTap=0;openAtlasGate()}
+}
+function openAtlasGate(){
+ if(state.stage!=='setup')return;
+ closeModal();
+ const overlay=document.createElement('div');
+ overlay.className='modal-overlay atlas-code-overlay';
+ overlay.innerHTML=`<section class="modal atlas-code-modal" role="dialog" aria-modal="true" aria-labelledby="atlas-code-heading"><button class="modal-close" type="button" data-action="close-modal" aria-label="關閉視窗">×</button><h3 id="atlas-code-heading">✦ 典藏圖鑑</h3><form id="atlas-code-form" novalidate><label class="atlas-code-label" for="atlas-code-input">請輸入四位數字</label><input id="atlas-code-input" type="tel" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="四位數密碼" placeholder="四位數密碼"/><button class="primary atlas-code-submit" type="button" id="atlas-code-confirm">確認</button></form></section>`;
+ document.body.appendChild(overlay);
+ document.body.style.overflow='hidden';
+ const form=overlay.querySelector('#atlas-code-form');
+ const field=overlay.querySelector('#atlas-code-input');
+ const confirmButton=overlay.querySelector('#atlas-code-confirm');
+ let submitted=false;
+ function verifyAtlasCode(){
+  if(submitted||!overlay.isConnected)return;
+  submitted=true;
+  const input=field.value.normalize('NFKC').replace(/[\s\u200B-\u200D\uFEFF]/g,'');
+  const valid=input==='7310';
+  closeModal();
+  // 錯誤密碼：不顯示提示，直接關閉。正確密碼：進入原本 3～5 秒的圖鑑轉場。
+  if(valid && state.stage==='setup')dreamTransition(enterAtlas,'翻閱貓咪圖鑑');
+ }
+ // 輸入完整四碼後立即驗證，不必另外尋找按鈕（手機也適用）。
+ field.addEventListener('input',e=>{
+  if(e.isComposing)return;
+  if(field.value.normalize('NFKC').replace(/[\s\u200B-\u200D\uFEFF]/g,'').length>=4)verifyAtlasCode();
+ });
+ field.addEventListener('compositionend',()=>{
+  if(field.value.normalize('NFKC').replace(/[\s\u200B-\u200D\uFEFF]/g,'').length>=4)verifyAtlasCode();
+ });
+ confirmButton.addEventListener('click',e=>{e.preventDefault();verifyAtlasCode()});
+ form.addEventListener('submit',e=>{e.preventDefault();verifyAtlasCode()});
+ field.addEventListener('keydown',e=>{
+  if(e.key==='Enter'){e.preventDefault();verifyAtlasCode()}
+ });
+ try{field.focus({preventScroll:true})}catch(e){field.focus()}
+}
+function start(){
+ state.journalUnlocked=false;
+ state.question='';
+ state.deck=shuffle(cards.map(c=>c.id));state.selected=[];state.selectedSlots=[];state.result=[];state.reading=null;
+ state.answers=[null,null,null];state.guideQuestions=[];state.guideIndex=0;state.stage='pick';
+ initScatterDeck();render();topScroll();
+}
+let scatterPickBusy=false;
+function syncSelection(){render();if(state.selected.length===state.mode)showToast('喵～卡牌選好了，可以翻牌囉！')}
+function commitPick(id){
+ const index=state.tableCards.indexOf(id);
+ if(index<0||state.selected.length>=state.mode)return;
+ state.tableCards[index]=null; // 不補牌，留下原本的空位。
+ state.selected.push(id);
+ state.selectedSlots.push(index); // 記錄原始牌桌格位，取消時精準復原。
+ // 選中的圖案在占卜結果出現前就開始預讀，不影響抽牌內容或選擇。
+ prefetchCardArt([id]);
+ syncSelection();
+}
+function pick(id,element){
+ if(scatterPickBusy||!state.tableCards.includes(id))return;
+ if(state.selected.length>=state.mode){showToast('已選滿卡牌，可點擊上方已選的牌取消');return}
+ const target=document.querySelectorAll('#selection-tray .picked-slot')[state.selected.length];
+ if(!element||!target||dreamReducedMotion()||!element.animate){commitPick(id);return}
+ scatterPickBusy=true;
+ const from=element.getBoundingClientRect(),to=target.getBoundingClientRect();
+ const ghost=element.cloneNode(true);
+ ghost.removeAttribute('data-action');ghost.removeAttribute('data-id');ghost.setAttribute('aria-hidden','true');ghost.tabIndex=-1;
+ ghost.style.cssText=`position:fixed;z-index:180;pointer-events:none;left:${from.left}px;top:${from.top}px;width:${from.width}px;height:${from.height}px;min-height:0;transform:none;opacity:1;margin:0`;
+ document.body.appendChild(ghost);element.classList.add('is-taking');
+ const dx=to.left+to.width/2-(from.left+from.width/2),dy=to.top+to.height/2-(from.top+from.height/2);
+ let finished=false;
+ const finish=()=>{if(finished)return;finished=true;ghost.remove();scatterPickBusy=false;commitPick(id)};
+ try{const ani=ghost.animate([{transform:'translate(0,0) scale(1)',opacity:1},{transform:`translate(${dx}px,${dy}px) scale(.75) rotate(6deg)`,opacity:.75}],{duration:340,easing:'cubic-bezier(.2,.72,.23,1)',fill:'forwards'});ani.finished.then(finish,finish);setTimeout(finish,520)}catch(e){finish()}
+}
+function unpick(index){
+ if(scatterPickBusy||index<0||index>=state.selected.length)return;
+ const [id]=state.selected.splice(index,1);
+ const [originalSlot]=state.selectedSlots.splice(index,1);
+ if(!Number.isInteger(originalSlot)||state.tableCards[originalSlot]!==null){
+   // 不應發生：資料不同步時不遺失牌卡，恢復玩家已選的狀態。
+   state.selected.splice(index,0,id);state.selectedSlots.splice(index,0,originalSlot);return;
+ }
+ state.tableCards[originalSlot]=id; // 精準放回原本空白的固定格位。
+ syncSelection();
+}
+function clearPick(){if(scatterPickBusy)return;state.selected=[];state.selectedSlots=[];initScatterDeck();render()}
+function reshufflePick(){state.deck=shuffle(cards.map(c=>c.id));state.selected=[];state.selectedSlots=[];initScatterDeck();render();showToast('已重新洗牌 ✦')}
+function reveal(){if(state.selected.length!==state.mode)return;state.journalUnlocked=false;state.journalIndex=0;state.result=state.selected.map(getCard);state.variant=randomInt(3);state.answers=[null,null,null];state.guideQuestions=[];state.guideIndex=0;state.reading=null;
+ if(state.mode===3){state.guideQuestions=makeGuides(state.result,state.topic).questions;state.stage='guide'}
+ else if(state.mode===5){state.guideQuestions=makeGuidesFive(state.result,state.topic).questions;state.stage='guide'}
+ else state.stage='result';
+ render();topScroll()}
+function guideAnswer(id){const q=state.guideQuestions[state.guideIndex];if(!q||!q.options.some(o=>o.id===id))return;
+ if(state.guideIndex===0&&state.answers[0]!==id){state.answers[1]=null;state.answers[2]=null;if(state.mode===5)state.guideQuestions=state.guideQuestions.slice(0,2);}
+ state.answers[state.guideIndex]=id;render()}
+function guideAdvance(skip=false){const i=state.guideIndex;
+ if(!skip&&state.answers[i]===null)return;
+ if(skip)state.answers[i]=null;
+ if(i===0){
+  if(state.mode===5){const a=analyzeFive(state.result,state.topic);state.guideQuestions[1]=situationalSecondQuestion(fiveQuestionTwo(selectedFiveLens(a)),state.topic);state.answers[1]=null;state.answers[2]=null;state.guideQuestions=state.guideQuestions.slice(0,2)}
+  else if(state.mode===3){
+    const a=analyzeThree(state.result,state.topic);
+    const first=state.guideQuestions[0]?.options.find(o=>o.id===state.answers[0]);
+    const follow=chooseFollowup(a,state.result,first||null);
+    state.guideQuestions[1]=situationalSecondQuestion(follow,state.topic,first?.tag||null);
+    state.answers[1]=null;
+  }
+  state.guideIndex=1;render();topScroll();return;
+ }
+ if(i===1||i===2){state.reading=state.mode===5?fiveStory():makeStory();state.stage='result';render();topScroll()}
+}
+function guideExtra(){
+ if(state.mode!==5||state.guideIndex!==1||state.answers[1]===null)return;
+ const q=fiveQuestionThree(analyzeFive(state.result,state.topic));if(!q)return;
+ state.guideQuestions[2]=focusPrompt(q,state.topic);state.answers[2]=null;state.guideIndex=2;render();topScroll();
+}
+function guideBack(){if(state.guideIndex>0){state.guideIndex--;render();topScroll()}else{state.result=[];state.stage='pick';render();topScroll()}}
+
+function openModal(contents){document.querySelector('.modal-overlay')?.remove();const overlay=document.createElement('div');overlay.className='modal-overlay';overlay.innerHTML=`<section class="modal" role="dialog" aria-modal="true" aria-label="卡牌完整牌義"><div class="modal-grab"></div><button class="modal-close" data-action="close-modal" aria-label="關閉">×</button>${contents}</section>`;document.body.appendChild(overlay);document.body.style.overflow='hidden';hydrateCardImages(overlay)}
+function closeModal(){document.querySelector('.modal-overlay')?.remove();document.body.style.overflow=''}
+function detail(id){const c=getCard(id);if(!c)return;const g=groups[c.group];openModal(`<div class="sheet-card-title"><div class="number">${num(c.id)}</div><div><div class="group">${escapeHtml(g.name)}</div><h3>${escapeHtml(c.name)}</h3></div></div><div class="modal-art">${cardArt(c)}</div><div class="pill-row">${c.keys.map(k=>`<span class="tag">${escapeHtml(k)}</span>`).join('')}</div><div class="hint-card"><strong>畫面意象</strong><p>${escapeHtml(c.scene)}</p></div><div class="hint-card"><strong>核心象徵</strong><p>${escapeHtml(c.core)}</p></div><div class="hint-card"><strong>順勢指引</strong><p>${escapeHtml(c.positive)}</p></div><div class="hint-card"><strong>潛在警示</strong><p>${escapeHtml(c.caution)}</p></div><div class="hint-card"><strong>綜合啟示</strong><p>${escapeHtml(c.synthesis)}</p></div><div class="space-sm"></div><button class="secondary" data-action="close-modal">${state.stage==='atlas'?'返回圖鑑':'回到解讀'}</button>`)}
+
+function readingText(){
+ const p=state.result,mode=state.mode,role=modes[mode][1];
+ const lines=[`挪威貓貓直覺神諭卡｜${modes[mode][0]}`,`主題：${topicName(state.topic)}`,
+   ...(focusFor(state.topic)?[`探索方向：${focusFor(state.topic).label}`]:[])];
+ p.forEach((c,i)=>lines.push(`${role[i]}｜${num(c.id)} ${c.name}`));
+ const r=mode===1?oneCardReading(p[0]):state.reading||(mode===3?makeStory():fiveStory());
+ lines.push(`重點：${r.title}`,r.why);
+ if(r.supports)lines.push(r.supports);
+ lines.push(`可以怎麼做：${r.next}`);
+ lines.push('本解讀僅供自我探索，不推定他人想法，也不取代客觀資訊與專業建議。');
+ // The locked journal's four-layer meanings are intentionally not copied without unlocking.
+ return lines.filter(Boolean).join('\n\n');
+}
+
+async function copyReading(){const txt=readingText();let ok=false;try{if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(txt);ok=true}}catch(e){}if(!ok){const area=document.createElement('textarea');area.value=txt;area.style.cssText='position:fixed;opacity:0;top:0;left:0';document.body.appendChild(area);area.select();try{ok=document.execCommand('copy')}catch(e){}area.remove()}showToast(ok?'占卜解讀已複製':'無法自動複製，請長按文字複製')}
+
+/* V4.9：頁面主要轉場皆隨機 3～5 秒，同步預讀已選的正式卡牌圖片。 */
+let dreamTransitionBusy=false;
+let lastDreamDuration=0;
+let lastPrefetchIds=[];
+const dreamReducedMotion=()=>window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function prefetchCardArt(ids){
+ const uniq=[...new Set((ids||[]).map(Number).filter(id=>id>=1&&id<=cards.length))];
+ uniq.forEach(id=>lookupCardImage(id,()=>{}));
+ return uniq;
+}
+function preloadForTransition(){
+ return state.selected.slice();
+}
+function dreamTransition(task,label='循著直覺，緩緩翻頁'){
+ if(dreamTransitionBusy)return;
+ lastPrefetchIds=prefetchCardArt(preloadForTransition());
+ lastDreamDuration=3000+randomInt(2001);
+ if(dreamReducedMotion()){task();return}
+ dreamTransitionBusy=true;
+ document.querySelector('.dream-transition')?.remove();
+ const layer=document.createElement('div');
+ layer.className='dream-transition';
+ layer.setAttribute('role','status');
+ layer.setAttribute('aria-label',label);
+ layer.setAttribute('aria-live','polite');
+ layer.innerHTML=`<div class="dream-center"><div class="dream-orbit"><div class="dream-paw">${pawMarkup}</div><span class="dream-star a">✦</span><span class="dream-star b">✧</span></div><div class="dream-label">${escapeHtml(label)}</div><div class="dream-note">慢慢呼吸，讓直覺有一點時間</div><div class="dream-dots" aria-hidden="true"><i></i><i></i><i></i></div></div>`;
+ document.body.appendChild(layer);
+ requestAnimationFrame(()=>layer.classList.add('is-visible'));
+ setTimeout(()=>{
+  try{task()}finally{
+   layer.classList.remove('is-visible');layer.classList.add('is-leaving');
+   setTimeout(()=>{layer.remove();dreamTransitionBusy=false},320);
+  }
+ },lastDreamDuration);
+}
+
+document.getElementById('app').addEventListener('click',e=>{
+ const b=e.target.closest('[data-action]');if(!b)return;
+ const a=b.dataset.action;
+ if(dreamTransitionBusy)return;
+ if(a==='atlas-secret-tap')secretAtlasTap();
+ else if(a==='topic'){state.topic=b.dataset.topic;state.focus='';render()}
+ else if(a==='focus'){const id=b.dataset.focus||'';if(!id||(focusOptions[state.topic]||[]).some(v=>v.id===id)){state.focus=id;render()}}
+  else if(a==='mode'){state.mode=+b.dataset.mode;render()}
+ else if(a==='start')dreamTransition(start,'貓咪正在輕聲翻頁');
+ else if(a==='atlas-back')dreamTransition(backFromAtlas,'回到月光下');
+ else if(a==='pick')pick(+b.dataset.id,b);
+ else if(a==='unpick')unpick(+b.dataset.index);
+ else if(a==='journal-unlock')openJournalGate();
+ else if(a==='journal-select')updateJournal(+b.dataset.index);
+ else if(a==='journal-prev')updateJournal(state.journalIndex-1);
+ else if(a==='journal-next')updateJournal(state.journalIndex+1);
+ else if(a==='reveal'){if(state.selected.length===state.mode&&!scatterPickBusy)dreamTransition(reveal,'讓卡牌慢慢甦醒')}
+ else if(a==='clear-pick')clearPick();
+ else if(a==='reshuffle')dreamTransition(reshufflePick,'星光正在重新排列');
+ else if(a==='guide-answer')guideAnswer(b.dataset.value);
+ else if(a==='guide-next'){if(state.answers[state.guideIndex]!==null)dreamTransition(()=>guideAdvance(false),state.guideIndex===0?'沿著直覺，再靠近一點':'把呢喃編成故事')}
+ else if(a==='guide-extra'){if(state.mode===5&&state.guideIndex===1&&state.answers[1]!==null)dreamTransition(guideExtra,'再傾聽一個面向')}
+ else if(a==='guide-skip')dreamTransition(()=>guideAdvance(true),state.guideIndex===0?'讓心自由地向前':'讓故事悄悄展開');
+ else if(a==='guide-back')dreamTransition(guideBack,'循著月光回望');
+ else if(a==='detail'&&state.stage==='atlas')detail(+b.dataset.id);
+ else if(a==='copy')copyReading();
+ else if(a==='restart')dreamTransition(()=>{state.journalUnlocked=false;state.focus='';state.stage='setup';state.selected=[];state.selectedSlots=[];state.result=[];state.reading=null;state.answers=[null,null,null];resetHomeCover();render();topScroll()},'每次歸來，都是新的起點');
+});
+
+/* 可選擇左右滑動；不攔截垂直捲動及展開詳細牌義。 */
+let journalTouchStart=null;
+document.getElementById('app').addEventListener('touchstart',e=>{
+ if(state.stage!=='result'||state.mode===1||!e.target.closest('#journal-panel')||e.touches.length!==1)return;
+ const t=e.touches[0];journalTouchStart={x:t.clientX,y:t.clientY};
+},{passive:true});
+document.getElementById('app').addEventListener('touchend',e=>{
+ if(!journalTouchStart)return;
+ const start=journalTouchStart;journalTouchStart=null;
+ if(state.stage!=='result'||!e.target.closest('#journal-panel')||e.changedTouches.length!==1)return;
+ const t=e.changedTouches[0],dx=t.clientX-start.x,dy=t.clientY-start.y;
+ if(Math.abs(dx)>52&&Math.abs(dx)>Math.abs(dy)*1.45)updateJournal(state.journalIndex+(dx<0?1:-1));
+},{passive:true});
+document.getElementById('app').addEventListener('touchcancel',()=>{journalTouchStart=null},{passive:true});
+
+document.addEventListener('click',e=>{if(e.target.classList.contains('modal-overlay')||e.target.closest('[data-action="close-modal"]'))closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+resetHomeCover();render();
+// Intentionally exposed only for local QA; no network or analytics.
+window.__catOracleQA={dreamTransition,dreamTransitionBusy:()=>dreamTransitionBusy,lastTransitionDuration:()=>lastDreamDuration,lastPrefetchIds:()=>lastPrefetchIds.slice(),initScatterDeck,pick,unpick,prefetchCardArt,cards,topics,focusOptions,focusGuideProfiles,guideProfile,focusFor,focusPrompt,focusContext,guideSceneChoices,situationalSceneLabel,threeSituationalFirstQuestion,fiveSituationalFirstQuestion,situationalSecondQuestion,state,taipeiAtlasCode,atlasView,start,backFromAtlas,relation,analyzeThree,makeGuides,makeStory,analyzeFive,makeGuidesFive,fiveQuestionTwo,fiveQuestionThree,fiveStory,guideAdvance,guideExtra,guideAnswer,readingText,keywordFromQuestion,journalView,journalPanel,updateJournal,openJournalGate,secretAtlasTap,openAtlasGate,enterAtlas};
+
+</script>
+</body>
+</html>
