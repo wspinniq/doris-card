@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101323">
 <meta name="description" content="挪威貓貓直覺神諭卡：透過貓咪的生活智慧與直覺牽引，探索另一個思考角度。">
-<title>挪威貓貓直覺神諭卡｜V5.16.8 五格式音效</title>
+<title>挪威貓貓直覺神諭卡｜V5.16.8 OGG 按鈕音效修正版</title>
 <script id="cat-theme-bootstrap-v5166">
 /* V5.16.8: five UI palettes and a gentle, locked theme crossfade.
    Existing saved theme key and backup API are preserved; card art remains untouched. */
@@ -64,8 +64,9 @@
 })();
 </script>
 <script id="cat-audio-bootstrap-v5165">
-/* Norwegian Cat Oracle V5.16.8 EXTERNAL AUDIO FIX — MP3/WAV/OGG/M4A/FLAC.
+/* Norwegian Cat Oracle V5.16.8 OGG CLICK FIX — MP3/WAV/OGG/M4A/FLAC.
    External assets/sounds/ is the ONLY sound source, including file:// local play.
+   ui_click_01 and ui_click_02 default to .ogg first to match current GitHub files.
    Missing external files = silence; no hidden embedded audio fallbacks.
    Sound loading errors fall back among the five formats without affecting the game. */
 (()=>{
@@ -86,7 +87,7 @@ const AUDIO_FORMATS=Object.freeze(['mp3','wav','ogg','m4a','flac']);
 // Optional preferred format for an individual stem (if several versions coexist).
 // Example: const PREFERRED_FORMAT=Object.freeze({'ui_click_01':'wav','wind_01':'ogg'});
 // If no preference is set, use mp3 > wav > ogg > m4a > flac.
-const PREFERRED_FORMAT=Object.freeze({});
+const PREFERRED_FORMAT=Object.freeze({'ui_click_01':'ogg','ui_click_02':'ogg'});
 const AudioContextClass=window.AudioContext||window.webkitAudioContext;
 // Local files: a per-page URL token avoids stale file:// cache while editing sounds.
 // Hosted files retain their stable URLs to benefit from ordinary browser caching.
@@ -137,7 +138,7 @@ function pick(group){
 function playBuffer(buffer,group){
  const context=ensureCtx();if(!context||!master||context.state==='closed')return false;
  try{const node=context.createBufferSource();node.buffer=buffer;
-  const gain=context.createGain();const base=group.startsWith('ui_')?.42:.82;
+  const gain=context.createGain();const base=group==='ui_click'?.68:(group.startsWith('ui_')?.42:.82);
   gain.gain.value=base*(.96+randomInt(9)/100);
   if(group==='card_flip'||group==='shuffle'||group==='ui_click')node.playbackRate.value=.98+randomInt(5)/100;
   node.connect(gain);gain.connect(master);node.start();node.onended=()=>{try{node.disconnect();gain.disconnect()}catch(_){}};return true;
@@ -184,7 +185,7 @@ function playHTML(group,num){
    }
   }
   if(!state.audio.paused){state.audio.pause();state.audio.currentTime=0}
-  state.audio.volume=Math.max(0,Math.min(1,settings.volume/100*.4*(group.startsWith('ui_')?.55:1)));
+  state.audio.volume=Math.max(0,Math.min(1,settings.volume/100*.4*(group==='ui_click'?.78:(group.startsWith('ui_')?.55:1))));
   state.audio.currentTime=0;start();
   return true;
  }catch(_){return false}
@@ -258,7 +259,7 @@ const categories={
  'function-toggle':'ui_click','function-feature':'ui_confirm','mailbox-open':'ui_confirm',
  'mood-open':'jar_open','mood-new':'ui_confirm','mood-edit':'jar_open','mood-delete':'ui_back',
  'restart':'ui_back','aux-home':'ui_back','mood-back':'ui_back','atlas-back':'ui_back','close-modal':'ui_back',
- 'theme-select':null,'sound-toggle':null,'sound-preview':null,'copy':'ui_click',
+ 'theme-select':null,'sound-toggle':null,'sound-preview':null,'sound-test-click-01':null,'sound-test-click-02':null,'copy':'ui_click',
  'guide-answer':'ui_click','topic':'ui_click','focus':'ui_click','mode':'ui_click',
  'guide-next':'ui_confirm','guide-extra':'ui_confirm','guide-skip':'ui_confirm','guide-back':'ui_back',
  'deep-no':'ui_back','detail':'ui_confirm','journal-unlock':'ui_confirm',
@@ -1869,7 +1870,7 @@ function settingsView(){
  <p class="catsound-description">輕輕點選、洗牌、翻牌、風之呢喃、拆信與收藏心情時，會聽到柔和的聲音。預設關閉，不會自動播放背景音樂。</p>
  <label class="catsound-volume-head" for="cat-sound-volume"><span>音量大小</span><output id="cat-sound-volume-value" for="cat-sound-volume">${audio.volume}%</output></label>
  <input class="catsound-range" id="cat-sound-volume" type="range" min="0" max="100" step="5" value="${audio.volume}" aria-label="互動音效音量" />
- <div class="catsound-actions"><button type="button" class="catsound-preview" data-action="sound-preview" ${audio.enabled&&audio.volume>0?'':'disabled'}>♫ 試聽一陣微風</button></div>
+ <div class="catsound-actions"><button type="button" class="catsound-preview" data-action="sound-preview" ${audio.enabled&&audio.volume>0?'':'disabled'}>♫ 試聽一陣微風</button><button type="button" class="catsound-preview" data-action="sound-test-click-01" ${audio.enabled&&audio.volume>0?'':'disabled'}>試聽按鈕 01</button><button type="button" class="catsound-preview" data-action="sound-test-click-02" ${audio.enabled&&audio.volume>0?'':'disabled'}>試聽按鈕 02</button></div>
  <p class="catsound-foot">音量 0% 相當於靜音；拖動滑桿不會連續響鈴，鬆開後才會給予輕微試聽回饋。音效只在你主動操作時播放，設定保存在本機，也會包含在完整收藏備份中。</p></div></section>`;
 }
 
@@ -2494,6 +2495,8 @@ document.getElementById('app').addEventListener('click',e=>{
  else if(a==='theme-select'&&state.stage==='settings'){window.__catTheme?.transitionTo(b.dataset.theme,render);}
  else if(a==='sound-toggle'&&state.stage==='settings'){const audio=window.__catAudio;audio?.setEnabled(!audio.get().enabled);render();}
  else if(a==='sound-preview'&&state.stage==='settings'){window.__catAudio?.play('wind');}
+ else if(a==='sound-test-click-01'&&state.stage==='settings'){window.__catAudio?.testFile('ui_click_01');}
+ else if(a==='sound-test-click-02'&&state.stage==='settings'){window.__catAudio?.testFile('ui_click_02');}
   else if(a==='mailbox-open'){window.__catMailReceiveAPI?.openInbox();}
  else if(a==='mood-new'&&state.stage==='mood')moodOpenEditor();
  else if(a==='mood-edit'&&state.stage==='mood'){const entry=moodSnapshot?.entries.find(x=>x.id===b.dataset.id);if(entry)moodOpenEditor('edit',entry)}
@@ -2521,7 +2524,7 @@ document.addEventListener('input',event=>{
  if(event.target?.id!=='cat-sound-volume')return;
  const level=Number(event.target.value);window.__catAudio?.setVolume(level);
  const label=document.getElementById('cat-sound-volume-value');if(label)label.textContent=level+'%';
- const preview=document.querySelector('[data-action="sound-preview"]');if(preview)preview.disabled=!window.__catAudio?.get().enabled||level===0;
+ document.querySelectorAll('[data-action="sound-preview"],[data-action^="sound-test-click-"]').forEach(button=>{button.disabled=!window.__catAudio?.get().enabled||level===0;});
 });
 document.addEventListener('change',event=>{
  if(event.target?.id==='cat-sound-volume')window.__catAudio?.play('ui_confirm');
