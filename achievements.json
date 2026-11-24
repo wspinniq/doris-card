@@ -1,0 +1,417 @@
+{
+  "schema": "norwegian-cat-achievements",
+  "version": 1,
+  "note": "V5.16.3：星光紀念冊僅顯示已解鎖紀念；未完成項目、微光提示、達成比例及新成就催促通知全部隱藏。既有成就條件及紀錄仍保留。",
+  "achievements": [
+    {
+      "id": "first_reading",
+      "title": "初次相遇",
+      "category": "神諭與直覺",
+      "description": "第一次完成神諭解讀，貓咪記得你走進來的這一天。",
+      "symbol": "✧",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "stat",
+        "target": 1,
+        "key": "completedReadings"
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "wind_listener",
+      "title": "風的聆聽者",
+      "category": "神諭與直覺",
+      "description": "風之呢喃累計吹過十次。",
+      "symbol": "〰",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "stat",
+        "target": 10,
+        "key": "windUses"
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "curious_cat_eye",
+      "title": "好奇的貓眼",
+      "category": "神諭與直覺",
+      "description": "同一次牌局中，曾經看見至少七張不同的正面牌。",
+      "symbol": "◉",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "wind_faces",
+        "target": 7
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "card_explorer_10",
+      "title": "神諭初探者",
+      "category": "神諭與直覺",
+      "description": "完成解讀時，累計遇見十張不同的牌。",
+      "symbol": "✧",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "unique_cards",
+        "target": 10
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "card_explorer_30",
+      "title": "星辰收藏家",
+      "category": "神諭與直覺",
+      "description": "完成解讀時，累計遇見三十張不同的牌。",
+      "symbol": "✶",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "unique_cards",
+        "target": 30
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "familiar_card",
+      "title": "命運的老朋友",
+      "category": "神諭與直覺",
+      "description": "有一張牌已在不同的完整牌局中與你相遇三次。",
+      "symbol": "♧",
+      "hidden": true,
+      "enabled": true,
+      "condition": {
+        "type": "same_card",
+        "target": 3
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "three_spreads",
+      "title": "百變占卜師",
+      "category": "神諭與直覺",
+      "description": "曾經完成一張、三張及五張牌陣。",
+      "symbol": "◇",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "all_spreads",
+        "target": 3
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "first_can",
+      "title": "第一顆小心事",
+      "category": "心情罐頭",
+      "description": "第一個小小心情，已經放進罐頭裡。",
+      "symbol": "♡",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "mood_total",
+        "target": 1
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "five_cans",
+      "title": "心情收藏家",
+      "category": "心情罐頭",
+      "description": "累計寫下五個心情罐頭。",
+      "symbol": "♡",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "mood_total",
+        "target": 5
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "fifteen_cans",
+      "title": "裝滿故事的罐子",
+      "category": "心情罐頭",
+      "description": "累計寫下十五個心情罐頭。",
+      "symbol": "♥",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "mood_total",
+        "target": 15
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "five_mood_days",
+      "title": "日子的觀察家",
+      "category": "心情罐頭",
+      "description": "在五個不同的日子留下心情罐頭。",
+      "symbol": "☼",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "mood_days",
+        "target": 5
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "first_cat_mail",
+      "title": "窗台的第一封信",
+      "category": "貓咪信箱",
+      "description": "收到貓咪寄來的第一封信。",
+      "symbol": "✉",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "mail_unique",
+        "target": 1
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "first_opened_mail",
+      "title": "貓掌拆信員",
+      "category": "貓咪信箱",
+      "description": "第一次親手拆開貓咪寄來的信。",
+      "symbol": "✉",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "mail_read",
+        "target": 1
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "cat_pen_pal",
+      "title": "貓咪的筆友",
+      "category": "貓咪信箱",
+      "description": "累計收到十封不同的貓咪信件。",
+      "symbol": "✉",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "mail_unique",
+        "target": 10
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "starlight_receiver",
+      "title": "星光收信人",
+      "category": "貓咪信箱",
+      "description": "累計收到三十封不同的貓咪信件。",
+      "symbol": "✦",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "mail_unique",
+        "target": 30
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "three_mail_types",
+      "title": "貓咪的知心好友",
+      "category": "貓咪信箱",
+      "description": "收到過日常、關心與紀念三種類型的信。",
+      "symbol": "❀",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "mail_categories",
+        "target": 3
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "christmas_star",
+      "title": "冬夜的小星星",
+      "category": "貓咪信箱",
+      "description": "收到十二月二十五日的聖誕節特別來信。",
+      "symbol": "❄",
+      "hidden": true,
+      "enabled": true,
+      "condition": {
+        "type": "mail_christmas",
+        "target": 1
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "seven_days",
+      "title": "七日之約",
+      "category": "陪伴與時光",
+      "description": "和貓咪認識已經滿七天。",
+      "symbol": "☾",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "days_since_install",
+        "target": 7
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "thirty_days",
+      "title": "月光下的朋友",
+      "category": "陪伴與時光",
+      "description": "和貓咪認識已經滿三十天。",
+      "symbol": "☽",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "days_since_install",
+        "target": 30
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "hundred_days",
+      "title": "百日守候",
+      "category": "陪伴與時光",
+      "description": "和貓咪認識已經滿一百天。",
+      "symbol": "✦",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "days_since_install",
+        "target": 100
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "year_together",
+      "title": "四季同行",
+      "category": "陪伴與時光",
+      "description": "和貓咪認識已經滿三百六十五天。",
+      "symbol": "✺",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "days_since_install",
+        "target": 365
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "memory_guardian",
+      "title": "回憶守護者",
+      "category": "收藏與秘密",
+      "description": "第一次啟動完整紀錄備份下載。",
+      "symbol": "♢",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "backup_exports",
+        "target": 1
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "star_collector_5",
+      "title": "拾星的旅人",
+      "category": "收藏與秘密",
+      "description": "已經收藏五項其他星光成就。",
+      "symbol": "✦",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "achievement_total",
+        "target": 5
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    },
+    {
+      "id": "star_collector_15",
+      "title": "星河漫遊者",
+      "category": "收藏與秘密",
+      "description": "已經收藏十五項其他星光成就。",
+      "symbol": "✷",
+      "hidden": false,
+      "enabled": true,
+      "condition": {
+        "type": "achievement_total",
+        "target": 15
+      },
+      "presentation": {
+        "mode": "unlock_only",
+        "hint": ""
+      }
+    }
+  ]
+}
