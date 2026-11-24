@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101323">
 <meta name="description" content="挪威貓貓直覺神諭卡：透過貓咪的生活智慧與直覺牽引，探索另一個思考角度。">
-<title>挪威貓貓直覺神諭卡｜V5.16.8 OGG 按鈕音效修正版</title>
+<title>挪威貓貓直覺神諭卡｜V5.16.12 低延遲音效版</title>
 <script id="cat-theme-bootstrap-v5166">
 /* V5.16.8: five UI palettes and a gentle, locked theme crossfade.
    Existing saved theme key and backup API are preserved; card art remains untouched. */
@@ -63,196 +63,241 @@
  apply(chosen,false);
 })();
 </script>
-<script id="cat-audio-bootstrap-v5165">
-/* Norwegian Cat Oracle V5.16.8 OGG CLICK FIX — MP3/WAV/OGG/M4A/FLAC.
-   External assets/sounds/ is the ONLY sound source, including file:// local play.
-   ui_click_01 and ui_click_02 default to .ogg first to match current GitHub files.
-   Missing external files = silence; no hidden embedded audio fallbacks.
-   Sound loading errors fall back among the five formats without affecting the game. */
+<script id="cat-audio-bootstrap-v51612">
+/* Norwegian Cat Oracle V5.16.12 | LOW-LATENCY EXTERNAL AUDIO
+ * No embedded audio. Place sounds in assets/sounds beside index.html.
+ * Supports MP3, WAV, OGG, M4A (AAC), FLAC, with resilient codec fallback.
+ * Warm decoded AudioBuffers BEFORE clicks. Never play an ordinary sound late.
+ * Optional per-file preference: PREFERRED_FORMAT = {'wind_01':'wav', ...}
+ * OGG group hints reflect the published library; other files default to MP3.
+ */
 (()=>{
 'use strict';
 const KEY='NorwegianCat_Audio_v1';
 const COUNTS={ui_click:2,ui_confirm:2,ui_back:2,wind:5,shuffle:3,card_flip:3,reveal:2,deep_card:2,mail_open:3,jar_save:3,jar_open:2,star:2};
-const groupNames=Object.keys(COUNTS);
+const GROUPS=Object.keys(COUNTS);
+const TOTAL=Object.values(COUNTS).reduce((sum,n)=>sum+n,0);
+const FORMATS=Object.freeze(['mp3','wav','ogg','m4a','flac']);
+// This is a search hint, NOT a limitation: if a preferred file is absent,
+// every other supported format is still tried during preloading.
+const GROUP_FORMAT_HINTS=Object.freeze({ui_click:'ogg',ui_back:'ogg',wind:'ogg',shuffle:'ogg',star:'ogg',ui_confirm:'mp3',reveal:'mp3'});
+const PREFERRED_FORMAT=Object.freeze({
+  'ui_click_01':'ogg','ui_click_02':'ogg'
+  // 'ui_click_01':'wav', // Example: prioritize a new WAV while an OGG also exists
+});
+const AudioContextClass=window.AudioContext||window.webkitAudioContext;
 const valid=x=>!!x&&typeof x==='object'&&!Array.isArray(x)&&typeof x.enabled==='boolean'&&Number.isInteger(x.volume)&&x.volume>=0&&x.volume<=100;
 let settings={enabled:false,volume:35};
-try{const old=JSON.parse(localStorage.getItem(KEY)||'null');if(valid(old))settings={enabled:old.enabled,volume:old.volume}}catch(_){/* storage unavailable */}
-let ctx=null,master=null,lastSound='',lastGroup='',lastAt=0;
-const buffers=new Map(),pending=new Map(),players=new Map(),bags=new Map(),lastVariant=new Map(),lastByGroup=new Map();
-const assetPending=new Map(),resolved=new Map(),failed=new Set(),htmlStates=new Map();
-// Supported formats in default order. Only ONE successfully decoded variant is used.
-// WAV should normally be PCM, M4A should contain AAC, OGG can contain Vorbis or Opus.
-// Browser codec support differs (especially on older versions of Safari).
-const AUDIO_FORMATS=Object.freeze(['mp3','wav','ogg','m4a','flac']);
-// Optional preferred format for an individual stem (if several versions coexist).
-// Example: const PREFERRED_FORMAT=Object.freeze({'ui_click_01':'wav','wind_01':'ogg'});
-// If no preference is set, use mp3 > wav > ogg > m4a > flac.
-const PREFERRED_FORMAT=Object.freeze({'ui_click_01':'ogg','ui_click_02':'ogg'});
-const AudioContextClass=window.AudioContext||window.webkitAudioContext;
-// Local files: a per-page URL token avoids stale file:// cache while editing sounds.
-// Hosted files retain their stable URLs to benefit from ordinary browser caching.
-const LOCAL_AUDIO_QUERY=location.protocol==='file:'?('?cat_audio_session='+Date.now()):'';
-function soundStem(group,num){return `${group}_${String(num).padStart(2,'0')}`}
-function preferredFormat(stem){
- const value=PREFERRED_FORMAT[stem];
- return typeof value==='string'&&AUDIO_FORMATS.includes(value.toLowerCase())?value.toLowerCase():'';
+try{let saved=JSON.parse(localStorage.getItem(KEY)||'null');if(valid(saved))settings={enabled:saved.enabled,volume:saved.volume}}catch(_){}
+const store=()=>{try{localStorage.setItem(KEY,JSON.stringify(settings))}catch(_){}};
+const get=()=>({...settings});
+let ctx=null,master=null,prewarmPromise=null,warming=false,lastSound='',lastGroup='',lastAt=0;
+const decoded=new Map(),readySources=new Map(),sourceFailures=new Map(),loadPending=new Map(),mediaReady=new Map(),mediaPending=new Map();
+const bags=new Map(),lastVariant=new Map(),activeNodes=new Set();
+let processed=0,scanComplete=false;
+function stem(group,n){return `${group}_${String(n).padStart(2,'0')}`}
+function orderFor(key){
+ const group=key.replace(/_\d\d$/,'');
+ const hint=(PREFERRED_FORMAT[key]||GROUP_FORMAT_HINTS[group]||'mp3').toLowerCase();
+ return [hint,...FORMATS.filter(x=>x!==hint)];
 }
-function formatOrder(stem){
- const preferred=preferredFormat(stem);
- return preferred?[preferred,...AUDIO_FORMATS.filter(ext=>ext!==preferred)]:AUDIO_FORMATS;
+function sources(key){return orderFor(key).map(ext=>`assets/sounds/${key}.${ext}`)}
+function bestSource(key){const r=readySources.get(key);return r||null}
+function volumeBase(group){return group==='ui_click'?.68:(group.startsWith('ui_')?.46:.82)}
+function notify(){
+ const label=document.getElementById('cat-sound-preload-status');
+ if(!label)return;
+ if(!settings.enabled){label.textContent='音效已關閉，不會在背景下載音效。';return}
+ const loaded=location.protocol==='file:'?mediaReady.size:decoded.size;
+ label.textContent=warming?`正在準備音效：${loaded} 段就緒（已檢查 ${processed}/${TOTAL}）`:`已準備 ${loaded}/${TOTAL} 段音效${loaded<TOTAL?'；缺少的音檔會保持靜音。':'，點擊即可播放。'}`;
 }
-function sources(group,num){
- const stem=soundStem(group,num),extensions=formatOrder(stem);
- // Strict external-only: removing assets/sounds really disables audio.
- // Different formats can coexist; only the first playable file wins.
- return extensions.map(ext=>'assets/sounds/'+stem+'.'+ext+LOCAL_AUDIO_QUERY);
-}
-function candidates(group,num){
- const stem=soundStem(group,num),list=sources(group,num),best=resolved.get(stem);
- // Once a source has loaded successfully, reuse it directly; known broken paths are skipped.
- const live=list.filter(src=>!failed.has(src));
- return best&&live.includes(best)?[best,...live.filter(src=>src!==best)]:live;
-}
-function stored(){try{localStorage.setItem(KEY,JSON.stringify(settings))}catch(_){}}
-function get(){return {...settings}}
-function ensureCtx(){
+function context(){
  if(!AudioContextClass)return null;
  try{
   if(!ctx){ctx=new AudioContextClass();master=ctx.createGain();master.gain.value=settings.volume/100*.7;master.connect(ctx.destination)}
-  if(ctx.state==='suspended')ctx.resume().catch(()=>{});
   return ctx;
  }catch(_){return null}
 }
-function applyGain(){if(master&&ctx){master.gain.setTargetAtTime(settings.volume/100*.7,ctx.currentTime,.015)}}
-function setEnabled(v){settings.enabled=!!v;stored();if(settings.enabled){ensureCtx();applyGain();prewarm()}else{stop();}return get()}
-function setVolume(v){const n=Number(v);if(!Number.isFinite(n))return get();settings.volume=Math.max(0,Math.min(100,Math.round(n)));stored();applyGain();for(const audio of players.values())try{audio.volume=settings.volume/100*.55}catch(_){}return get()}
-function apply(p){if(!valid(p))return false;setVolume(p.volume);setEnabled(p.enabled);return true}
-function randomInt(max){if(max<=1)return 0;try{const x=new Uint32Array(1);crypto.getRandomValues(x);return x[0]%max}catch(_){return Math.floor(Math.random()*max)}}
-function pick(group){
- let bag=bags.get(group);if(!bag||!bag.length){bag=Array.from({length:COUNTS[group]},(_,i)=>i+1);
-  for(let i=bag.length-1;i>0;i--){const j=randomInt(i+1);[bag[i],bag[j]]=[bag[j],bag[i]]}
-  if(bag.length>1&&bag[bag.length-1]===lastVariant.get(group)) [bag[0],bag[bag.length-1]]=[bag[bag.length-1],bag[0]];
- }
- const value=bag.pop();bags.set(group,bag);lastVariant.set(group,value);return value;
-}
-function playBuffer(buffer,group){
- const context=ensureCtx();if(!context||!master||context.state==='closed')return false;
- try{const node=context.createBufferSource();node.buffer=buffer;
-  const gain=context.createGain();const base=group==='ui_click'?.68:(group.startsWith('ui_')?.42:.82);
-  gain.gain.value=base*(.96+randomInt(9)/100);
-  if(group==='card_flip'||group==='shuffle'||group==='ui_click')node.playbackRate.value=.98+randomInt(5)/100;
-  node.connect(gain);gain.connect(master);node.start();node.onended=()=>{try{node.disconnect();gain.disconnect()}catch(_){}};return true;
- }catch(_){return false}
-}
-function playHTML(group,num){
- // <audio> can open adjacent file:// assets even when fetch() is restricted.
- // Skip broken codecs/files, but do NOT mark autoplay-denied playback as a bad file.
- const stem=soundStem(group,num),options=candidates(group,num);
- if(!options.length)return false;
- try{
-  let state=htmlStates.get(stem);
-  const start=()=>{
-   const p=state.audio.play();
-   if(p&&p.catch)p.catch(error=>{
-    if(error&&error.name==='NotSupportedError')fallback();
-    // NotAllowedError is a browser gesture restriction, not a bad audio format.
-   });
-  };
-  const fallback=()=>{
-   const old=state.options[state.index];
-   if(!old)return; // fetch() may have marked this path failed before <audio> raises error
-   failed.add(old);
-   const next=candidates(group,num);
-   if(!next.length)return; // no valid audio; game continues silently
-   state.options=next;state.index=0;
-   state.audio.src=next[0];
-   start();
-  };
-  if(!state){
-   const audio=new Audio();audio.preload='auto';
-   state={audio,options,index:0};htmlStates.set(stem,state);players.set(stem,audio);
-   audio.addEventListener('error',fallback);
-   audio.addEventListener('canplay',()=>{
-    const active=state.options[state.index];
-    if(active&&!failed.has(active))resolved.set(stem,active);
-   });
-   audio.src=options[0];
-  }else{
-   const next=candidates(group,num);
-   if(!next.length)return false;
-   if(next[0]!==state.options[state.index]){
-    state.options=next;state.index=0;state.audio.src=next[0];
-   }
-  }
-  if(!state.audio.paused){state.audio.pause();state.audio.currentTime=0}
-  state.audio.volume=Math.max(0,Math.min(1,settings.volume/100*.4*(group==='ui_click'?.78:(group.startsWith('ui_')?.55:1))));
-  state.audio.currentTime=0;start();
-  return true;
- }catch(_){return false}
-}
-async function decode(src){
- if(buffers.has(src))return buffers.get(src);
- if(pending.has(src))return pending.get(src);
- if(location.protocol==='file:'&&!src.startsWith('data:'))return null;
- const context=ensureCtx();if(!context)return null;
- const req=(async()=>{
-  try{const r=await fetch(src,{cache:'no-cache'});if(!r.ok)throw new Error('audio HTTP '+r.status);
-   const ab=await r.arrayBuffer();const sound=await context.decodeAudioData(ab);buffers.set(src,sound);return sound;
-  }catch(_){failed.add(src);return null}finally{pending.delete(src)}
- })();pending.set(src,req);return req;
-}
-async function preload(group,num){
- const stem=soundStem(group,num);
- if(assetPending.has(stem))return assetPending.get(stem);
- // file:// fetch of adjacent assets is often blocked; HTMLAudio handles these.
- if(location.protocol==='file:')return null;
- const task=(async()=>{
-  for(const src of candidates(group,num)){
-   const buffer=await decode(src);
-   if(buffer){resolved.set(stem,src);return buffer}
-  }
-  return null;
- })().finally(()=>assetPending.delete(stem));
- assetPending.set(stem,task);return task;
-}
-function prewarm(){
- // Avoid downloading all 31 assets immediately. The tiny UI variants are hot.
+function unlock(){
  if(!settings.enabled)return;
- for(const group of ['ui_click','ui_confirm','ui_back','card_flip']){
-  for(let i=1;i<=COUNTS[group];i++){
-   preload(group,i);
-  }
+ const c=context();
+ if(c&&c.state==='suspended')c.resume().catch(()=>{});
+}
+function applyGain(){if(master&&ctx)try{master.gain.setTargetAtTime(settings.volume/100*.7,ctx.currentTime,.01)}catch(_){} }
+function randInt(n){if(n<2)return 0;return Math.floor(Math.random()*n)}
+function shuffle(xs){const a=[...xs];for(let i=a.length-1;i>0;i--){const j=randInt(i+1);[a[i],a[j]]=[a[j],a[i]]}return a}
+function availableNumbers(group){
+ let list=[];
+ for(let n=1;n<=COUNTS[group];n++){
+  const key=stem(group,n);
+  if(location.protocol==='file:'?mediaReady.has(key):decoded.has(key))list.push(n);
  }
+ return list;
+}
+function pickReady(group,opts){
+ if(!opts.length)return null;
+ let b=bags.get(group)||[];
+ const signature=opts.join(',');
+ if(b.signature!==signature||!b.list?.length){
+  let arr=shuffle(opts),prev=lastVariant.get(group);
+  if(arr.length>1&&arr[arr.length-1]===prev){let i=arr.findIndex(x=>x!==prev);[arr[i],arr[arr.length-1]]=[arr[arr.length-1],arr[i]]}
+  b={signature,list:arr};
+ }
+ const n=b.list.pop();bags.set(group,b);lastVariant.set(group,n);return n;
+}
+// A normal click is played only from ALREADY prepared audio; no delayed catch-up.
+function playBuffer(buffer,group){
+ const c=context();if(!c||!master||c.state!=='running')return false;
+ try{
+  const source=c.createBufferSource(),gain=c.createGain();source.buffer=buffer;
+  gain.gain.value=volumeBase(group)*(.96+randInt(9)/100);
+  if(group==='card_flip'||group==='shuffle'||group==='ui_click')source.playbackRate.value=.98+randInt(5)/100;
+  source.connect(gain).connect(master);activeNodes.add(source);
+  source.onended=()=>{activeNodes.delete(source);try{source.disconnect();gain.disconnect()}catch(_){}};
+  source.start(0);return true;
+ }catch(_){return false}
+}
+function playMedia(key,group){
+ const audio=mediaReady.get(key);if(!audio)return false;
+ try{
+  if(!audio.paused)audio.pause();audio.currentTime=0;
+  audio.volume=Math.max(0,Math.min(1,settings.volume/100*.45*volumeBase(group)));
+  const p=audio.play();if(p?.catch)p.catch(()=>{});return true;
+ }catch(_){return false}
+}
+function playKey(key,group){
+ lastSound=key;
+ if(location.protocol==='file:')return playMedia(key,group);
+ const sound=decoded.get(key);return sound?playBuffer(sound,group):false;
+}
+function limitAndPlay(group,key){
+ if(!settings.enabled||settings.volume<=0||document.hidden)return false;
+ const now=performance.now(),gap=group.startsWith('ui_')?90:(group==='card_flip'?105:165);
+ if(group===lastGroup&&now-lastAt<gap)return false;
+ const ok=playKey(key,group);
+ if(ok){lastGroup=group;lastAt=now}
+ return ok;
 }
 function play(group){
  if(!settings.enabled||!settings.volume||document.hidden||!COUNTS[group])return false;
- const now=performance.now();const minGap=group.startsWith('ui_')?90:(group==='card_flip'?105:165);
- if(group===lastGroup&&now-lastAt<minGap)return false;
- lastGroup=group;lastAt=now;
- const variant=pick(group),stem=soundStem(group,variant);
- const src=resolved.get(stem),buff=src&&buffers.get(src);
- if(buff){playBuffer(buff,group)}else{
-  // HTMLAudio reacts immediately to the click and automatically retries the next supported format if a file is absent.
-  playHTML(group,variant);preload(group,variant);
+ const available=availableNumbers(group);
+ if(!available.length){
+  // First-run or slow network: start background loading, but don't play late.
+  if(!warming)prewarm();
+  return false;
  }
- lastSound=stem;return true;
+ const n=pickReady(group,available);
+ return limitAndPlay(group,stem(group,n));
 }
-function testFile(stem){
- // Debug helper: __catAudio.testFile('ui_click_01') after enabling sound.
- const m=/^([a-z_]+)_(\d{2})$/.exec(String(stem));
- if(!m||!COUNTS[m[1]])return false;
- const group=m[1],num=Number(m[2]);
- if(num<1||num>COUNTS[group]||!settings.enabled||!settings.volume)return false;
- const key=soundStem(group,num),src=resolved.get(key),buff=src&&buffers.get(src);
- if(buff)playBuffer(buff,group);else{playHTML(group,num);preload(group,num)}
- lastSound=key;return true;
+function testFile(key){
+ const m=/^([a-z_]+)_(\d{2})$/.exec(String(key));
+ if(!m||!COUNTS[m[1]]||Number(m[2])<1||Number(m[2])>COUNTS[m[1]]||!settings.enabled||!settings.volume)return false;
+ unlock();
+ // Explicit test/preview is allowed to play as soon as its file finishes loading.
+ if(location.protocol==='file:'?mediaReady.has(key):decoded.has(key))return playKey(key,m[1]);
+ loadKey(key).then(ok=>{if(ok&&settings.enabled&&!document.hidden&&settings.volume>0)playKey(key,m[1])});
+ return true;
 }
-function stop(){for(const audio of players.values())try{audio.pause();audio.currentTime=0}catch(_){};try{ctx?.suspend()}catch(_){}}
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stop()});
-const API={get,setEnabled,setVolume,apply,valid,play,testFile,prewarm,stop,info:()=>({groups:groupNames.length,files:Object.values(COUNTS).reduce((a,n)=>a+n,0),formats:[...AUDIO_FORMATS],lastSound,buffers:buffers.size,enabled:settings.enabled,volume:settings.volume})};
-window.__catAudio=API;
-
-// Only one sound per deliberate action; more specific Foley overrides UI clicks.
+function wait(ms){return new Promise(r=>setTimeout(r,ms))}
+async function tryDecode(url){
+ const c=context();if(!c)return null;
+ for(let attempt=0;attempt<2;attempt++){
+  const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),7000);
+  try{
+   const response=await fetch(url,{cache:'default',signal:controller.signal});
+   if(!response.ok){
+    clearTimeout(timer);
+    if((response.status===502||response.status===503||response.status===504)&&attempt===0){await wait(250);continue}
+    return null;
+   }
+   const raw=await response.arrayBuffer();clearTimeout(timer);
+   return await c.decodeAudioData(raw);
+  }catch(_){
+   clearTimeout(timer);
+   if(attempt===0){await wait(180);continue}
+  }
+ }
+ return null;
+}
+// HTMLAudio fallback enables direct file:// use when fetch() is forbidden locally.
+async function tryMedia(url){
+ return new Promise(resolve=>{
+  let audio;
+  try{audio=new Audio();audio.preload='auto'}catch(_){resolve(null);return}
+  let settled=false;
+  const done=ok=>{if(settled)return;settled=true;clearTimeout(timer);audio.removeEventListener('canplay',onReady);audio.removeEventListener('error',onError);resolve(ok?audio:null)};
+  const onReady=()=>done(true),onError=()=>done(false);
+  const timer=setTimeout(()=>done(false),5000);
+  audio.addEventListener('canplay',onReady);audio.addEventListener('error',onError);
+  audio.src=url;try{audio.load()}catch(_){done(false)}
+ });
+}
+async function loadKey(key){
+ if((location.protocol==='file:'?mediaReady:decoded).has(key))return true;
+ if(loadPending.has(key))return loadPending.get(key);
+ const task=(async()=>{
+  for(const url of sources(key)){
+   const playable=location.protocol==='file:'?await tryMedia(url):await tryDecode(url);
+   if(playable){
+    if(location.protocol==='file:')mediaReady.set(key,playable);
+    else decoded.set(key,playable);
+    readySources.set(key,url);notify();return true;
+   }
+  }
+  return false;
+ })().finally(()=>{loadPending.delete(key);notify()});
+ loadPending.set(key,task);return task;
+}
+function allKeys(){
+ const priority=['ui_click','ui_confirm','ui_back','card_flip','shuffle','wind','reveal','deep_card','mail_open','jar_save','jar_open','star'];
+ return priority.flatMap(group=>Array.from({length:COUNTS[group]},(_,i)=>stem(group,i+1)));
+}
+function prewarm(){
+ if(!settings.enabled)return Promise.resolve(false);
+ if(prewarmPromise)return prewarmPromise;
+ if(scanComplete)return Promise.resolve(true);
+ warming=true;processed=0;notify();
+ const keys=allKeys();let index=0;
+ async function worker(){
+  while(settings.enabled&&index<keys.length){
+   const key=keys[index++];await loadKey(key);processed++;notify();
+  }
+ }
+ // Three concurrent loaders avoid 31 simultaneous decoding/fetch bursts on phones.
+ prewarmPromise=Promise.all([worker(),worker(),worker()]).then(()=>true).finally(()=>{
+  warming=false;prewarmPromise=null;scanComplete=processed===TOTAL;notify();
+ });
+ return prewarmPromise;
+}
+function stop(){
+ for(const node of activeNodes)try{node.stop()}catch(_){}activeNodes.clear();
+ for(const a of mediaReady.values())try{a.pause();a.currentTime=0}catch(_){}
+ if(ctx?.state==='running')ctx.suspend().catch(()=>{});
+}
+function setEnabled(value){
+ settings.enabled=!!value;store();
+ if(settings.enabled){unlock();applyGain();prewarm()}else{stop()}
+ notify();return get();
+}
+function setVolume(value){
+ let n=Number(value);if(!Number.isFinite(n))return get();
+ settings.volume=Math.max(0,Math.min(100,Math.round(n)));store();applyGain();notify();return get();
+}
+function apply(prefs){if(!valid(prefs))return false;setVolume(prefs.volume);setEnabled(prefs.enabled);return true}
+document.addEventListener('pointerdown',unlock,{capture:true,passive:true});
+document.addEventListener('keydown',unlock,true);
+document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else if(settings.enabled)prewarm()});
+window.addEventListener('pageshow',()=>{if(settings.enabled)prewarm()});
+if(settings.enabled){ // saved-on preference: start downloading while the page is opening
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',prewarm,{once:true});
+ else prewarm();
+}
+window.__catAudio={get,setEnabled,setVolume,apply,valid,play,testFile,prewarm,stop,
+ refreshStatus:notify,info:()=>({groups:GROUPS.length,files:TOTAL,formats:[...FORMATS],lastSound,
+  buffers:decoded.size,ready:location.protocol==='file:'?mediaReady.size:decoded.size,
+  processed,warming,enabled:settings.enabled,volume:settings.volume,
+  readySources:Object.fromEntries(readySources)})};
+// UI sound mapping is preserved from the previous release.
 const categories={
  'wind':'wind','start':'shuffle','reshuffle':'shuffle','pick':'card_flip','unpick':'card_flip',
  'reveal':null,'deep-yes':'deep_card','deep-confirm':'deep_card','deep-select':'card_flip','deep-unselect':'ui_back',
@@ -286,8 +331,8 @@ document.addEventListener('click',event=>{
  else if(el.closest('.catcontact-overlay,.catmail-overlay,.modal-overlay'))sound='ui_click';
  if(sound)play(sound);
 },true);
-})();
 
+})();
 </script>
 
 <style id="cat-audio-styles-v5165">
@@ -1871,6 +1916,7 @@ function settingsView(){
  <label class="catsound-volume-head" for="cat-sound-volume"><span>音量大小</span><output id="cat-sound-volume-value" for="cat-sound-volume">${audio.volume}%</output></label>
  <input class="catsound-range" id="cat-sound-volume" type="range" min="0" max="100" step="5" value="${audio.volume}" aria-label="互動音效音量" />
  <div class="catsound-actions"><button type="button" class="catsound-preview" data-action="sound-preview" ${audio.enabled&&audio.volume>0?'':'disabled'}>♫ 試聽一陣微風</button><button type="button" class="catsound-preview" data-action="sound-test-click-01" ${audio.enabled&&audio.volume>0?'':'disabled'}>試聽按鈕 01</button><button type="button" class="catsound-preview" data-action="sound-test-click-02" ${audio.enabled&&audio.volume>0?'':'disabled'}>試聽按鈕 02</button></div>
+ <p id="cat-sound-preload-status" class="catsound-foot" role="status" aria-live="polite">音效準備狀態會在開啟後顯示。</p>
  <p class="catsound-foot">音量 0% 相當於靜音；拖動滑桿不會連續響鈴，鬆開後才會給予輕微試聽回饋。音效只在你主動操作時播放，設定保存在本機，也會包含在完整收藏備份中。</p></div></section>`;
 }
 
@@ -2088,7 +2134,7 @@ function resultView(){const picks=state.result,roles=readingRoles(),three=state.
 }
 
 let catAudioPreviousStage=null;
-function render(){if(catAudioPreviousStage!==state.stage){if(state.stage==='result'&&catAudioPreviousStage!==null)window.__catAudio?.play('reveal');catAudioPreviousStage=state.stage}if(state.stage==='result'&&state.result?.length)window.__catStars?.recordResult({mode:state.mode,cardIds:state.result.map(c=>c.id)});document.getElementById('app').innerHTML=header()+`<main>${state.stage==='setup'?setupView():state.stage==='pick'?pickView():state.stage==='guide'?guideView():state.stage==='atlas'?atlasView():state.stage==='mood'?moodView():state.stage==='mailbox'?mailboxView():state.stage==='stars'?(window.__catStars?.view()||auxPlaceholderView('stars')):state.stage==='settings'?settingsView():state.stage==='deep-invite'?deep50InviteView():state.stage==='deep-pick'?deep50PickView():resultView()}</main>`;hydrateCardImages();hydrateCustom57();if(state.stage==='setup')hydrateMainCover();window.__catStars?.afterRender();window.__catNotify?.draw()}
+function render(){if(catAudioPreviousStage!==state.stage){if(state.stage==='result'&&catAudioPreviousStage!==null)window.__catAudio?.play('reveal');catAudioPreviousStage=state.stage}if(state.stage==='result'&&state.result?.length)window.__catStars?.recordResult({mode:state.mode,cardIds:state.result.map(c=>c.id)});document.getElementById('app').innerHTML=header()+`<main>${state.stage==='setup'?setupView():state.stage==='pick'?pickView():state.stage==='guide'?guideView():state.stage==='atlas'?atlasView():state.stage==='mood'?moodView():state.stage==='mailbox'?mailboxView():state.stage==='stars'?(window.__catStars?.view()||auxPlaceholderView('stars')):state.stage==='settings'?settingsView():state.stage==='deep-invite'?deep50InviteView():state.stage==='deep-pick'?deep50PickView():resultView()}</main>`;hydrateCardImages();hydrateCustom57();if(state.stage==='setup')hydrateMainCover();window.__catStars?.afterRender();window.__catNotify?.draw();if(state.stage==='settings')window.__catAudio?.refreshStatus?.()}
 /* V5.15.1: keep hero/card cover (and brand) mounted while switching setup options.
  * Only update selected state and the dynamic focus chips; no full app render. */
 function refreshSetupControls(){
