@@ -1,0 +1,61 @@
+{
+  "generated": "Original designed sound textures, 2026",
+  "formats": "MP3 mono 32kHz 80kbps",
+  "groups": {
+    "ui_click": [
+      "ui_click_01.mp3",
+      "ui_click_02.mp3"
+    ],
+    "ui_confirm": [
+      "ui_confirm_01.mp3",
+      "ui_confirm_02.mp3"
+    ],
+    "ui_back": [
+      "ui_back_01.mp3",
+      "ui_back_02.mp3"
+    ],
+    "wind": [
+      "wind_01.mp3",
+      "wind_02.mp3",
+      "wind_03.mp3",
+      "wind_04.mp3",
+      "wind_05.mp3"
+    ],
+    "shuffle": [
+      "shuffle_01.mp3",
+      "shuffle_02.mp3",
+      "shuffle_03.mp3"
+    ],
+    "card_flip": [
+      "card_flip_01.mp3",
+      "card_flip_02.mp3",
+      "card_flip_03.mp3"
+    ],
+    "reveal": [
+      "reveal_01.mp3",
+      "reveal_02.mp3"
+    ],
+    "deep_card": [
+      "deep_card_01.mp3",
+      "deep_card_02.mp3"
+    ],
+    "mail_open": [
+      "mail_open_01.mp3",
+      "mail_open_02.mp3",
+      "mail_open_03.mp3"
+    ],
+    "jar_save": [
+      "jar_save_01.mp3",
+      "jar_save_02.mp3",
+      "jar_save_03.mp3"
+    ],
+    "jar_open": [
+      "jar_open_01.mp3",
+      "jar_open_02.mp3"
+    ],
+    "star": [
+      "star_01.mp3",
+      "star_02.mp3"
+    ]
+  }
+}
