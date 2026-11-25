@@ -1,0 +1,24 @@
+/* PWA V5.16.14 — styles scoped to CatOracle install controls only. */
+#cat-pwa-install-menu[hidden],#cat-pwa-install-setting[hidden],#cat-pwa-overlay[hidden]{display:none!important}
+#cat-pwa-install-menu .function-menu-symbol{font-family:system-ui,sans-serif}
+#cat-pwa-install-setting{margin:16px 0 20px;padding:16px;border:1px solid var(--hair,#bfae97);border-radius:17px;background:var(--panel,#fffaf1);color:var(--text,#43362c)}
+#cat-pwa-install-setting h3{margin:0 0 9px;color:var(--gold,#8f6c50);font-size:14px;font-weight:700}
+#cat-pwa-install-setting p{color:var(--sub,#776657);font-size:12px;line-height:1.85;margin:0 0 13px}
+#cat-pwa-install-setting button{width:100%;min-height:45px;border-radius:12px;border:1px solid var(--gold,#a58462);background:var(--panel2,#f6ecde);color:var(--text,#43362c);font:inherit;font-size:13px;font-weight:700;cursor:pointer}
+#cat-pwa-overlay{position:fixed;inset:0;z-index:2147483400;display:flex;align-items:center;justify-content:center;padding:calc(18px + env(safe-area-inset-top,0px)) 15px calc(18px + env(safe-area-inset-bottom,0px));background:rgba(20,21,23,.7);backdrop-filter:blur(5px);font-family:ui-sans-serif,system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif}
+#cat-pwa-overlay *{box-sizing:border-box}
+#cat-pwa-overlay .cat-pwa-dialog{width:min(100%,400px);max-height:calc(100dvh - 44px);overflow:auto;position:relative;border:1px solid #d8c7ac;border-radius:20px;background:#f3f1e4;color:#463a30;padding:24px 20px 20px;box-shadow:0 22px 70px #0006}
+#cat-pwa-overlay .cat-pwa-close{position:absolute;right:12px;top:11px;width:34px;height:34px;border:0;border-radius:50%;font-size:22px;line-height:1;background:#e8dfd2;color:#665440;cursor:pointer}
+#cat-pwa-overlay .cat-pwa-header{display:flex;align-items:center;gap:14px;margin:4px 35px 16px 0}
+#cat-pwa-overlay .cat-pwa-icon{display:block;flex:0 0 62px;width:62px;height:62px;object-fit:cover;border-radius:15px;box-shadow:0 4px 14px #79654738}
+#cat-pwa-overlay h2{margin:0;font:700 19px/1.5 system-ui,"Noto Sans TC",sans-serif;color:#5e4230}
+#cat-pwa-overlay .cat-pwa-desc{font-size:13px;color:#7d6e5d;line-height:1.75;margin:5px 0 0}
+#cat-pwa-overlay .cat-pwa-steps{margin:15px 0;padding-left:21px;font-size:13px;line-height:2.05;color:#5b493a}
+#cat-pwa-overlay .cat-pwa-steps li{padding-left:3px}
+#cat-pwa-overlay .cat-pwa-tip{margin:13px 0;padding:12px;border:1px solid #dac8ad;border-radius:11px;background:#fffbf4;color:#7a5c3f;font-size:12px;line-height:1.8}
+#cat-pwa-overlay .cat-pwa-primary{display:block;min-height:45px;width:100%;border:0;border-radius:12px;margin-top:14px;background:#8b6849;color:#fff8e9;font-family:inherit;font-size:14px;font-weight:700;line-height:1.45;cursor:pointer}
+#cat-pwa-overlay .cat-pwa-primary:disabled{opacity:.55;cursor:default}
+#cat-pwa-overlay .cat-pwa-status{font-size:12px;line-height:1.65;color:#79573a;margin:9px 0}
+#cat-pwa-overlay :is(button,a):focus-visible,#cat-pwa-install-setting button:focus-visible{outline:3px solid #b0905f;outline-offset:3px}
+@media(max-width:390px){#cat-pwa-overlay .cat-pwa-dialog{padding:21px 16px 17px}}
+@media(prefers-reduced-motion:reduce){#cat-pwa-overlay{backdrop-filter:none}}
