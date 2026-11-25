@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101323">
 <meta name="description" content="挪威貓貓直覺神諭卡：透過貓咪的生活智慧與直覺牽引，探索另一個思考角度。">
-<title>挪威貓貓直覺神諭卡｜V5.16.12 低延遲音效版</title>
+<title>挪威貓貓直覺神諭卡｜V5.16.13 介面與備份優化版</title>
 <script id="cat-theme-bootstrap-v5166">
 /* V5.16.8: five UI palettes and a gentle, locked theme crossfade.
    Existing saved theme key and backup API are preserved; card art remains untouched. */
@@ -1267,6 +1267,10 @@ html[data-cat-theme="black"] :is(.art,.art.has-external,.art>.external-card-imag
 .catcontact-mail small{color:var(--sub);font-size:11px}.catcontact-mail strong{font-size:15px;letter-spacing:.025em;user-select:all;overflow-wrap:anywhere}
 .catcontact-copy{display:block;width:100%;border:0;border-radius:12px;background:var(--gold);color:var(--bg);padding:12px 8px;font-size:14px;font-weight:750;min-height:45px}
 html[data-cat-theme="cream"] .catcontact-copy{color:#FFF}
+/* v5.16.13: feedback form next to the existing email contact actions. */
+.catcontact-feedback{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:45px;margin:9px 0 0;padding:10px 12px;box-sizing:border-box;text-align:center;border:1px solid var(--hair);border-radius:12px;background:var(--panel2);color:var(--text);font-size:13px;font-weight:700;text-decoration:none;line-height:1.5}
+.catcontact-feedback:hover{border-color:var(--gold)}
+.catcontact-feedback:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .catcontact-link{display:block;text-align:center;color:var(--gold);font-size:12px;line-height:1.7;padding:12px 0 3px}
 .catcontact-status{font-size:11px;line-height:1.6;text-align:center;color:var(--gold);min-height:1.6em;margin:5px 0}
 .catcontact-notice{border-top:1px solid var(--hair);margin-top:13px;padding-top:14px;font-size:11.5px;line-height:1.85;color:var(--sub)}
@@ -1357,6 +1361,37 @@ html.cat-theme-switching :is(.catprefs-choice,.panel,.function-toggle,.function-
 
 
 </style>
+<!-- V5.16.13: one backup UI renderer reused in both Mood Cans and Cat Mail. -->
+<style id="cat-backup-shared-v51613">
+.cat-backup-panel{margin:18px 0 4px;padding:0;overflow:hidden;border:1px solid var(--hair,#7a7188);border-radius:16px;background:var(--panel,#252d43);color:var(--text,#eee9e2)}
+.cat-backup-panel>.mood-backup-toggle{display:flex;align-items:center;padding:15px 16px;min-height:52px;box-sizing:border-box;color:var(--gold,#e7cb9d)}
+.cat-backup-panel>.mood-backup-content{padding:15px 16px 17px;border-top:1px solid var(--hair,#6d6579)}
+.cat-backup-panel .cat-backup-explain,.cat-backup-panel .cat-backup-note{font-size:12px;line-height:1.85;color:var(--sub,#c7c7d0);margin:0 0 13px;overflow-wrap:anywhere}
+.cat-backup-panel .cat-backup-note{font-size:11px;margin:14px 0 0}
+.cat-backup-actions{display:grid;gap:10px}
+.cat-backup-action{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;min-height:45px;padding:11px 12px;box-sizing:border-box;border:1px solid var(--hair,#9d8c82);border-radius:12px;background:var(--panel2,#2e364b);color:var(--text,#f6ecdf);font:inherit;font-size:13px;font-weight:700;cursor:pointer;text-align:center}
+.cat-backup-action.primary{background:var(--gold,#e2c18b);color:var(--bg,#1b2539);border-color:transparent}
+html[data-cat-theme="cream"] .cat-backup-action.primary{color:#261D15}
+.cat-backup-action:focus-visible{outline:2px solid var(--gold,#e2c18b);outline-offset:3px}
+.cat-backup-action:disabled{opacity:.5;cursor:wait}
+.catmail-body .cat-backup-panel{margin:18px 0 0}
+@media(max-width:480px){.cat-backup-panel>.mood-backup-content{padding:14px 15px 16px}}
+</style>
+<script id="cat-backup-shared-renderer-v51613">
+(()=>{
+ 'use strict';
+ const HELP='將心情罐頭、貓咪信件、星光紀念與偏好設定整理成同一份 JSON 備份。更換裝置、清除網站資料前，建議先下載保存。';
+ const NOTE='備份檔未加密，請妥善保管。匯入會合併已有收藏，並還原備份中的偏好設定；也支援舊版心情罐頭 JSON。';
+ function render(origin){
+  const mail=origin==='mail';
+  const e=mail?'data-cm="export"':'data-action="mood-export"';
+  const i=mail?'data-cm="import"':'data-action="mood-import"';
+  const file=mail?'catmail-file':'mood-file';
+  return `<details class="panel mood-backup-panel cat-backup-panel"><summary class="mood-backup-toggle">完整收藏備份<span class="mood-backup-chevron" aria-hidden="true"></span></summary><div class="mood-backup-content"><p class="cat-backup-explain">${HELP}</p><div class="cat-backup-actions"><button type="button" class="cat-backup-action primary" ${e}>↓ 匯出完整收藏</button><button type="button" class="cat-backup-action" ${i}>↑ 匯入完整收藏</button></div><input type="file" id="${file}" accept=".json,application/json" hidden><p class="cat-backup-note">${NOTE}</p></div></details>`;
+ }
+ window.__catBackupPanel={render};
+})();
+</script>
 </head>
 <body>
 <div id="app"><div class="stars"></div></div>
@@ -1915,7 +1950,7 @@ function settingsView(){
  <p class="catsound-description">輕輕點選、洗牌、翻牌、風之呢喃、拆信與收藏心情時，會聽到柔和的聲音。預設關閉，不會自動播放背景音樂。</p>
  <label class="catsound-volume-head" for="cat-sound-volume"><span>音量大小</span><output id="cat-sound-volume-value" for="cat-sound-volume">${audio.volume}%</output></label>
  <input class="catsound-range" id="cat-sound-volume" type="range" min="0" max="100" step="5" value="${audio.volume}" aria-label="互動音效音量" />
- <div class="catsound-actions"><button type="button" class="catsound-preview" data-action="sound-preview" ${audio.enabled&&audio.volume>0?'':'disabled'}>♫ 試聽一陣微風</button><button type="button" class="catsound-preview" data-action="sound-test-click-01" ${audio.enabled&&audio.volume>0?'':'disabled'}>試聽按鈕 01</button><button type="button" class="catsound-preview" data-action="sound-test-click-02" ${audio.enabled&&audio.volume>0?'':'disabled'}>試聽按鈕 02</button></div>
+ <div class="catsound-actions"><button type="button" class="catsound-preview" data-action="sound-preview" ${audio.enabled&&audio.volume>0?'':'disabled'}>♫ 試聽一陣微風</button><button type="button" class="catsound-preview" data-action="sound-test-click-01" ${audio.enabled&&audio.volume>0?'':'disabled'}>試聽按鈕 01</button></div>
  <p id="cat-sound-preload-status" class="catsound-foot" role="status" aria-live="polite">音效準備狀態會在開啟後顯示。</p>
  <p class="catsound-foot">音量 0% 相當於靜音；拖動滑桿不會連續響鈴，鬆開後才會給予輕微試聽回饋。音效只在你主動操作時播放，設定保存在本機，也會包含在完整收藏備份中。</p></div></section>`;
 }
@@ -2275,10 +2310,10 @@ function moodOpenEditor(mode='new',entry=null){
 /* V5.16.4: no external email endpoint or player input form. */
 let mailboxSending=false;
 function mailboxView(){return `<section class="mailbox-page"><div class="mailbox-hero"><div class="mailbox-emblem" aria-hidden="true">✉</div><h1 class="heading-sm serif">貓咪信箱</h1><p class="mailbox-intro">有信的時候，本喵會悄悄放在這裡。</p></div><button class="secondary" type="button" data-action="mailbox-open">開啟收件匣</button></section>`}
-function moodView(){return `<div class="eyebrow">${ui58H("心情罐頭","✦ MOOD CANS ✦")}</div><div class="mood-illustration">${moodCanIcon()}</div><h1 class="heading-sm serif">${ui58H("心情罐頭","收藏室標題")}</h1><p class="intro">${ui58H("心情罐頭","收藏室簡介")}</p><button class="primary" data-action="mood-new">${ui58H("心情罐頭","＋ 送出心情罐頭")}</button><div id="mood-list" aria-live="polite" class="mood-list"><p class="note">${ui58H("心情罐頭","正在翻閱收藏……")}</p></div><details class="panel mood-backup-panel"><summary class="mood-backup-toggle">${ui58H("心情罐頭","收藏備份")}<span class="mood-backup-chevron" aria-hidden="true"></span></summary><div class="mood-backup-content"><p class="mood-copy">${ui58H("心情罐頭","建議固定使用同一個瀏覽器。換手機、清除網站資料或")}</p><div class="mood-controls"><button class="secondary" data-action="mood-export" disabled>${ui58H("心情罐頭","匯出備份")}</button><button class="secondary" data-action="mood-import">${ui58H("心情罐頭","匯入備份")}</button></div><input id="mood-file" type="file" accept=".json,application/json" hidden><p class="mood-private">${ui58H("心情罐頭","備份為未加密的 JSON，請妥善保存。匯入會合併")}</p></div></details>`}
+function moodView(){return `<div class="eyebrow">${ui58H("心情罐頭","✦ MOOD CANS ✦")}</div><div class="mood-illustration">${moodCanIcon()}</div><h1 class="heading-sm serif">${ui58H("心情罐頭","收藏室標題")}</h1><p class="intro">${ui58H("心情罐頭","收藏室簡介")}</p><button class="primary" data-action="mood-new">${ui58H("心情罐頭","＋ 送出心情罐頭")}</button><div id="mood-list" aria-live="polite" class="mood-list"><p class="note">${ui58H("心情罐頭","正在翻閱收藏……")}</p></div>${window.__catBackupPanel.render('mood')}`}
 function moodRenderList(s){const list=document.getElementById('mood-list');if(!list)return;const entries=s.entries.slice().sort((a,b)=>Date.parse(b.createdAt)-Date.parse(a.createdAt));list.innerHTML=`<div class="mood-list-head"><span>${ui58H("心情罐頭","收藏 〔變數〕 個罐頭", [entries.length])}</span><span>${moodHasToday(s)?ui58H("心情罐頭","今日祕典已解鎖"):ui58H("心情罐頭","今天尚未送出罐頭")}</span></div>`+(entries.length?entries.map(e=>`<article class="read-block mood-entry"><div class="mood-date">${escapeHtml(moodTaipeiISO(new Date(e.createdAt)).slice(0,16).replace('T','　').replaceAll('-','/'))}</div><p class="mood-content">${escapeHtml(e.content)}</p><div class="mood-entry-actions"><button class="mood-text-button" data-action="mood-edit" data-id="${escapeHtml(e.id)}">${ui58H("心情罐頭","編輯")}</button><button class="mood-text-button" data-action="mood-delete" data-id="${escapeHtml(e.id)}">${ui58H("心情罐頭","刪除")}</button></div></article>`).join(''):`<div class="empty">${ui58H("心情罐頭","收藏室還空空的。")}<br>${ui58H("心情罐頭","想記住的片刻，隨時都能放進來。")}</div>`);const exp=document.querySelector('[data-action="mood-export"]');if(exp)exp.disabled=false}
 async function moodRefresh(){const t=++moodLoadToken;try{const s=await moodRead();if(state.stage!=='mood'||t!==moodLoadToken)return;moodSnapshot=s;moodRenderList(s)}catch(e){if(state.stage!=='mood'||t!==moodLoadToken)return;const list=document.getElementById('mood-list');if(list)list.textContent=ui58Text("心情罐頭","目前無法讀取收藏，請確認瀏覽器允許本機儲存。");moodError(e)}}
-function moodEnter(){state.stage='mood';moodSnapshot=null;render();topScroll();moodRefresh();const inp=document.getElementById('mood-file');inp.addEventListener('change',async()=>{const f=inp.files?.[0];inp.value='';if(!f)return;try{if(f.size>20*1024*1024)throw new Error(ui58Text("心情罐頭","備份超過 20 MB"));const data=JSON.parse(await f.text());if(data?.schema==='norwegian-cat-oracle-save'){const note=await window.__catMailReceiveAPI.importAll(data);if(state.stage==='mood')moodRefresh();showToast(note)}else{const result=await moodMerge(data);moodSnapshot=result.snapshot;if(state.stage==='mood')moodRefresh();showToast(ui58Text("心情罐頭","匯入完成：新增 〔變數〕 筆，更新 〔變數〕 筆", [result.added, result.updated]))}}catch(e){showToast(ui58Text("心情罐頭","備份格式無法讀取，原有紀錄未更動。"))}})}
+function moodEnter(){state.stage='mood';moodSnapshot=null;render();topScroll();moodRefresh();const inp=document.getElementById('mood-file');inp.addEventListener('change',async()=>{const f=inp.files?.[0];inp.value='';if(!f)return;try{if(f.size>20*1024*1024)throw new Error(ui58Text("心情罐頭","備份超過 20 MB"));const note=await window.__catMailReceiveAPI.importFile(f);if(state.stage==='mood')moodRefresh();showToast(note)}catch(e){showToast(ui58Text("心情罐頭","備份格式無法讀取，原有紀錄未更動。"))}})}
 function moodDeletePrompt(entry){const overlay=moodDialog(ui58Text("心情罐頭","刪除心情罐頭？"),`<p class="mood-copy">${ui58H("心情罐頭","這段心情將從目前的收藏室移除。舊備份仍可能包含這")}</p><div class="mood-controls"><button class="secondary" data-action="close-modal">${ui58H("心情罐頭","取消")}</button><button class="primary" id="mood-delete-confirm">${ui58H("心情罐頭","確認刪除")}</button></div>`);const b=overlay.querySelector('#mood-delete-confirm');b.addEventListener('click',async()=>{b.disabled=true;try{moodSnapshot=await moodDelete(entry.id);if(overlay.isConnected)closeModal();if(state.stage==='mood')moodRefresh();showToast(ui58Text("心情罐頭","已移除心情罐頭"))}catch(e){moodError(e);b.disabled=false}})}
 /* Backup: prepare the latest snapshot BEFORE choosing how to save. No database writes. */
 let moodExportBusy=false;
@@ -3255,7 +3290,7 @@ const styles=`
 #catmail-entry{position:relative;display:inline-grid;place-items:center;flex:0 0 auto;min-width:39px;height:39px;border-radius:12px;border:1px solid #897453;background:#222e44;color:#e7bf79;font-size:21px;padding:0 9px;line-height:1}
 .catmail-unread{position:absolute;top:-5px;right:-5px;min-width:17px;height:17px;border-radius:10px;background:#eab3a5;color:#23192a;font:bold 10px/17px system-ui;text-align:center;padding:0 3px;box-shadow:0 0 0 2px #172035}
 .catmail-anchor{position:relative!important}
-.catmail-overlay{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(5,10,20,.79);backdrop-filter:blur(8px);font-family:ui-sans-serif,system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;color:#f6eee2}
+.catmail-overlay{position:fixed;inset:0;z-index:999999;display:flex;align-items:center;justify-content:center;padding:18px;box-sizing:border-box;background:rgba(5,10,20,.79);backdrop-filter:blur(8px);font-family:ui-sans-serif,system-ui,-apple-system,"PingFang TC","Microsoft JhengHei",sans-serif;color:#f6eee2}
 .catmail-shell{width:min(100%,510px);max-height:min(88dvh,850px);background:linear-gradient(160deg,#283651,#141d30);border:1px solid #715f49;border-radius:22px;display:flex;flex-direction:column;box-shadow:0 24px 90px #000b;overflow:hidden}
 .catmail-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:18px 19px 13px;border-bottom:1px solid #ffffff18}
 .catmail-head h2{font-family:Georgia,"Noto Serif TC",serif;font-size:22px;margin:0;font-weight:600;letter-spacing:2px}
@@ -3294,7 +3329,11 @@ const styles=`
 .catmail-config-row{display:grid;grid-template-columns:1fr 1fr;gap:11px}
 .catmail-note{border-left:2px solid #c9ad80;padding:7px 11px;color:#c6c3d3;line-height:1.7;font-size:12px}
 .catmail-pill{display:inline-block;border:1px solid #d1aa70;color:#d6b987;border-radius:7px;padding:2px 6px;font-size:10px;line-height:1.4;margin-left:6px}
-@media(max-width:480px){.catmail-overlay{align-items:flex-end;padding:0}.catmail-shell{width:100%;max-height:94dvh;border-radius:20px 20px 0 0}.catmail-body{padding:15px 16px 26px}}
+@media(max-width:480px){
+ .catmail-overlay{align-items:flex-start;justify-content:center;padding:max(18px,env(safe-area-inset-top,0px)) 12px max(14px,env(safe-area-inset-bottom,0px));overflow-y:auto;box-sizing:border-box}
+ .catmail-shell{width:100%;max-height:calc(100dvh - 42px);border-radius:20px;min-height:0}
+ .catmail-body{padding:15px 16px 26px;min-height:0;overflow-y:auto}
+}
 `;
 if(!document.getElementById('catmail-css')){const el=document.createElement('style');el.id='catmail-css';el.textContent=styles;document.head.append(el)}
 const allowedTypes=new Set(['日常','關心','紀念','禮物']);
@@ -3434,10 +3473,12 @@ function syncIcon(){
 function scheduleSync(){if(scheduledCheck)return;scheduledCheck=setTimeout(()=>{scheduledCheck=null;syncIcon()},40)}
 function closeInbox(){closeContact();if(panel){panel.remove();panel=null;openedId=null;statusText='';document.body.style.removeProperty('overflow')}}
 function openInbox(){if(panel)return;try{if(typeof homeFunctionToggle==='function')homeFunctionToggle(false)}catch(_){}const old=document.querySelector('.modal-overlay');if(old){try{if(typeof closeModal==='function')closeModal()}catch(e){old.remove()}}panel=document.createElement('div');panel.className='catmail-overlay';panel.id='catmail-overlay';panel.innerHTML='<section class="catmail-shell" role="dialog" aria-modal="true" aria-labelledby="catmail-head-title"><div class="catmail-head"><div><div class="catmail-sub">✦ LETTERS FROM A CAT ✦</div><h2 id="catmail-head-title">貓咪信箱</h2></div><button class="catmail-close" type="button" data-cm="close" aria-label="關閉信箱">×</button></div><div class="catmail-body" id="catmail-body"></div></section>';document.body.append(panel);document.body.style.overflow='hidden';currentView='list';renderPanel();refresh().catch(e=>{statusText='信箱暫時無法讀取：'+e.message;renderPanel()});panel.addEventListener('click',handlePanelClick);panel.querySelector('.catmail-close').focus();}
-function renderPanel(){if(!panel)return;const root=panel.querySelector('#catmail-body');if(!root)return;const all=mailbox.letters,unread=all.filter(e=>!e.readAt).length;let content='';
+function renderPanel(){if(!panel)return;const root=panel.querySelector('#catmail-body');if(!root)return;const backupWasOpen=!!root.querySelector('.cat-backup-panel[open]');const viewChanged=panel.dataset.activeView!==currentView;panel.dataset.activeView=currentView;const all=mailbox.letters,unread=all.filter(e=>!e.readAt).length;let content='';
  if(currentView==='detail'){const l=all.find(x=>x.id===openedId);if(!l){currentView='list'}else{content=`<button class="catmail-back" data-cm="back">← 返回收件匣</button><div class="catmail-letter"><h3>${safe(l.title)}</h3><div class="meta">來自：挪威貓貓　・　${dayLabel(l.sentDay)}　・　${safe(l.type)}</div><p>${safe(l.body)}</p><div class="sign">尾巴沾了墨水的<br>挪威貓貓 ฅ^•ﻌ•^ฅ</div></div>`}}
- if(currentView==='list'){content=`<div class="catmail-tabs"><button class="catmail-tab" aria-current="page" type="button">收件匣 ${unread?'('+unread+' 封未讀)':''}</button><button class="catmail-tab" type="button" data-cm="send">寫信給開發者</button></div>${catalogStatus?`<p class="catmail-hint" role="status">${safe(catalogStatus)}</p>`:''}${all.length?all.map(l=>`<button class="catmail-row ${l.readAt?'':'unread'}" type="button" data-cm="read" data-id="${safe(l.id)}"><div class="catmail-row-top"><span class="catmail-title">${safe(l.title)}${!l.readAt?'<span class="catmail-pill">未讀</span>':''}</span>${!l.readAt?'<span class="catmail-dot" aria-hidden="true"></span>':''}</div><div class="catmail-time">來自：挪威貓貓　・　${dayLabel(l.sentDay)}　・　${safe(l.type)}</div><div class="catmail-preview">${safe(l.body.replace(/\s+/g,' ').slice(0,54))}…</div></button>`).join(''):'<div class="catmail-empty">信箱目前是空的。<br>本喵有了新消息，就會悄悄放在這裡。</div>'}<details class="catmail-tools"><summary>存檔備份與匯入</summary><p class="catmail-hint">完整備份會把心情罐頭與貓咪來信裝進同一份 JSON。未來收藏品可放進預留的 extras 欄位。匯入採合併，不會刪除原有信件。</p><button class="catmail-button" data-cm="export">匯出完整備份（JSON）</button><button class="catmail-button" data-cm="import">匯入完整備份／舊心情罐頭</button><input type="file" id="catmail-file" accept=".json,application/json" hidden><p class="catmail-hint">信件只儲存在這個瀏覽器；更換裝置或清除網站資料前，請先匯出備份。</p></details>`}
- root.innerHTML=content+`<div class="catmail-status" role="status">${safe(statusText)}</div>`}
+ if(currentView==='list'){content=`<div class="catmail-tabs"><button class="catmail-tab" aria-current="page" type="button">收件匣 ${unread?'('+unread+' 封未讀)':''}</button><button class="catmail-tab" type="button" data-cm="send">寫信給開發者</button></div>${catalogStatus?`<p class="catmail-hint" role="status">${safe(catalogStatus)}</p>`:''}${all.length?all.map(l=>`<button class="catmail-row ${l.readAt?'':'unread'}" type="button" data-cm="read" data-id="${safe(l.id)}"><div class="catmail-row-top"><span class="catmail-title">${safe(l.title)}${!l.readAt?'<span class="catmail-pill">未讀</span>':''}</span>${!l.readAt?'<span class="catmail-dot" aria-hidden="true"></span>':''}</div><div class="catmail-time">來自：挪威貓貓　・　${dayLabel(l.sentDay)}　・　${safe(l.type)}</div><div class="catmail-preview">${safe(l.body.replace(/\s+/g,' ').slice(0,54))}…</div></button>`).join(''):'<div class="catmail-empty">信箱目前是空的。<br>本喵有了新消息，就會悄悄放在這裡。</div>'}${window.__catBackupPanel.render('mail')}`}
+ root.innerHTML=content+`<div class="catmail-status" role="status">${safe(statusText)}</div>`;
+   if(backupWasOpen&&currentView==='list'){const d=root.querySelector('.cat-backup-panel');if(d)d.open=true}
+   if(viewChanged)root.scrollTop=0}
 async function markRead(id){try{await mutate(o=>{const l=o.letters.find(v=>v.id===id);if(l&&!l.readAt)l.readAt=nowISO()});await refresh(false);window.__catStars?.syncDerived(true);currentView='detail';openedId=id;renderPanel()}catch(e){statusText='拆信狀態未能儲存，請確認本機儲存權限。';renderPanel()}}
 let contactOverlay=null,contactReturnFocus=null;
 const DEV_CONTACT='14o.unm@gmail.com';
@@ -3451,7 +3492,7 @@ function openContact(){
  if(contactOverlay)return;
  contactReturnFocus=document.activeElement;
  const overlay=document.createElement('div');overlay.className='catcontact-overlay';overlay.id='catcontact-overlay';
- overlay.innerHTML=`<section class="catcontact-dialog" role="dialog" aria-modal="true" aria-labelledby="catcontact-title"><button type="button" class="catcontact-x" data-contact="close" aria-label="關閉">×</button><h2 id="catcontact-title">✉ 寫封信給開發者</h2><p>有什麼想說的話嗎？聊聊天、分享遊戲心得、回報 BUG，或是許願新功能，都歡迎寄信給我們喵。</p><div class="catcontact-mail"><small>開發者電子信箱</small><strong id="catcontact-address">${DEV_CONTACT}</strong></div><button class="catcontact-copy" type="button" data-contact="copy">複製電子信箱</button><a class="catcontact-link" href="mailto:${DEV_CONTACT}?subject=${encodeURIComponent('給挪威貓貓的一封信')}">也可以試著開啟郵件程式</a><div class="catcontact-status" role="status" aria-live="polite" id="catcontact-status"></div><div class="catcontact-notice">謝謝你願意分享心意。每封來信我們都很珍惜，但不一定能逐一回覆，還請見諒喵。<br>這裡不會代替你寄信，也不會在遊戲內儲存信件內容。</div></section>`;
+ overlay.innerHTML=`<section class="catcontact-dialog" role="dialog" aria-modal="true" aria-labelledby="catcontact-title"><button type="button" class="catcontact-x" data-contact="close" aria-label="關閉">×</button><h2 id="catcontact-title">✉ 寫封信給開發者</h2><p>有什麼想說的話嗎？聊聊天、分享遊戲心得、回報 BUG，或是許願新功能，都歡迎寄信給我們喵。</p><div class="catcontact-mail"><small>開發者電子信箱</small><strong id="catcontact-address">${DEV_CONTACT}</strong></div><button class="catcontact-copy" type="button" data-contact="copy">複製電子信箱</button><a class="catcontact-feedback" href="https://forms.gle/p5v2CoPqrjF1qRa66" target="_blank" rel="noopener noreferrer">✎ 填寫回饋表單 <span aria-hidden="true">↗</span></a><a class="catcontact-link" href="mailto:${DEV_CONTACT}?subject=${encodeURIComponent('給挪威貓貓的一封信')}">也可以試著開啟郵件程式</a><div class="catcontact-status" role="status" aria-live="polite" id="catcontact-status"></div><div class="catcontact-notice">謝謝你願意分享心意。每封來信我們都很珍惜，但不一定能逐一回覆，還請見諒喵。<br>這裡不會代替你寄信，也不會在遊戲內儲存信件內容。</div></section>`;
  document.body.append(overlay);contactOverlay=overlay;
  overlay.addEventListener('click',async e=>{
   if(e.target===overlay||e.target.closest('[data-contact="close"]')){closeContact();return}
@@ -3501,7 +3542,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape'&&contactOverlay){e.p
 window.addEventListener('focus',()=>{deliver();scheduleSync()});document.addEventListener('visibilitychange',()=>{if(!document.hidden){deliver();scheduleSync()}});
 const observer=new MutationObserver(()=>scheduleSync());if(document.getElementById('app'))observer.observe(document.getElementById('app'),{childList:true,subtree:true});
 // Tests / future integration hooks; not accessible via the player UI.
-window.__catMailReceiveAPI={deliver,snapshot,openInbox,closeInbox,exportAll,validateMailbox,importAll,localDay,parseTimed,loadCatalog,validateCatalog,catalogInfo:()=>({source:catalogSource,warning:catalogStatus,version:catalog?.version||null,periods:catalog?.periods?.length||0,anniversaries:catalog?.anniversaries?.length||0}),templateInfo:()=>catalog?{periods:catalog.periods,anniversaries:catalog.anniversaries}:null};
+window.__catMailReceiveAPI={deliver,snapshot,openInbox,closeInbox,exportAll,importFile,validateMailbox,importAll,localDay,parseTimed,loadCatalog,validateCatalog,catalogInfo:()=>({source:catalogSource,warning:catalogStatus,version:catalog?.version||null,periods:catalog?.periods?.length||0,anniversaries:catalog?.anniversaries?.length||0}),templateInfo:()=>catalog?{periods:catalog.periods,anniversaries:catalog.anniversaries}:null};
 deliver().then(scheduleSync);
 })();
 
