@@ -1952,15 +1952,15 @@ function settingsView(){
  const current=window.__catTheme?.get()||'moon';
  const options=[['moon','月夜煙紫','☾'],['cream','奶油米白','☼'],['black','純黑靜夜','✦'],['forest','森林墨綠','♣'],['sea','大海微藍','≈']];
  const audio=window.__catAudio?.get()||{enabled:false,volume:35};
- return `<section class="catprefs"><p class="eyebrow">✦ A WINDOW OF YOUR OWN ✦</p><h1 class="heading-sm serif">偏好設定</h1><p class="catprefs-intro">窗台可以換顏色，讓光慢慢落下，也可以有一點聲音。<br>喜歡安靜的時候，本喵也懂喵。</p>
- <div class="panel"><h2 class="catprefs-title">介面配色</h2><div class="catprefs-grid" role="group" aria-label="介面配色">${options.map(([key,name,symbol])=>`<button type="button" class="catprefs-choice" data-action="theme-select" data-theme="${key}" aria-pressed="${current===key}"><span class="catprefs-swatch ${key}" aria-hidden="true"><span>${symbol}</span></span><b>${name}</b><span class="catprefs-check">${current===key?'✓ 目前使用':'選擇主題'}</span></button>`).join('')}</div><p class="catprefs-note">切換配色約需 0.7 秒柔和過渡，期間會暫停操作，避免連續點擊造成閃爍；卡牌插畫與牌面底色保持不變。</p></div>
+ return `<section class="catprefs"><p class="eyebrow">✦ A WINDOW OF YOUR OWN ✦</p><h1 class="heading-sm serif">偏好設定</h1><p class="catprefs-intro">窗台可以換顏色，也可以有一點聲音。<br>喜歡安靜的時候，本喵也懂。</p>
+ <div class="panel"><h2 class="catprefs-title">介面配色</h2><div class="catprefs-grid" role="group" aria-label="介面配色">${options.map(([key,name,symbol])=>`<button type="button" class="catprefs-choice" data-action="theme-select" data-theme="${key}" aria-pressed="${current===key}"><span class="catprefs-swatch ${key}" aria-hidden="true"><span>${symbol}</span></span><b>${name}</b><span class="catprefs-check">${current===key?'✓ 目前使用':'選擇主題'}</span></button>`).join('')}</div><p class="catprefs-note">切換配色約需 1 秒柔和過渡，期間會暫停操作避免閃爍。</p></div>
  <div class="panel catsound-panel"><div class="catsound-top"><h2 class="catprefs-title">互動音效</h2><button class="catsound-switch" type="button" data-action="sound-toggle" role="switch" aria-label="互動音效" aria-checked="${audio.enabled}"><span class="catsound-indicator" aria-hidden="true"></span><span>${audio.enabled?'已開啟':'已關閉'}</span></button></div>
- <p class="catsound-description">輕輕點選、洗牌、翻牌、風之呢喃、拆信與收藏心情時，會聽到柔和的聲音。預設關閉，不會自動播放背景音樂。</p>
+ <p class="catsound-description">輕輕點選、洗牌、翻牌、風之呢喃...時，會聽到柔和的聲音。預設關閉，不會播放音樂。</p>
  <label class="catsound-volume-head" for="cat-sound-volume"><span>音量大小</span><output id="cat-sound-volume-value" for="cat-sound-volume">${audio.volume}%</output></label>
  <input class="catsound-range" id="cat-sound-volume" type="range" min="0" max="100" step="5" value="${audio.volume}" aria-label="互動音效音量" />
  <div class="catsound-actions"><button type="button" class="catsound-preview" data-action="sound-preview" ${audio.enabled&&audio.volume>0?'':'disabled'}>♫ 試聽一陣微風</button><button type="button" class="catsound-preview" data-action="sound-test-click-01" ${audio.enabled&&audio.volume>0?'':'disabled'}>試聽按鈕 01</button></div>
  <p id="cat-sound-preload-status" class="catsound-foot" role="status" aria-live="polite">音效準備狀態會在開啟後顯示。</p>
- <p class="catsound-foot">音量 0% 相當於靜音；拖動滑桿不會連續響鈴，鬆開後才會給予輕微試聽回饋。音效只在你主動操作時播放，設定保存在本機，也會包含在完整收藏備份中。</p></div></section>`;
+ <p class="catsound-foot">音效只在你主動操作時播放，設定保存在本機。</p></div></section>`;
 }
 
 function auxPlaceholderView(which){
@@ -6641,7 +6641,7 @@ function openContact(){
  if(contactOverlay)return;
  contactReturnFocus=document.activeElement;
  const overlay=document.createElement('div');overlay.className='catcontact-overlay';overlay.id='catcontact-overlay';
- overlay.innerHTML=`<section class="catcontact-dialog" role="dialog" aria-modal="true" aria-labelledby="catcontact-title"><button type="button" class="catcontact-x" data-contact="close" aria-label="關閉">×</button><h2 id="catcontact-title">✉ 寫封信給開發者</h2><p>有什麼想說的話嗎？聊聊天、分享遊戲心得、回報 BUG，或是許願新功能，都歡迎寄信給我們喵。</p><div class="catcontact-mail"><small>開發者電子信箱</small><strong id="catcontact-address">${DEV_CONTACT}</strong></div><button class="catcontact-copy" type="button" data-contact="copy">複製電子信箱</button><a class="catcontact-feedback" href="https://forms.gle/p5v2CoPqrjF1qRa66" target="_blank" rel="noopener noreferrer">✎ 填寫回饋表單 <span aria-hidden="true">↗</span></a><a class="catcontact-link" href="mailto:${DEV_CONTACT}?subject=${encodeURIComponent('給挪威貓貓的一封信')}">也可以試著開啟郵件程式</a><div class="catcontact-status" role="status" aria-live="polite" id="catcontact-status"></div><div class="catcontact-notice">謝謝你願意分享心意。每封來信我們都很珍惜，但不一定能逐一回覆，還請見諒喵。<br>這裡不會代替你寄信，也不會在遊戲內儲存信件內容。</div></section>`;
+ overlay.innerHTML=`<section class="catcontact-dialog" role="dialog" aria-modal="true" aria-labelledby="catcontact-title"><button type="button" class="catcontact-x" data-contact="close" aria-label="關閉">×</button><h2 id="catcontact-title">✉ 寫封信給開發者</h2><p>有什麼想說的話嗎？聊聊天、分享遊戲心得、回報 BUG，或是許願新功能，都歡迎寄信給我們喵。</p><div class="catcontact-mail"><small>開發者電子信箱</small><strong id="catcontact-address">${DEV_CONTACT}</strong></div><button class="catcontact-copy" type="button" data-contact="copy">複製電子信箱</button><a class="catcontact-feedback" href="https://forms.gle/p5v2CoPqrjF1qRa66" target="_blank" rel="noopener noreferrer">填寫回饋表單 <span aria-hidden="true"></span></a><a class="catcontact-link" href="mailto:${DEV_CONTACT}?subject=${encodeURIComponent('給挪威貓貓的一封信')}">或試著開啟郵件程式</a><div class="catcontact-status" role="status" aria-live="polite" id="catcontact-status"></div><div class="catcontact-notice">謝謝你願意分享心意。每封來信我們都很珍惜，但不一定能逐一回覆，還請見諒喵。<br>遊戲不會儲存寄信內容。</div></section>`;
  document.body.append(overlay);contactOverlay=overlay;
  overlay.addEventListener('click',async e=>{
   if(e.target===overlay||e.target.closest('[data-contact="close"]')){closeContact();return}
