@@ -1400,6 +1400,13 @@ html[data-cat-theme="cream"] .cat-backup-action.primary{color:#261D15}
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="mobile-web-app-capable" content="yes">
 <link rel="stylesheet" href="./pwa-install.css">
+<style id="cat-card-preload-style-v51615">
+/* Avoid flashing the literal LOADING label while an image is already preparing.
+   Missing files show a small question mark instead of an endless loading state. */
+.art:not(.has-external):not(.is-missing)>.art-loading{visibility:hidden}
+.art.is-missing>.art-loading{visibility:visible;font-size:19px;letter-spacing:0}
+.art.has-external>.external-card-image{transition:none}
+</style>
 </head>
 <body>
 <div id="app"><div class="stars"></div></div>
@@ -1856,11 +1863,105 @@ function fiveChooseEdge(analysis,lens){
 let fiveStory;
 
 
-function cardArt(c){return `<div class="art" data-card-id="${c.id}" aria-label="${ui58H("牌圖與品牌","〔變數〕 的卡圖", [escapeHtml(c.name)])}"><span class="art-loading">${ui58H("牌圖與品牌","牌圖載入中")}</span><img class="external-card-image" alt="${ui58H("牌圖與品牌","〔變數〕 的正式卡圖", [escapeHtml(c.name)])}" loading="${state.stage==='atlas'?'lazy':'eager'}" decoding="async"></div>`}
-// Image probe: accept local PNG/JPG/JPEG with uppercase extensions; no fallback drawings.
+/* Card art: render an already-prepared image in its first paint (no LOADING flash).
+   The existing card names and all localized labels are deliberately unchanged. */
+function cardArt(c){
+ const cached=cardImageCache.get(c.id);
+ const src=cached?.status==='found'?cached.src:'';
+ const missing=cached?.status==='missing';
+ const flags=src?' has-external':(missing?' is-missing':'');
+ return `<div class="art${flags}" data-card-id="${c.id}" aria-label="${ui58H("牌圖與品牌","〔變數〕 的卡圖", [escapeHtml(c.name)])}"><span class="art-loading">${missing?'?':ui58H("牌圖與品牌","牌圖載入中")}</span><img class="external-card-image" alt="${ui58H("牌圖與品牌","〔變數〕 的正式卡圖", [escapeHtml(c.name)])}"${src?` src="${escapeHtml(src)}"`:''} loading="${state.stage==='atlas'?'lazy':'eager'}" decoding="${src?'sync':'async'}"></div>`;
+}
+// V5.16.15 smooth card rendering, merged into the user's latest text-edited INDEX.
+// Keep the original extension fallback and local cardXX filenames unchanged.
 const imageExtensions=['png','jpg','jpeg','PNG','JPG','JPEG'];
 const cardImageCache=new Map();
-function lookupCardImage(id,done){let it=cardImageCache.get(id);if(it){if(it.status==='loading')it.callbacks.push(done);else done(it.src);return}it={status:'loading',src:null,callbacks:[done]};cardImageCache.set(id,it);let idx=0;const finish=src=>{it.src=src;it.status=src?'found':'missing';it.callbacks.splice(0).forEach(cb=>cb(src))};const next=()=>{if(idx>=imageExtensions.length){finish(null);return}const src=`card${num(id)}.${imageExtensions[idx++]}`;const probe=new Image();probe.onload=()=>finish(src);probe.onerror=next;probe.src=src};next()}
+const cardImageQueue=[];
+const cardImagePinned=new Map();
+const CARD_IMAGE_PARALLEL=3;
+const CARD_IMAGE_PIN_LIMIT=12;
+let activeCardImageLoads=0,cardImageBackgroundStarted=false,cardImagePreferredExt=null;
+const cardImageLowData=!!(navigator.connection?.saveData||['slow-2g','2g'].includes(navigator.connection?.effectiveType));
+function keepDecodedCard(id,image){
+ cardImagePinned.delete(id);
+ cardImagePinned.set(id,image);
+ while(cardImagePinned.size>CARD_IMAGE_PIN_LIMIT)cardImagePinned.delete(cardImagePinned.keys().next().value);
+}
+function lookupCardImage(id,done=()=>{},urgent=false){
+ id=Number(id);
+ if(!Number.isInteger(id)||id<1||id>cards.length){done(null);return}
+ let item=cardImageCache.get(id);
+ if(item){
+  if(urgent)item.urgent=true;
+  if(item.status==='found'||item.status==='missing'){done(item.src);return}
+  item.callbacks.push(done);
+  if(urgent&&item.status==='queued'){
+   const pos=cardImageQueue.indexOf(item);
+   if(pos>0){cardImageQueue.splice(pos,1);cardImageQueue.unshift(item)}
+  }
+  pumpCardImageQueue();return;
+ }
+ item={id,status:'queued',src:null,callbacks:[done],urgent:!!urgent};
+ cardImageCache.set(id,item);
+ if(urgent)cardImageQueue.unshift(item);else cardImageQueue.push(item);
+ pumpCardImageQueue();
+}
+function pumpCardImageQueue(){
+ while(activeCardImageLoads<CARD_IMAGE_PARALLEL&&cardImageQueue.length){
+  const item=cardImageQueue.shift();
+  if(item.status!=='queued')continue;
+  activeCardImageLoads++;item.status='loading';
+  const exts=cardImagePreferredExt?[cardImagePreferredExt,...imageExtensions.filter(e=>e!==cardImagePreferredExt)]:imageExtensions;
+  let index=0,complete=false;
+  const finish=(src,image)=>{
+   if(complete)return;
+   complete=true;item.src=src;item.status=src?'found':'missing';
+   if(image&&item.urgent)keepDecodedCard(item.id,image);
+   for(const callback of item.callbacks.splice(0))try{callback(src)}catch(err){console.warn('[CardPreload] callback',err)}
+   activeCardImageLoads--;
+   pumpCardImageQueue();
+  };
+  const next=()=>{
+   if(index>=exts.length){finish(null,null);return}
+   const ext=exts[index++],src=`card${num(item.id)}.${ext}`;
+   const image=new Image();
+   image.decoding='async';
+   image.onload=async()=>{
+    cardImagePreferredExt=ext;
+    // Decode before allowing a selected card to be displayed. Background probes
+    // are also decoded, but only a small number of Image objects are retained.
+    if(typeof image.decode==='function'){
+     try{await image.decode()}catch(_){} // Some browsers decode on paint instead.
+    }
+    finish(src,image);
+   };
+   image.onerror=next;
+   image.src=src;
+  };
+  next();
+ }
+}
+function preloadEveryCardImage(){
+ if(cardImageBackgroundStarted||cardImageLowData)return;
+ cardImageBackgroundStarted=true;
+ cards.forEach(c=>lookupCardImage(c.id,()=>{},false));
+}
+function waitForChosenCardImages(ids){
+ return Promise.all([...new Set(ids||[])].map(id=>new Promise(resolve=>lookupCardImage(id,resolve,true))));
+}
+// Don't delay opening the game; load 3 card images at a time after the first UI paint.
+function scheduleCardImageWarmup(){setTimeout(preloadEveryCardImage,550)}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',scheduleCardImageWarmup,{once:true});
+else scheduleCardImageWarmup();
+window.__catCardPreloader={
+ info:()=>({total:cards.length,ready:[...cardImageCache.values()].filter(x=>x.status==='found').length,
+  missing:[...cardImageCache.values()].filter(x=>x.status==='missing').length,
+  pending:[...cardImageCache.values()].filter(x=>x.status==='queued'||x.status==='loading').length,
+  active:activeCardImageLoads,queued:cardImageQueue.length,maxConcurrent:CARD_IMAGE_PARALLEL,
+  decodedRetained:cardImagePinned.size,backgroundStarted:cardImageBackgroundStarted,dataSaver:cardImageLowData}),
+ prewarm:preloadEveryCardImage,
+ ready:(ids)=>waitForChosenCardImages(ids)
+};
 function makeCoverLookup(name,extensions=imageExtensions){const it={status:'idle',src:null,callbacks:[]};return done=>{if(it.status==='found'||it.status==='missing'){done(it.src);return}it.callbacks.push(done);if(it.status==='loading')return;it.status='loading';let idx=0;const finish=src=>{it.src=src;it.status=src?'found':'missing';it.callbacks.splice(0).forEach(cb=>cb(src))};const next=()=>{if(idx>=extensions.length){finish(null);return}const src=`${name}.${extensions[idx++]}`;const probe=new Image();probe.onload=()=>finish(src);probe.onerror=next;probe.src=src};next()}}
 const mainCoverNames=Array.from({length:10},(_,i)=>`cardmain${num(i+1)}`);
 const mainCoverLookups=new Map(mainCoverNames.map(name=>[name,makeCoverLookup(name)]));
@@ -1925,7 +2026,23 @@ function hydrateMainCover(){
   sign.src=src;if(sign.complete&&sign.naturalWidth)sign.classList.add('is-visible');
  });
 }
-function hydrateCardImages(root=document){root.querySelectorAll('.art[data-card-id]').forEach(el=>{if(el.dataset.imageBound==='1')return;el.dataset.imageBound='1';const img=el.querySelector('img.external-card-image');lookupCardImage(+el.dataset.cardId,url=>{if(!url||!img.isConnected)return;const show=()=>img.isConnected&&el.classList.add('has-external');img.addEventListener('load',show,{once:true});img.addEventListener('error',()=>el.classList.remove('has-external'),{once:true});img.src=url;if(img.complete&&img.naturalWidth)show()})})}
+function hydrateCardImages(root=document){
+ root.querySelectorAll('.art[data-card-id]').forEach(el=>{
+  if(el.dataset.imageBound==='1')return;
+  el.dataset.imageBound='1';const img=el.querySelector('img.external-card-image');
+  const id=Number(el.dataset.cardId);if(!img)return;
+  const show=()=>{if(img.isConnected&&img.naturalWidth){el.classList.remove('is-missing');el.classList.add('has-external')}};
+  const fail=()=>{if(!el.isConnected)return;el.classList.remove('has-external');el.classList.add('is-missing');const t=el.querySelector('.art-loading');if(t)t.textContent='?'};
+  img.addEventListener('load',show,{once:true});img.addEventListener('error',fail,{once:true});
+  if(img.complete&&img.naturalWidth)show();
+  lookupCardImage(id,url=>{
+   if(!el.isConnected)return;
+   if(!url){fail();return}
+   if(img.getAttribute('src')!==url)img.src=url;
+   if(img.complete&&img.naturalWidth)show();
+  },state.stage!=='atlas');
+ });
+}
 /* V5.15.5: independent drawer; no new storage or card-reading side effects. */
 function homeFunctionDrawer(){
  const icon=`<span class="custom57-fallback" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.7"/><rect x="14" y="3" width="7" height="7" rx="1.7"/><rect x="3" y="14" width="7" height="7" rx="1.7"/><rect x="14" y="14" width="7" height="7" rx="1.7"/></svg></span><img class="custom57-image" alt="" aria-hidden="true" decoding="async">`;
@@ -2526,7 +2643,7 @@ let lastPrefetchIds=[];
 const dreamReducedMotion=()=>window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function prefetchCardArt(ids){
  const uniq=[...new Set((ids||[]).map(Number).filter(id=>id>=1&&id<=cards.length))];
- uniq.forEach(id=>lookupCardImage(id,()=>{}));
+ uniq.forEach(id=>lookupCardImage(id,()=>{},true));
  return uniq;
 }
 function preloadForTransition(){
@@ -2535,6 +2652,7 @@ function preloadForTransition(){
 function dreamTransition(task,label=ui58Text("轉場動畫","循著直覺，緩緩翻頁")){
  if(dreamTransitionBusy)return;
  lastPrefetchIds=prefetchCardArt(preloadForTransition());
+ const chosenReady=waitForChosenCardImages(lastPrefetchIds);
  lastDreamDuration=3000+randomInt(2001);
  if(dreamReducedMotion()){task();return}
  dreamTransitionBusy=true;
@@ -2547,8 +2665,13 @@ function dreamTransition(task,label=ui58Text("轉場動畫","循著直覺，緩�
  layer.innerHTML=`<div class="dream-center"><div class="dream-orbit"><div class="dream-paw">${pawMarkup}</div><span class="dream-star a">✦</span><span class="dream-star b">✧</span></div><div class="dream-label">${escapeHtml(label)}</div><div class="dream-note">${escapeHtml(ui56Text('transitionNote'))}</div><div class="dream-dots" aria-hidden="true"><i></i><i></i><i></i></div></div>`;
  document.body.appendChild(layer);
  requestAnimationFrame(()=>layer.classList.add('is-visible'));
- setTimeout(()=>{
-  try{task()}finally{
+ setTimeout(async()=>{
+  // Most cards are ready within the existing 3–5 second transition.
+  // If a selected card is still loading, wait at most 2.5 seconds more.
+  try{
+   await Promise.race([chosenReady,new Promise(resolve=>setTimeout(resolve,2500))]);
+   task();
+  }catch(error){console.warn('[CardPreload] transition',error)}finally{
    layer.classList.remove('is-visible');layer.classList.add('is-leaving');
    setTimeout(()=>{layer.remove();dreamTransitionBusy=false},320);
   }
