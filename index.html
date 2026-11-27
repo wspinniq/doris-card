@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#101323">
 <meta name="description" content="挪威貓貓直覺神諭卡：透過貓咪的生活智慧與直覺牽引，探索另一個思考角度。">
-<title>挪威貓貓直覺神諭卡｜V5.16.15 信箱優化・輕量 PWA</title>
+<title>挪威貓貓直覺神諭卡｜V5.16.17 音效診斷・輕量 PWA</title>
 <script id="cat-theme-bootstrap-v5166">
 /* V5.16.8: five UI palettes and a gentle, locked theme crossfade.
    Existing saved theme key and backup API are preserved; card art remains untouched. */
@@ -63,8 +63,29 @@
  apply(chosen,false);
 })();
 </script>
+<!-- V5.16.17: installed PWA only; preserve normal webpage zoom for accessibility. -->
+<style id="cat-pwa-gesture-v51617">
+html.cat-pwa-nozoom, html.cat-pwa-nozoom body,
+html.cat-pwa-nozoom #app, html.cat-pwa-nozoom main,
+html.cat-pwa-nozoom .modal, html.cat-pwa-nozoom .catmail-shell,
+html.cat-pwa-nozoom .catprefs, html.cat-pwa-nozoom .star-room,
+html.cat-pwa-nozoom .star-filters { touch-action:pan-x pan-y; }
+</style>
+<script id="cat-pwa-gesture-bootstrap-v51617">
+(()=>{
+ 'use strict';
+ const standalone=window.matchMedia?.('(display-mode: standalone)')?.matches===true||navigator.standalone===true;
+ if(!standalone)return;
+ document.documentElement.classList.add('cat-pwa-nozoom');
+ // Apply only to the installed app: Safari browser remains pinch-zoom accessible.
+ const vp=document.querySelector('meta[name="viewport"]');
+ if(vp)vp.setAttribute('content','width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover');
+ // Older iOS WebKit may ignore CSS touch-action for proprietary pinch gestures.
+ for(const kind of ['gesturestart','gesturechange'])document.addEventListener(kind,e=>e.preventDefault(),{passive:false});
+})();
+</script>
 <script id="cat-audio-bootstrap-v51612">
-/* Norwegian Cat Oracle V5.16.12 | LOW-LATENCY EXTERNAL AUDIO
+/* Norwegian Cat Oracle V5.16.17 | iOS AUDIO + PER-FILE DEVICE DIAGNOSTICS
  * No embedded audio. Place sounds in assets/sounds beside index.html.
  * Supports MP3, WAV, OGG, M4A (AAC), FLAC, with resilient codec fallback.
  * Warm decoded AudioBuffers BEFORE clicks. Never play an ordinary sound late.
@@ -92,9 +113,47 @@ try{let saved=JSON.parse(localStorage.getItem(KEY)||'null');if(valid(saved))sett
 const store=()=>{try{localStorage.setItem(KEY,JSON.stringify(settings))}catch(_){}};
 const get=()=>({...settings});
 let ctx=null,master=null,prewarmPromise=null,warming=false,lastSound='',lastGroup='',lastAt=0;
+// iOS defaults Web Audio to an ambient audio session. When the phone is in
+// Silent Mode, decoded buffers can be "ready" yet produce no audible output.
+// The player's explicit "enable sound" preference authorizes playback mode.
+const iOSDevice=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+let previousAudioSessionType=null,audioSessionChanged=false;
+function setAudioSession(active){
+ if(!iOSDevice||!navigator.audioSession)return;
+ try{
+  const session=navigator.audioSession;
+  if(active){
+   if(!audioSessionChanged)previousAudioSessionType=session.type;
+   session.type='playback';
+   audioSessionChanged=session.type==='playback';
+  }else if(audioSessionChanged){
+   if(previousAudioSessionType&&previousAudioSessionType!=='playback')session.type=previousAudioSessionType;
+   audioSessionChanged=false;
+  }
+ }catch(_){/* Safari versions without writable audioSession fall back gracefully. */}
+}
 const decoded=new Map(),readySources=new Map(),sourceFailures=new Map(),loadPending=new Map(),mediaReady=new Map(),mediaPending=new Map();
 const bags=new Map(),lastVariant=new Map(),activeNodes=new Set();
-let processed=0,scanComplete=false;
+let processed=0,scanComplete=false,lastScanEndedAt=0,diagnosticPromise=null;
+const SOUND_MIMES=Object.freeze({mp3:'audio/mpeg',wav:'audio/wav',ogg:'audio/ogg; codecs="vorbis"',m4a:'audio/mp4; codecs="mp4a.40.2"',flac:'audio/flac'});
+const soundKeys=()=>Object.entries(COUNTS).flatMap(([group,n])=>Array.from({length:n},(_,i)=>stem(group,i+1)));
+function rememberFailure(key,url,route,reason){
+ const record=sourceFailures.get(key)||Object.create(null);
+ const detail=record[url]||Object.create(null);
+ detail[route]=reason;record[url]=detail;sourceFailures.set(key,record);
+}
+function preparedCount(){return new Set([...decoded.keys(),...mediaReady.keys()]).size}
+function diagnosticSnapshot(){
+ const element=document.createElement('audio');
+ const formats=Object.fromEntries(FORMATS.map(ext=>[ext,element.canPlayType?.(SOUND_MIMES[ext])||'']));
+ return {total:TOTAL,ready:preparedCount(),processed,warming,enabled:settings.enabled,
+  contextState:ctx?.state||'not-created',audioSessionType:navigator.audioSession?.type||'unavailable',
+  formatHints:formats,files:soundKeys().map(key=>({key,
+   status:decoded.has(key)?'ready-web':mediaReady.has(key)?'ready-media':loadPending.has(key)?'loading':sourceFailures.has(key)?'unavailable':'unverified',
+   source:readySources.get(key)||'',
+   attempts:Object.entries(sourceFailures.get(key)||{}).map(([url,modes])=>({url,...modes}))}))};
+}
+
 function stem(group,n){return `${group}_${String(n).padStart(2,'0')}`}
 function orderFor(key){
  const group=key.replace(/_\d\d$/,'');
@@ -108,20 +167,29 @@ function notify(){
  const label=document.getElementById('cat-sound-preload-status');
  if(!label)return;
  if(!settings.enabled){label.textContent='音效已關閉，不會在背景下載音效。';return}
- const loaded=location.protocol==='file:'?mediaReady.size:decoded.size;
- label.textContent=warming?`正在準備音效：${loaded} 段就緒（已檢查 ${processed}/${TOTAL}）`:`已準備 ${loaded}/${TOTAL} 段音效${loaded<TOTAL?'；缺少的音檔會保持靜音。':'，點擊即可播放。'}`;
+ const loaded=preparedCount();
+ label.textContent=warming?`正在準備音效：${loaded} 段就緒（已檢查 ${processed}/${TOTAL}）`:`已準備 ${loaded}/${TOTAL} 段音效${loaded<TOTAL?'；其餘可在 9527 開發者模式檢查及重試。':'，點擊即可播放。'}`;
+ window.dispatchEvent(new Event('cat-audio-progress'));
 }
 function context(){
  if(!AudioContextClass)return null;
  try{
-  if(!ctx){ctx=new AudioContextClass();master=ctx.createGain();master.gain.value=settings.volume/100*.7;master.connect(ctx.destination)}
+  if(!ctx){
+   if(settings.enabled)setAudioSession(true);
+   ctx=new AudioContextClass();master=ctx.createGain();master.gain.value=settings.volume/100*.7;master.connect(ctx.destination);
+  }
   return ctx;
  }catch(_){return null}
 }
 function unlock(){
  if(!settings.enabled)return;
+ setAudioSession(true);
  const c=context();
- if(c&&c.state==='suspended')c.resume().catch(()=>{});
+ // WebKit also exposes "interrupted" after an app switch, phone call, etc.
+ // resume() must happen in the touch/click/keyboard gesture on iPhone.
+ if(c&&c.state!=='running'&&c.state!=='closed'){
+  try{const result=c.resume();if(result?.catch)result.catch(()=>{})}catch(_){}
+ }
 }
 function applyGain(){if(master&&ctx)try{master.gain.setTargetAtTime(settings.volume/100*.7,ctx.currentTime,.01)}catch(_){} }
 function randInt(n){if(n<2)return 0;return Math.floor(Math.random()*n)}
@@ -130,7 +198,7 @@ function availableNumbers(group){
  let list=[];
  for(let n=1;n<=COUNTS[group];n++){
   const key=stem(group,n);
-  if(location.protocol==='file:'?mediaReady.has(key):decoded.has(key))list.push(n);
+  if(decoded.has(key)||mediaReady.has(key))list.push(n);
  }
  return list;
 }
@@ -147,7 +215,11 @@ function pickReady(group,opts){
 }
 // A normal click is played only from ALREADY prepared audio; no delayed catch-up.
 function playBuffer(buffer,group){
- const c=context();if(!c||!master||c.state!=='running')return false;
+ const c=context();if(!c||!master)return false;
+ // The pointerdown handler normally wakes audio before click; ensure a
+ // suspended/interrupted context gets another gesture-backed resume attempt.
+ if(c.state!=='running')unlock();
+ if(c.state!=='running')return false;
  try{
   const source=c.createBufferSource(),gain=c.createGain();source.buffer=buffer;
   gain.gain.value=volumeBase(group)*(.96+randInt(9)/100);
@@ -167,8 +239,9 @@ function playMedia(key,group){
 }
 function playKey(key,group){
  lastSound=key;
- if(location.protocol==='file:')return playMedia(key,group);
- const sound=decoded.get(key);return sound?playBuffer(sound,group):false;
+ const sound=decoded.get(key);
+ if(sound&&playBuffer(sound,group))return true;
+ return playMedia(key,group); // iOS fallback, or direct file:// launch
 }
 function limitAndPlay(group,key){
  if(!settings.enabled||settings.volume<=0||document.hidden)return false;
@@ -193,55 +266,81 @@ function testFile(key){
  const m=/^([a-z_]+)_(\d{2})$/.exec(String(key));
  if(!m||!COUNTS[m[1]]||Number(m[2])<1||Number(m[2])>COUNTS[m[1]]||!settings.enabled||!settings.volume)return false;
  unlock();
- // Explicit test/preview is allowed to play as soon as its file finishes loading.
- if(location.protocol==='file:'?mediaReady.has(key):decoded.has(key))return playKey(key,m[1]);
- loadKey(key).then(ok=>{if(ok&&settings.enabled&&!document.hidden&&settings.volume>0)playKey(key,m[1])});
+ // A deliberate test click may wait briefly for iOS to finish resume(),
+ // but normal gameplay sounds must never play back late.
+ const attempt=()=>{
+  if(!settings.enabled||!settings.volume||document.hidden)return;
+  if(playKey(key,m[1]))return;
+  const c=context(),since=performance.now();
+  if(c&&c.state!=='running'&&c.state!=='closed'){
+   try{Promise.resolve(c.resume()).then(()=>{
+    if(performance.now()-since<450&&settings.enabled&&!document.hidden&&settings.volume>0)playKey(key,m[1]);
+   }).catch(()=>{})}catch(_){}
+  }
+ };
+ if(location.protocol==='file:'?mediaReady.has(key):(decoded.has(key)||mediaReady.has(key))){attempt();return true}
+ loadKey(key).then(ok=>{if(ok)attempt()});
  return true;
 }
 function wait(ms){return new Promise(r=>setTimeout(r,ms))}
-async function tryDecode(url){
- const c=context();if(!c)return null;
+async function tryDecode(url,key){
+ const c=context();if(!c){rememberFailure(key,url,'web','此瀏覽器無 Web Audio 解碼功能');return null;}
  for(let attempt=0;attempt<2;attempt++){
   const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),7000);
   try{
    const response=await fetch(url,{cache:'default',signal:controller.signal});
    if(!response.ok){
     clearTimeout(timer);
+    rememberFailure(key,url,'web','HTTP '+response.status+(response.status===404?'：找不到檔案':''));
     if((response.status===502||response.status===503||response.status===504)&&attempt===0){await wait(250);continue}
     return null;
    }
    const raw=await response.arrayBuffer();clearTimeout(timer);
-   return await c.decodeAudioData(raw);
-  }catch(_){
+   try{return await c.decodeAudioData(raw)}catch(error){
+    rememberFailure(key,url,'web','下載成功，但音訊解碼失敗（格式或編碼不相容）');
+    return null;
+   }
+  }catch(error){
    clearTimeout(timer);
+   rememberFailure(key,url,'web',error?.name==='AbortError'?'請求逾時':`網路請求失敗（${String(error?.message||'未知錯誤').slice(0,55)}）`);
    if(attempt===0){await wait(180);continue}
   }
  }
  return null;
 }
 // HTMLAudio fallback enables direct file:// use when fetch() is forbidden locally.
-async function tryMedia(url){
+async function tryMedia(url,key){
  return new Promise(resolve=>{
   let audio;
-  try{audio=new Audio();audio.preload='auto'}catch(_){resolve(null);return}
+  try{audio=new Audio();audio.preload='auto'}catch(_){rememberFailure(key,url,'html','無法建立 HTML 音訊播放器');resolve(null);return}
   let settled=false;
-  const done=ok=>{if(settled)return;settled=true;clearTimeout(timer);audio.removeEventListener('canplay',onReady);audio.removeEventListener('error',onError);resolve(ok?audio:null)};
-  const onReady=()=>done(true),onError=()=>done(false);
-  const timer=setTimeout(()=>done(false),5000);
+  const done=(ok,reason='')=>{if(settled)return;settled=true;clearTimeout(timer);audio.removeEventListener('canplay',onReady);audio.removeEventListener('error',onError);if(!ok)rememberFailure(key,url,'html',reason||'無法載入');resolve(ok?audio:null)};
+  const onReady=()=>done(true),onError=()=>done(false,audio.error?.code===4?'播放器不支援此格式或檔案不存在':'媒體載入失敗（代碼 '+(audio.error?.code||'?')+'）');
+  const timer=setTimeout(()=>done(false,'媒體載入逾時'),5000);
   audio.addEventListener('canplay',onReady);audio.addEventListener('error',onError);
-  audio.src=url;try{audio.load()}catch(_){done(false)}
+  audio.src=url;try{audio.load()}catch(_){done(false,'播放來源讀取失敗')}
  });
 }
 async function loadKey(key){
- if((location.protocol==='file:'?mediaReady:decoded).has(key))return true;
+ if(decoded.has(key)||mediaReady.has(key))return true;
  if(loadPending.has(key))return loadPending.get(key);
  const task=(async()=>{
   for(const url of sources(key)){
-   const playable=location.protocol==='file:'?await tryMedia(url):await tryDecode(url);
+   const playable=location.protocol==='file:'?await tryMedia(url,key):await tryDecode(url,key);
    if(playable){
     if(location.protocol==='file:')mediaReady.set(key,playable);
     else decoded.set(key,playable);
     readySources.set(key,url);notify();return true;
+   }
+  }
+  // Occasionally an iOS codec plays in HTMLMediaElement even though
+  // decodeAudioData rejects it. Use a prepared <audio> rather than silence.
+  if(location.protocol!=='file:'){
+   for(const url of sources(key)){
+    // HTTP 404 means the asset is absent; a second HTMLAudio request cannot fix it.
+    if(String(sourceFailures.get(key)?.[url]?.web||'').startsWith('HTTP 404'))continue;
+    const playable=await tryMedia(url,key);
+    if(playable){mediaReady.set(key,playable);readySources.set(key,url);notify();return true}
    }
   }
   return false;
@@ -252,31 +351,51 @@ function allKeys(){
  const priority=['ui_click','ui_confirm','ui_back','card_flip','shuffle','wind','reveal','deep_card','mail_open','jar_save','jar_open','star'];
  return priority.flatMap(group=>Array.from({length:COUNTS[group]},(_,i)=>stem(group,i+1)));
 }
-function prewarm(){
+function prewarm(force=false){
  if(!settings.enabled)return Promise.resolve(false);
  if(prewarmPromise)return prewarmPromise;
  if(scanComplete)return Promise.resolve(true);
- warming=true;processed=0;notify();
- const keys=allKeys();let index=0;
+ // Avoid repeated retries on every user tap when the network or files are unavailable.
+ if(!force&&lastScanEndedAt&&Date.now()-lastScanEndedAt<60000)return Promise.resolve(false);
+ const keys=allKeys().filter(key=>!decoded.has(key)&&!mediaReady.has(key));let index=0;
+ warming=true;processed=TOTAL-keys.length;notify();
  async function worker(){
   while(settings.enabled&&index<keys.length){
    const key=keys[index++];await loadKey(key);processed++;notify();
   }
  }
- // Three concurrent loaders avoid 31 simultaneous decoding/fetch bursts on phones.
- prewarmPromise=Promise.all([worker(),worker(),worker()]).then(()=>true).finally(()=>{
-  warming=false;prewarmPromise=null;scanComplete=processed===TOTAL;notify();
+ prewarmPromise=Promise.all([worker(),worker(),worker()]).then(()=>preparedCount()===TOTAL).finally(()=>{
+  warming=false;prewarmPromise=null;scanComplete=preparedCount()===TOTAL;
+  lastScanEndedAt=Date.now();notify();
  });
  return prewarmPromise;
 }
-function stop(){
+// Developer-only scan can run with sound preference OFF; it never autoplays.
+function diagnose(){
+ if(diagnosticPromise)return diagnosticPromise;
+ const keys=soundKeys().filter(key=>!decoded.has(key)&&!mediaReady.has(key));
+ let cursor=0;
+ diagnosticPromise=(async()=>{
+  async function worker(){while(cursor<keys.length){const key=keys[cursor++];await loadKey(key);window.dispatchEvent(new Event('cat-audio-progress'))}}
+  await Promise.all([worker(),worker(),worker()]);
+  scanComplete=preparedCount()===TOTAL;
+  return diagnosticSnapshot();
+ })().finally(()=>{diagnosticPromise=null;notify()});
+ return diagnosticPromise;
+}
+function stop(disable=false){
  for(const node of activeNodes)try{node.stop()}catch(_){}activeNodes.clear();
  for(const a of mediaReady.values())try{a.pause();a.currentTime=0}catch(_){}
- if(ctx?.state==='running')ctx.suspend().catch(()=>{});
+ // Avoid explicitly suspending AudioContext when merely hiding the iOS PWA:
+ // WebKit already interrupts it and can get stuck after double suspension.
+ if(disable||!iOSDevice){
+  if(ctx?.state==='running')try{ctx.suspend().catch(()=>{})}catch(_){}
+ }
+ if(disable)setAudioSession(false);
 }
 function setEnabled(value){
  settings.enabled=!!value;store();
- if(settings.enabled){unlock();applyGain();prewarm()}else{stop()}
+ if(settings.enabled){setAudioSession(true);unlock();applyGain();prewarm()}else{stop(true)}
  notify();return get();
 }
 function setVolume(value){
@@ -284,19 +403,29 @@ function setVolume(value){
  settings.volume=Math.max(0,Math.min(100,Math.round(n)));store();applyGain();notify();return get();
 }
 function apply(prefs){if(!valid(prefs))return false;setVolume(prefs.volume);setEnabled(prefs.enabled);return true}
+document.addEventListener('touchstart',unlock,{capture:true,passive:true});
+document.addEventListener('touchend',unlock,{capture:true,passive:true});
 document.addEventListener('pointerdown',unlock,{capture:true,passive:true});
+document.addEventListener('click',unlock,true);
 document.addEventListener('keydown',unlock,true);
-document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();else if(settings.enabled)prewarm()});
-window.addEventListener('pageshow',()=>{if(settings.enabled)prewarm()});
+document.addEventListener('visibilitychange',()=>{
+ if(document.hidden)stop();
+ else if(settings.enabled){setAudioSession(true);unlock();prewarm()}
+});
+window.addEventListener('pageshow',()=>{if(settings.enabled){setAudioSession(true);unlock();prewarm()}});
 if(settings.enabled){ // saved-on preference: start downloading while the page is opening
+ setAudioSession(true);
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',prewarm,{once:true});
  else prewarm();
 }
 window.__catAudio={get,setEnabled,setVolume,apply,valid,play,testFile,prewarm,stop,
  refreshStatus:notify,info:()=>({groups:GROUPS.length,files:TOTAL,formats:[...FORMATS],lastSound,
-  buffers:decoded.size,ready:location.protocol==='file:'?mediaReady.size:decoded.size,
+  buffers:decoded.size,ready:new Set([...decoded.keys(),...mediaReady.keys()]).size,
+  contextState:ctx?.state||'not-created',iOSDevice,
+  audioSessionType:navigator.audioSession?.type||'unavailable',
   processed,warming,enabled:settings.enabled,volume:settings.volume,
-  readySources:Object.fromEntries(readySources)})};
+  readySources:Object.fromEntries(readySources)}),diagnostics:diagnosticSnapshot,diagnose,
+  files:soundKeys, retryMissing:()=>prewarm(true)};
 // UI sound mapping is preserved from the previous release.
 const categories={
  'wind':'wind','start':'shuffle','reshuffle':'shuffle','pick':'card_flip','unpick':'card_flip',
@@ -355,6 +484,21 @@ document.addEventListener('click',event=>{
 .catsound-foot{font-size:12px;line-height:1.85;color:var(--sub,#b8b5c9);margin:12px 0 0}
 [data-cat-theme="cream"] .catsound-switch,[data-cat-theme="cream"] .catsound-preview{box-shadow:0 1px 5px #30281812}
 @media (max-width:500px){.catsound-top{align-items:flex-start}.catsound-panel{padding:18px 15px}}
+</style>
+<style id="cat-dev-audio-v51617">
+.dev59-audio-list{max-height:350px;overflow:auto;overscroll-behavior:contain;margin-top:9px}
+.dev59-audio-record{padding:10px 0;border-top:1px solid var(--hair,#58576c);font-size:12px;line-height:1.65}
+.dev59-audio-record header{display:flex;gap:7px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.dev59-audio-record code{color:var(--text);font-size:12px;overflow-wrap:anywhere}
+.dev59-audio-record .cat-sound-ok{color:#79cba3}
+.dev59-audio-record .cat-sound-bad{color:#e9a38d}
+.dev59-audio-record .cat-sound-pending{color:var(--sub)}
+.dev59-audio-record .dev59-muted{margin:4px 0 0;overflow-wrap:anywhere}
+.dev59-audio-record .secondary{width:auto;min-height:32px;padding:5px 9px;font-size:11px}
+.dev59-audio-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:10px}
+.dev59-audio-actions .secondary{min-height:43px}
+.dev59-audio-format{margin:8px 0 0;font-size:11px;line-height:1.75;overflow-wrap:anywhere;color:var(--sub)}
+@media(max-width:380px){.dev59-audio-actions{grid-template-columns:1fr}}
 </style>
 
 <style>
@@ -1597,7 +1741,7 @@ function ui59Effective(){
  }
  return output;
 }
-function ui58ApplyPageInfo(){document.title=ui58Text('網頁資訊','瀏覽器標題').replace('V5.16.14 輕量 PWA 桌面版','V5.16.15 信箱優化・輕量 PWA');document.querySelector('meta[name="description"]')?.setAttribute('content',ui58Text('網頁資訊','網頁描述'))}
+function ui58ApplyPageInfo(){document.title=ui58Text('網頁資訊','瀏覽器標題').replace('V5.16.14 輕量 PWA 桌面版','V5.16.15 信箱優化・輕量 PWA').replace('V5.16.15 信箱優化・輕量 PWA','V5.16.17 音效診斷・輕量 PWA').replace('V5.16.16 iPhone音效修正・輕量 PWA','V5.16.17 音效診斷・輕量 PWA');document.querySelector('meta[name="description"]')?.setAttribute('content',ui58Text('網頁資訊','網頁描述'))}
 const ui56Last=Object.create(null);
 let ui56Round=Object.create(null);
 function ui56Draw(key){
@@ -3088,11 +3232,48 @@ function ui59Open(){
  <p class="dev59-muted">本機匯入只套用於這次開啟的網頁。要永久修改，請匯出並替換網站的 ui_text.json。格式檢查不會套用文字。</p>
  <details id="dev59-diagnostics"><summary>最近一次欄位檢查</summary><div id="dev59-issues" class="dev59-issues"></div></details></div>
  <div class="dev59-panel"><h4>隨機文案預覽</h4><label for="dev59-pool" class="dev59-muted">選擇文字欄位</label><select id="dev59-pool"></select><div id="dev59-preview" class="dev59-preview" aria-live="polite"></div><button class="secondary" data-dev59="preview">切換預覽</button><p class="dev59-muted">只預覽文字，不影響占卜中的隨機選擇。</p></div>
+ <div class="dev59-panel" id="dev59-audio-section"><h4>音效相容性檢測（31 段）</h4>
+ <p class="dev59-muted">顯示這台裝置實際成功解碼／可預載的音檔與格式。載入成功不保證一定聽得到，可逐檔點「試聽」確認。未就緒的音檔可以重試。</p>
+ <p id="dev59-audio-status" role="status" aria-live="polite">讀取音效狀態中…</p>
+ <p id="dev59-audio-format" class="dev59-audio-format"></p>
+ <div class="dev59-audio-actions"><button class="secondary" data-dev59="audio-scan">檢測未就緒音檔</button><button class="secondary" data-dev59="audio-copy">複製音效診斷報告</button></div>
+ <div id="dev59-audio-list" class="dev59-audio-list"></div><p id="dev59-audio-notice" class="dev59-muted" role="status"></p></div>
  <div class="dev59-panel"><h4>圖檔檢測</h4><p class="dev59-muted">檢測 63 張牌圖、10 張首頁封面、cardsign、icon、cans、function。封面與裝飾圖可選配。</p><button class="secondary" data-dev59="images">開始檢測圖檔</button><p id="dev59-image-status" role="status" aria-live="polite">尚未檢測</p><details id="dev59-image-details" hidden><summary>圖檔清單</summary><div id="dev59-image-list" class="dev59-issues"></div></details></div>
  <button class="primary" type="button" data-action="close-modal">返回遊戲</button><p class="dev59-muted">此入口僅供介面維護，不是安全驗證。</p></section>`;
  document.body.appendChild(overlay);document.body.style.overflow='hidden';
  const $=s=>overlay.querySelector(s),esc=escapeHtml;
- let busy=false,fileMode='import',previewKey='',previewIndex=0,scanRunning=false;
+ let busy=false,fileMode='import',previewKey='',previewIndex=0,scanRunning=false,audioScanning=false;
+ const audio=window.__catAudio;
+ const audioLabel=x=>x==='ready-web'?'✓ 解碼就緒（Web Audio）':x==='ready-media'?'✓ 媒體就緒（HTML Audio）':x==='loading'?'載入中':x==='unavailable'?'✕ 目前無法載入':'尚未檢測';
+ const audioReason=file=>file.attempts.map(a=>{
+  const base=a.url.split('/').pop();return `${base}：${[a.web,a.html].filter(Boolean).join('；')}`;
+ }).join('\n');
+ const renderAudio=()=>{
+  if(!overlay.isConnected||!audio?.diagnostics)return;
+  const d=audio.diagnostics(),missing=d.files.filter(f=>f.status==='unavailable').length;
+  const pending=d.files.filter(f=>f.status==='unverified'||f.status==='loading').length;
+  $('#dev59-audio-status').textContent=`已就緒 ${d.ready}/${d.total} · 無法載入 ${missing} · 未確認 ${pending} ｜音效${d.enabled?'開啟':'關閉'} · AudioContext：${d.contextState} · Session：${d.audioSessionType}`;
+  $('#dev59-audio-format').textContent='格式支援參考（瀏覽器聲明，非播放保證）：'+Object.entries(d.formatHints).map(([k,v])=>`${k.toUpperCase()} ${v||'未宣告支援'}`).join('、');
+  const audioList=$('#dev59-audio-list'),scroll=audioList.scrollTop;
+  const openRecords=new Set([...audioList.querySelectorAll('.dev59-audio-record details[open]')].map(e=>e.closest('.dev59-audio-record')?.querySelector('code')?.textContent));
+  audioList.innerHTML=d.files.map(f=>{
+   const ok=f.status.startsWith('ready');const cls=ok?'cat-sound-ok':f.status==='unavailable'?'cat-sound-bad':'cat-sound-pending';
+   const src=f.source?f.source.split('/').pop():'';
+   const fails=!ok?audioReason(f):'';
+   return `<div class="dev59-audio-record"><header><code>${esc(f.key)}</code><span class="${cls}">${esc(audioLabel(f.status))}</span></header>`+
+    (src?`<p class="dev59-muted">使用：${esc(src)}</p>`:'')+
+    (fails?`<details><summary>失敗紀錄（點開查看）</summary><p class="dev59-muted" style="white-space:pre-wrap">${esc(fails)}</p></details>`:'')+
+    `<button type="button" class="secondary" data-dev59="audio-test" data-sound-key="${esc(f.key)}" ${ok&&d.enabled?'':'disabled'}>▶ 試聽</button></div>`;
+  }).join('');
+  for(const record of audioList.querySelectorAll('.dev59-audio-record'))if(openRecords.has(record.querySelector('code')?.textContent))record.querySelector('details')?.setAttribute('open','');
+  audioList.scrollTop=scroll;
+  overlay.querySelector('[data-dev59="audio-scan"]').disabled=audioScanning;
+ };
+ const audioProgressHandler=()=>renderAudio();
+ window.addEventListener('cat-audio-progress',audioProgressHandler);
+ const cleanupAudio=new MutationObserver(()=>{if(!overlay.isConnected){window.removeEventListener('cat-audio-progress',audioProgressHandler);cleanupAudio.disconnect()}});
+ cleanupAudio.observe(document.body,{childList:true});
+
  const notice=(msg,kind='')=>{if(!overlay.isConnected)return;$('#dev59-notice').textContent=msg;$('#dev59-notice').dataset.kind=kind};
  const updateStatus=()=>{const t=ui58Status,source={json:'外部 JSON',local:'本機匯入',builtin:'內建預設'}[t.source]||t.source;
    const rows=[['程式版本','V5.15'],['文字來源',source],['載入狀態',t.reason||'正常'],['有效自訂欄位',`${t.accepted} / ${ui59Total}`],['使用預設欄位',String(ui59Total-t.accepted)],['無效欄位',String(t.ignored||0)],['未知欄位',String(t.unknown||0)]];
@@ -3105,6 +3286,21 @@ function ui59Open(){
  $('#dev59-pool').addEventListener('change',e=>{previewKey=e.target.value;previewIndex=0;refreshPreview()});
  $('#dev59-file').addEventListener('change',async e=>{const f=e.target.files?.[0];e.target.value='';if(!f||busy)return;const mode=fileMode;setBusy(true);notice('正在讀取 '+f.name+'…');try{if(f.size>2000000)throw Error('檔案超過 2 MB 上限。');const report=ui59Parse(await f.text());if(!overlay.isConnected)return;ui59LastCheck=report;showReport(report);$('#dev59-diagnostics').open=report.issues.length>0;if(mode==='import'){if(!report.accepted)throw Error('沒有有效欄位，保留目前文案。');apply(report,'local');notice(`已匯入 ${report.accepted} 個欄位，其餘使用內建文字。`,'ok')}else notice(`檢查完畢：${report.accepted} 個有效欄位；未套用。`,report.issues.length?'warn':'ok')}catch(err){notice('未套用：'+err.message,'warn')}finally{setBusy(false)}});
  overlay.addEventListener('click',async e=>{const b=e.target.closest('[data-dev59]');if(!b)return;const action=b.dataset.dev59;
+   if(action==='audio-test'){
+    if(!audio?.get()?.enabled){$('#dev59-audio-notice').textContent='請先在偏好設定開啟音效，再逐檔試聽。';return}
+    audio.testFile(b.dataset.soundKey);$('#dev59-audio-notice').textContent='已要求試聽 '+b.dataset.soundKey+'；請用耳朵確認是否真的有聲音。';return;
+   }
+   if(action==='audio-copy'){
+    const d=audio?.diagnostics();if(!d)return;
+    const report=[`挪威貓貓音效診斷（${new Date().toLocaleString()}）`,navigator.userAgent,`已就緒 ${d.ready}/${d.total} · AudioContext ${d.contextState} · Session ${d.audioSessionType}`, ...d.files.map(f=>`${f.key}: ${audioLabel(f.status)}${f.source?' / '+f.source:''}${f.attempts.length?' / '+audioReason(f).replaceAll('\n',' | '):''}`)].join('\n');
+    try{await navigator.clipboard.writeText(report);$('#dev59-audio-notice').textContent='診斷報告已複製，可傳給開發者。'}catch(_){$('#dev59-audio-notice').textContent='瀏覽器不允許複製；可截圖上方清單。'}return;
+   }
+   if(action==='audio-scan'){
+    if(audioScanning||!audio?.diagnose)return;audioScanning=true;renderAudio();$('#dev59-audio-notice').textContent='正在使用這台裝置檢測尚未就緒的音效，沒有自動播放。';
+    try{await audio.diagnose();if(overlay.isConnected)$('#dev59-audio-notice').textContent='檢測結束。成功載入的項目可點「試聽」確認音量。'}
+    catch(err){if(overlay.isConnected)$('#dev59-audio-notice').textContent='檢測未完成：'+String(err?.message||err)}
+    finally{audioScanning=false;renderAudio()}return;
+   }
    if(action==='preview'){refreshPreview(true);return}
    if(action==='images'){if(scanRunning)return;scanRunning=true;b.disabled=true;$('#dev59-image-details').hidden=true;$('#dev59-image-list').textContent='';try{await ui59ImageScan(overlay,$)}finally{scanRunning=false;b.disabled=false}return}
    if(busy)return;
@@ -3113,7 +3309,7 @@ function ui59Open(){
    if(action==='reset'){if(!window.confirm('還原內建預設文字？不會修改磁碟上的 JSON 檔案。'))return;const report={active:Object.create(null),accepted:0,ignored:0,missing:ui59Total,unknown:0,issues:[]};apply(report,'builtin');ui58Status.reason='手動還原';ui59LastCheck=null;updateStatus();showReport(null);notice('已還原內建文字；未修改外部檔案。','ok');return}
    if(action==='reload'){setBusy(true);notice('正在重新讀取 ui_text.json…');try{const report=await ui59Fetch();if(!overlay.isConnected)return;ui59LastCheck=report;showReport(report);$('#dev59-diagnostics').open=report.issues.length>0;if(!report.accepted)throw Error('沒有有效欄位，保留目前文案。');apply(report,'json');notice(`已重新載入 ${report.accepted} 個欄位。`,'ok')}catch(err){notice('讀取失敗，保留目前文案：'+err.message,'warn')}finally{setBusy(false)}}
  });
- updateStatus();showReport(ui59LastCheck);refreshPreview();overlay.querySelector('.modal-close').focus({preventScroll:true});
+ updateStatus();showReport(ui59LastCheck);refreshPreview();renderAudio();overlay.querySelector('.modal-close').focus({preventScroll:true});
 }
 function ui59Probe(name,extensions){return new Promise(resolve=>{let i=0,done=false,img;const finish=(status,src='')=>{if(done)return;done=true;clearTimeout(timer);if(img){img.onload=null;img.onerror=null}resolve({name,status,src})};const timer=setTimeout(()=>finish('timeout'),3500);const next=()=>{if(done)return;if(i===extensions.length){finish('missing');return}const src=name+'.'+extensions[i++];img=new Image();img.onload=()=>finish('found',src);img.onerror=next;img.src=src};next()})}
 async function ui59ImageScan(overlay,$){
